@@ -1,7 +1,8 @@
 import * as Dungeon from "@mikewesthad/dungeon";
 import TILES from "../helpers/tiledDungeonMap";
+import DungeonScene from "../scenes/DungeonScene";
 import TilemapVisibility from "../helpers/tiledMapVisibility";
-import Ennemie from "../Ennemie";
+import Ennemie from "../Ennemies/Ennemie";
 export default class DungeonLoader {
   dungeon: Dungeon;
   groundLayer: any;
@@ -10,8 +11,8 @@ export default class DungeonLoader {
   tileset: any;
   spawn: any;
   spawn2: any;
-  protected scene: Phaser.Scene;
-  constructor(scene: Phaser.Scene) {
+  protected scene: DungeonScene;
+  constructor(scene: DungeonScene) {
     this.scene = scene;
     this.spawn2 = [];
     // Generate a random world with a few extra options:
@@ -155,15 +156,13 @@ export default class DungeonLoader {
       if (rand <= 0.25) {
         //const x = Phaser.Math.Between(room.left + 1, room.right - 1);
         //const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
-       // this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
+        // this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
         // 25% chance of chest
-       // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
+        // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.9) {
         // 50% chance of a pot anywhere in the room... except don't block a door!
-        console.log(room); 
-        this.spawn.putTileAt(13 ,room.centerX, room.centerY);
-         this.spawn2.push({x: room.centerX, y:room.centerY});
-
+        this.spawn.putTileAt(13, room.centerX, room.centerY);
+        this.spawn2.push({ x: room.centerX, y: room.centerY });
       } else {
         // 25% of either 2 or 4 towers, depending on the room size
       }
@@ -171,9 +170,9 @@ export default class DungeonLoader {
   }
 
   public spawnEnnemy() {
-    this.spawn2.forEach( (spawn) => {
-      new Ennemie(this.scene, spawn.x*64, spawn.y*64)
-    }); 
+    this.spawn2.forEach(spawn => {
+      new Ennemie(this.scene, spawn.x * 64, spawn.y * 64);
+    });
   }
 
   public getMap() {
@@ -181,7 +180,10 @@ export default class DungeonLoader {
   }
 
   private generateFogOfWar(tileset) {
-    const shadowLayer = this.getMap().createBlankDynamicLayer("Shadow", tileset);
+    const shadowLayer = this.getMap().createBlankDynamicLayer(
+      "Shadow",
+      tileset
+    );
     shadowLayer.fill(TILES.BLANK);
     this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
   }

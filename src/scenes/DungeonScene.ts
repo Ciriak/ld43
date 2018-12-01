@@ -11,6 +11,7 @@ export default class DungeonScene extends Phaser.Scene {
       key: "DungeonScene"
     });
   }
+
   dungeon: Dungeon;
   dungeonLoader: DungeonLoader;
   groundLayer: any;
@@ -40,15 +41,15 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player = new Player(this, xPlayer, yPlayer);
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
-    this.cameras.main.setZoom(2);
+    this.cameras.main.setZoom(1);
     this.cameras.main.fadeIn();
     this.dungeonLoader.watchCollision(this.player);
 
     this.uiManager = new UIManager(this);
     //uncomment to  enable a test ennemie
     let ennemie = new Witchcraft(this, 0, 0);
-    this.ennemies.push();
-    new Ennemie(this);
+    this.ennemies.push(ennemie);
+
     this.dungeonLoader.spawnEnnemy();
   }
 

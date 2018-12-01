@@ -1,7 +1,6 @@
 import "phaser";
 import DungeonScene from "./scenes/DungeonScene";
 const scale = 4;
-let game;
 export class main {
   constructor() {
     const config: GameConfig = {
@@ -18,7 +17,7 @@ export class main {
       }
     };
 
-    game = new Phaser.Game(config);
+    new Phaser.Game(config);
   }
 }
 new main();
