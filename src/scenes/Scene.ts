@@ -51,7 +51,7 @@ class MainScene extends Phaser.Scene {
     this.createMap();
     // add a test ennemie
     for (let i = 0; i < 10; i++) {
-      this.ennemies.push(new ennemie(this, player, 10 * i, 10 * i));
+      this.ennemies.push(new ennemie(this, 10 * i, 10 * i));
     }
   }
 

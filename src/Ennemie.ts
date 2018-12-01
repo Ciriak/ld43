@@ -1,12 +1,7 @@
 export default class Ennemie {
   private scene: Phaser.Scene;
   private ennemieObj: any;
-  constructor(
-    scene: Phaser.Scene,
-    player: Phaser.Physics.Arcade.Sprite,
-    x?: number,
-    y?: number
-  ) {
+  constructor(scene: Phaser.Scene, x?: number, y?: number) {
     if (!x) {
       x = 0;
     }
