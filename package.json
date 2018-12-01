@@ -26,6 +26,7 @@
     "webpack": "3.11.0"
   },
   "dependencies": {
+    "@mikewesthad/dungeon": "^1.2.2",
     "phaser": "^3.11.0"
   }
 }
