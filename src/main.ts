@@ -2,7 +2,6 @@ import "phaser";
 
 import UIManager from "./UIManager";
 import MainScene from "./scenes/Scene";
-import DungeonMap from "./dungeon/DungeonMap";
 const scale = 4;
 
 export class main {
