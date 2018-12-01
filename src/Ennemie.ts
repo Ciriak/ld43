@@ -4,7 +4,7 @@ export default class Ennemie {
   private scene: Phaser.Scene;
   public ennemieObject: any;
   public rof: number = 0.1;
-  public followPlayer: boolean = true;
+  public followPlayer: boolean = false;
   public health: number = 1;
   public isDead = false;
   private lastPlayerPos = {

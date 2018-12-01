@@ -40,13 +40,14 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player = new Player(this, xPlayer, yPlayer);
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
-    this.cameras.main.setZoom(4);
+    this.cameras.main.setZoom(2);
     this.cameras.main.fadeIn();
     this.dungeonLoader.watchCollision(this.player);
 
     this.uiManager = new UIManager(this);
     //uncomment to  enable a test ennemie
     this.ennemies.push(new Ennemie(this));
+    this.dungeonLoader.spawnEnnemy();
   }
 
   //camera bounds
@@ -54,10 +55,8 @@ export default class DungeonScene extends Phaser.Scene {
   update(time: number, delta: number) {
     this.player.update(time, delta);
     this.updateEnnemies();
-
-    this.tilemapVisibility.setActiveRoom(
-      this.dungeonLoader.getPlayerRoom(this.player)
-    );
+    
+    this.tilemapVisibility.setActiveRoom(this.dungeonLoader.getPlayerRoom(this.player));
   }
 
   /**
