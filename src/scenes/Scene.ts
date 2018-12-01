@@ -1,7 +1,10 @@
 let player: any;
 import DungeonMap from "../dungeon/DungeonMap";
 import PlayerInputs from "../PlayerInputs";
+import ennemie from "../Ennemie";
+import Ennemie from "../Ennemie";
 let playerInputs = new PlayerInputs();
+let testEnnemie: Ennemie;
 class MainScene extends Phaser.Scene {
   gridUnit: 8;
   cursors: any;
@@ -9,6 +12,7 @@ class MainScene extends Phaser.Scene {
   DungeonRandom: DungeonMap;
   map: Phaser.Tilemaps.Tilemap;
   groundLayer: Phaser.Tilemaps.DynamicTilemapLayer;
+  ennemies: Ennemie[] = [];
   maxCoordinates = {
     x: 500,
     y: window.innerHeight
@@ -26,12 +30,13 @@ class MainScene extends Phaser.Scene {
     this.load.image("tiles", "/assets/tilemaps/dungeon_tiles.png");
     this.load.image("groundCollider", "/assets/sprites/groundCollider.png");
     this.load.image("player", "/assets/sprites/player.png");
+    this.load.image("ennemie", "/assets/sprites/ennemie.png");
     this.load.image("grid", "/assets/bgtest.png");
   }
 
   create() {
     this.add.image(0, 0, "grid").setOrigin(0);
-    player = this.physics.add.sprite(0, -100, "player");
+    player = this.physics.add.sprite(0, 0, "player");
 
     player.setCollideWorldBounds(true);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -44,10 +49,18 @@ class MainScene extends Phaser.Scene {
     //this.cameras.main.setBounds(0, window.innerHeight, 500, 500);
 
     this.createMap();
+    // add a test ennemie
+    for (let i = 0; i < 10; i++) {
+      this.ennemies.push(new ennemie(this, 10 * i, 10 * i));
+    }
   }
 
   update(time: number, delta: number) {
     playerInputs.update(time, delta, player, this);
+    for (let index = 0; index < this.ennemies.length; index++) {
+      const ennemie = this.ennemies[index];
+      ennemie.refreshAttack(player);
+    }
   }
 
   /**
