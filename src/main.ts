@@ -2,18 +2,18 @@ import "phaser";
 
 import UIManager from "./UIManager";
 import MainScene from "./scenes/Scene";
-const scale = 2;
+const scale = 4;
 
 export class main {
   constructor() {
     const config: GameConfig = {
       type: Phaser.AUTO,
       parent: "content",
-      width: document.body.offsetWidth / scale,
-      height: window.innerHeight / scale,
+      width: document.body.offsetWidth,
+      height: window.innerHeight,
       pixelArt: true,
       zoom: scale,
-      backgroundColor: "#EDEEC9",
+      backgroundColor: "#000000",
       scene: [MainScene],
       physics: {
         default: "arcade",
