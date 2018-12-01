@@ -51,16 +51,7 @@ export default class DungeonLoader {
     this.renderOtherRooms();
     this.groundLayer.setCollisionByExclusion([
       -1,
-      10,
-      11,
-      12,
-      15,
-      16,
-      17,
-      20,
-      21,
-      22,
-      23
+      13,14,15,21,20,19,18,28,27,29,26
     ]);
   }
 
@@ -175,8 +166,6 @@ export default class DungeonLoader {
 
       //Check if the ennemy will spawn on the player and prevent it
       if(this.scene.player.playerObject.x ==! spawn.x*64) {
-
-      }else {
         new Ennemie(this.scene, spawn.x*64, spawn.y*64)
       }
     }); 
