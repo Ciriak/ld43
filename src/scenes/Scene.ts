@@ -5,7 +5,7 @@ class TestScene extends Phaser.Scene {
   gridUnit: 8;
   cursors: any;
   groundCollider: any;
-  DungeonRandom : DungeonMap;
+  DungeonRandom: DungeonMap;
   map: Phaser.Tilemaps.Tilemap;
   groundLayer: Phaser.Tilemaps.DynamicTilemapLayer;
   maxCoordinates = {
@@ -22,7 +22,7 @@ class TestScene extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON("map", "/assets/tilemaps/map.json");
-    this.load.image("tiles", "/assets/tilemaps/tiles.png");
+    this.load.image("tiles", "/assets/tilemaps/dungeon_tiles.png");
     this.load.image("groundCollider", "/assets/sprites/groundCollider.png");
     this.load.image("player", "/assets/sprites/player.png");
   }
@@ -63,22 +63,25 @@ class TestScene extends Phaser.Scene {
   createMap() {
     let dungeon = this.DungeonRandom.map;
     this.map = this.make.tilemap({
-
       tileWidth: 48,
-    
+
       tileHeight: 48,
-    
+
       width: dungeon.width,
-    
+
       height: dungeon.height
-    
     });
-    
-    
 
     const tileset = this.map.addTilesetImage("tiles", null, 48, 48, 1, 2);
 
-    this.groundLayer = this.map.createBlankDynamicLayer('layer', tileset, null,null,null,null);
+    this.groundLayer = this.map.createBlankDynamicLayer(
+      "layer",
+      tileset,
+      null,
+      null,
+      null,
+      null
+    );
     console.log(this.groundLayer);
   }
 
@@ -90,12 +93,17 @@ class TestScene extends Phaser.Scene {
     if (!this.map) {
       return;
     }
-    
-// Turn the dungeon into a 2D array of tiles where each of the four types of tiles is mapped to a
 
-// tile index within our tileset. Note: using -1 for empty tiles means they won't render.
+    // Turn the dungeon into a 2D array of tiles where each of the four types of tiles is mapped to a
 
-    const mappedTiles =  this.DungeonRandom.getMapTiles({ empty: -1, floor: 6, door: 6, wall: 20 });
+    // tile index within our tileset. Note: using -1 for empty tiles means they won't render.
+
+    const mappedTiles = this.DungeonRandom.getMapTiles({
+      empty: -1,
+      floor: 6,
+      door: 6,
+      wall: 20
+    });
     const camera = this.cameras.main;
     let coordinates = {
       x: camera.width + camera.x,
