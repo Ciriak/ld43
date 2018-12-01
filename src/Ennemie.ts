@@ -1,6 +1,6 @@
 export default class Ennemie {
   private scene: Phaser.Scene;
-  private ennemieObj: any;
+  public ennemieObject: any;
   constructor(scene: Phaser.Scene, x?: number, y?: number) {
     if (!x) {
       x = 0;
@@ -9,9 +9,14 @@ export default class Ennemie {
       y = 0;
     }
     this.scene = scene;
-    this.ennemieObj = scene.physics.add.sprite(x, y, "ennemie");
+    this.ennemieObject = scene.physics.add.sprite(x, y, "ennemie");
   }
   refreshAttack(player: Phaser.Physics.Arcade.Sprite) {
-    this.scene.physics.moveToObject(this.ennemieObj, player, 50);
+    debugger;
+    this.scene.physics.moveToObject(
+      this.ennemieObject,
+      player.playerObject,
+      50
+    );
   }
 }
