@@ -3,6 +3,7 @@ import TILES from "../helpers/tiledDungeonMap";
 import DungeonScene from "../scenes/DungeonScene";
 import TilemapVisibility from "../helpers/tiledMapVisibility";
 import Ennemie from "../Ennemies/Ennemie";
+import Witchcraft from "../Ennemies/Witchcraft";
 export default class DungeonLoader {
   dungeon: Dungeon;
   groundLayer: any;
@@ -51,7 +52,17 @@ export default class DungeonLoader {
     this.renderRooms();
     this.renderOtherRooms();
     this.groundLayer.setCollisionByExclusion([
-      13,14,15,21,20,19,18,28,27,29,26
+      13,
+      14,
+      15,
+      21,
+      20,
+      19,
+      18,
+      28,
+      27,
+      29,
+      26
     ]);
   }
 
@@ -148,12 +159,11 @@ export default class DungeonLoader {
         const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
         this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
         // 25% chance of chest
-       // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
+        // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.8) {
         // 50% chance of a pot anywhere in the room... except don't block a door!
-        this.spawn.putTileAt(16 ,room.centerX, room.centerY);
-         this.spawn2.push({x: room.centerX, y:room.centerY});
-
+        this.spawn.putTileAt(16, room.centerX, room.centerY);
+        this.spawn2.push({ x: room.centerX, y: room.centerY });
       } else {
         // 25% of either 2 or 4 towers, depending on the room size
       }
@@ -162,16 +172,19 @@ export default class DungeonLoader {
 
   public spawnEnnemy() {
     let tabEnnemy = [];
-    this.spawn2.forEach( (spawn) => {
+    this.spawn2.forEach(spawn => {
       //Check if the ennemy will spawn on the player and prevent it
-      if(this.scene.player.playerObject.x !== spawn.x*64 && this.scene.player.playerObject.y !== spawn.y*64) {
-        let badBoy = new Ennemie(this.scene, spawn.x*64, spawn.y*64);
+      if (
+        this.scene.player.playerObject.x !== spawn.x * 64 &&
+        this.scene.player.playerObject.y !== spawn.y * 64
+      ) {
+        let badBoy = new Witchcraft(this.scene, spawn.x * 64, spawn.y * 64);
         this.watchCollisionEnnemy(badBoy);
         tabEnnemy.push(badBoy);
-        console.log('tsest')
+        console.log("tsest");
       }
     });
-    console.log(tabEnnemy)
+    console.log(tabEnnemy);
     return tabEnnemy;
   }
 

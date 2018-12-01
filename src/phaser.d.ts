@@ -29619,7 +29619,7 @@ declare namespace Phaser {
                  * @param processCallback The callback to invoke when the two objects collide. Must return a boolean.
                  * @param callbackContext The scope in which to call the callbacks.
                  */
-                collider(object1: Phaser.Physics.Arcade.Body, object2: Phaser.Physics.Arcade.Body, collideCallback: Function, processCallback: Function, callbackContext: object): Phaser.Physics.Arcade.Collider;
+                collider(object1: Phaser.Physics.Arcade.Body, object2: Phaser.Physics.Arcade.Body, collideCallback?: Function, processCallback?: Function, callbackContext?: object): Phaser.Physics.Arcade.Collider;
 
                 /**
                  * Create a new Arcade Physics Collider Overlap object.
