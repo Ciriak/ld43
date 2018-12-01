@@ -1,5 +1,6 @@
 import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
+import Phaser from "phaser";
 
 export default class CloseCombat extends Ennemie {
   constructor(scene: DungeonScene, x?: number, y?: number) {
@@ -9,7 +10,11 @@ export default class CloseCombat extends Ennemie {
   /**
    * Move to the player
    */
-  applyPattern(player: Phaser.Physics.Arcade.Sprite) {
+  applyPattern(
+    player: Phaser.Physics.Arcade.Sprite,
+    time: number,
+    delta: number
+  ) {
     this.moveToPlayer(player);
   }
 
