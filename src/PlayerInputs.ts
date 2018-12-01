@@ -8,6 +8,16 @@ export default class PlayerInputs {
   ) {
     //console.log("Player coordinates : " + player.x + ":" + player.y);
     player.setVelocity(0, 0);
+
+  // Fire fire bullet
+    if (scene.cursors.space.isDown) {
+        // let bullet = this.bullets.get();
+
+        // if (bullet) {
+          // bullet.fire(this.gun.x, this.gun.y);
+        // }
+    }
+    
     if (scene.cursors.left.isDown) {
       player.setVelocityX(-velocity);
     }
