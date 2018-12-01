@@ -2,7 +2,6 @@ import * as Dungeon from "@mikewesthad/dungeon";
 import Player from "../Player";
 import DungeonLoader from "../dungeon/DungeonMap";
 import Ennemie from "../Ennemie";
-let toto = false;
 export default class DungeonScene extends Phaser.Scene {
   dungeon: Dungeon;
   dungeonLoader: DungeonLoader;
@@ -41,13 +40,9 @@ export default class DungeonScene extends Phaser.Scene {
    */
 
   updateEnnemies() {
-    if (toto) {
-      return;
-    }
-    toto = true;
     for (let i = 0; i < this.ennemies.length; i++) {
       const ennemie = this.ennemies[i];
-      ennemie.refreshAttack(this.player);
+      ennemie.refreshAttack(this.player.playerObject);
     }
   }
 }

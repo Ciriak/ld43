@@ -12,11 +12,6 @@ export default class Ennemie {
     this.ennemieObject = scene.physics.add.sprite(x, y, "ennemie");
   }
   refreshAttack(player: Phaser.Physics.Arcade.Sprite) {
-    debugger;
-    this.scene.physics.moveToObject(
-      this.ennemieObject,
-      player.playerObject,
-      50
-    );
+    this.scene.physics.moveToObject(this.ennemieObject, player, 30);
   }
 }
