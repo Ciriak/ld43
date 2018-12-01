@@ -26,9 +26,11 @@ class MainScene extends Phaser.Scene {
     this.load.image("tiles", "/assets/tilemaps/dungeon_tiles.png");
     this.load.image("groundCollider", "/assets/sprites/groundCollider.png");
     this.load.image("player", "/assets/sprites/player.png");
+    this.load.image("grid", "/assets/bgtest.png");
   }
 
   create() {
+    this.add.image(0, 0, "grid").setOrigin(0);
     player = this.physics.add.sprite(0, -100, "player");
 
     player.setCollideWorldBounds(true);
