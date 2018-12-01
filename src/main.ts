@@ -24,10 +24,8 @@ export class main {
     };
 
     new Phaser.Game(config);
-  
+
     new UIManager();
   }
-
 }
 new main();
-
