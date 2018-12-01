@@ -56,8 +56,6 @@ export default class DungeonScene extends Phaser.Scene {
   update(time: number, delta: number) {
     this.player.update(time, delta);
     this.updateEnnemies();
-    console.log(this.player.playerObject.x +  ' ' + this.player.playerObject.y);
-    
     this.tilemapVisibility.setActiveRoom(this.dungeonLoader.getPlayerRoom(this.player));
   }
 
