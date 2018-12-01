@@ -15,11 +15,12 @@ export class main {
       pixelArt: true,
       zoom: scale,
       backgroundColor: "#000000",
-      scene: [DungeonScene],
+      scene: DungeonScene,
       physics: {
-        //all physics properties
         default: "arcade",
-        arcade: {}
+        arcade: {
+          gravity: { y: 0 }
+        }
       }
     };
 
