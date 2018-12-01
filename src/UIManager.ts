@@ -1,6 +1,7 @@
 import * as $ from "jquery";
 export default class UIManager {
-  constructor() {
+  constructor(scene: Phaser.Scene) {
+    this.generateItemsCards();
     $(".play-btn").click(function() {
       $("#main-menu").fadeOut();
     });
@@ -11,4 +12,5 @@ export default class UIManager {
       $(".how-to-card").hide();
     });
   }
+  generateItemsCards() {}
 }
