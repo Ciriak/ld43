@@ -82,7 +82,6 @@ class TestScene extends Phaser.Scene {
       null,
       null
     );
-    console.log(this.groundLayer);
   }
 
   /**
