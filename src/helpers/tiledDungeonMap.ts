@@ -32,7 +32,7 @@ export const TILE_MAPPING = {
   
     FLOOR: [{ index: [13], weight: 9 }, { index: [14, 15, 21], weight: 1 }, { index: [20,19,18], weight: 0.3 }],
   
-    POT: [{ index: 13, weight: 1 }, { index: 32, weight: 1 }, { index: 51, weight: 1 }],
+    POT: [{ index: 32, weight: 1 }, { index: 33, weight: 1 }, { index: 34, weight: 1 }],
   
     DOOR: {
   
