@@ -46,9 +46,7 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.uiManager = new UIManager(this);
     //uncomment to  enable a test ennemie
-    this.ennemies.push();
-    new Ennemie(this)
-    this.dungeonLoader.spawnEnnemy();
+    this.ennemies = this.dungeonLoader.spawnEnnemy();
   }
 
   //camera bounds
@@ -64,6 +62,7 @@ export default class DungeonScene extends Phaser.Scene {
    */
 
   updateEnnemies() {
+      //console.log(this.ennemies);
     for (let i = 0; i < this.ennemies.length; i++) {
       const ennemie = this.ennemies[i];
       ennemie.refreshAttack(this.player.playerObject);
