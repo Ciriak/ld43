@@ -30,7 +30,7 @@ export default class DungeonScene extends Phaser.Scene {
       .tileToWorldY(this.dungeonLoader.getstartingRoom().centerY);
     this.player = new Player(this, xPlayer, yPlayer);
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
-    this.cameras.main.setZoom(4);
+    this.cameras.main.setZoom(2);
     this.dungeonLoader.watchCollision(this.player);
 
     new UIManager(this);
