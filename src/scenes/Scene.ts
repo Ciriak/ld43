@@ -1,7 +1,6 @@
 let player: any;
 import DungeonMap from "../dungeon/DungeonMap";
 import PlayerInputs from "../PlayerInputs";
-import ennemie from "../Ennemie";
 import Ennemie from "../Ennemie";
 let playerInputs = new PlayerInputs();
 let testEnnemie: Ennemie;
@@ -36,9 +35,6 @@ class MainScene extends Phaser.Scene {
 
   create() {
     this.add.image(0, 0, "grid").setOrigin(0);
-    player = this.physics.add.sprite(0, 0, "player");
-
-    player.setCollideWorldBounds(true);
     this.cursors = this.input.keyboard.createCursorKeys();
     //camera follow player
 
@@ -49,10 +45,6 @@ class MainScene extends Phaser.Scene {
     //this.cameras.main.setBounds(0, window.innerHeight, 500, 500);
 
     this.createMap();
-    // add a test ennemie
-    for (let i = 0; i < 10; i++) {
-      this.ennemies.push(new ennemie(this, 10 * i, 10 * i));
-    }
   }
 
   update(time: number, delta: number) {
