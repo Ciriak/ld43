@@ -1,3 +1,5 @@
+import DungeonScene from "./scenes/DungeonScene";
+import Player from "./Player";
 export default class Ennemie {
   private scene: Phaser.Scene;
   public ennemieObject: any;
@@ -8,7 +10,7 @@ export default class Ennemie {
     x: 0,
     y: 0
   };
-  constructor(scene: Phaser.Scene, x?: number, y?: number) {
+  constructor(scene: DungeonScene, x?: number, y?: number) {
     if (!x) {
       x = 0;
     }
@@ -17,6 +19,22 @@ export default class Ennemie {
     }
     this.scene = scene;
     this.ennemieObject = scene.physics.add.sprite(x, y, "ennemie");
+
+    const ennemiRef = this;
+
+    scene.physics.add.collider(
+      this.ennemieObject,
+      scene.player.playerObject,
+      function() {
+        ennemiRef.giveDamageToPlayer(scene.player);
+      },
+      function() {},
+      function() {}
+    );
+  }
+
+  giveDamageToPlayer(player: Player) {
+    player.kill();
   }
   refreshAttack(player: Phaser.Physics.Arcade.Sprite) {
     // only if this is a "follower" ennemie

@@ -4,6 +4,7 @@ export default class Player {
   private scene: Phaser.Scene;
   private inputsManager = new PlayerInputs();
   public playerObject: any;
+  public isDead = false;
   /**
    *
    * @param scene Target scene
@@ -22,7 +23,15 @@ export default class Player {
     this.playerObject.setCollideWorldBounds(true);
   }
 
+  kill() {
+    this.playerObject.destroy();
+    this.isDead = true;
+  }
+
   update(time: number, delta: number) {
+    if (this.isDead) {
+      return;
+    }
     this.inputsManager.update(time, delta, this.playerObject, this.scene);
   }
 }
