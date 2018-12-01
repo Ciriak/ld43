@@ -5,8 +5,9 @@ export default class DungeonLoader {
   groundLayer : any;
   stuffLayer: any;
   map : any;
-  private scene: Phaser.Scene;
+  protected scene: Phaser.Scene;
   constructor(scene: Phaser.Scene) {
+    this.scene = scene;
           // Generate a random world with a few extra options:
       //  - Rooms should only have odd dimensions so that they have a center tile.
       //  - Doors should be at least 2 tiles away from corners, to leave enough room for the tiles
@@ -34,6 +35,7 @@ export default class DungeonLoader {
     this.stuffLayer.fill(TILES.BLANK);
     this.groundLayer.fill(TILES.BLANK);
     this.renderRooms();
+    this.groundLayer.setCollisionByExclusion([-1, 72, 73, 74, 95, 96,97]);
   }
 
   private renderRooms() {
@@ -72,6 +74,11 @@ export default class DungeonLoader {
         }
       }
     });
+  }
+
+  public watchCollision(player) {
+    // Watch the player and ground layer for collisions, for the duration of the scene:
+    this.scene.physics.add.collider(player.sprite, this.groundLayer);
   }
 }
   
