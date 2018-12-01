@@ -50,7 +50,6 @@ export default class DungeonLoader {
     this.renderRooms();
     this.renderOtherRooms();
     this.groundLayer.setCollisionByExclusion([
-      -1,
       13,14,15,21,20,19,18,28,27,29,26
     ]);
   }
@@ -151,7 +150,7 @@ export default class DungeonLoader {
        // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.8) {
         // 50% chance of a pot anywhere in the room... except don't block a door!
-        this.spawn.putTileAt(13 ,room.centerX, room.centerY);
+        this.spawn.putTileAt(16 ,room.centerX, room.centerY);
          this.spawn2.push({x: room.centerX, y:room.centerY});
 
       } else {
@@ -161,13 +160,18 @@ export default class DungeonLoader {
   }
 
   public spawnEnnemy() {
+    let tabEnnemy = [];
     this.spawn2.forEach( (spawn) => {
-
       //Check if the ennemy will spawn on the player and prevent it
-      if(this.scene.player.playerObject.x ==! spawn.x*64) {
-        new Ennemie(this.scene, spawn.x*64, spawn.y*64)
+      if(this.scene.player.playerObject.x !== spawn.x*64 && this.scene.player.playerObject.y !== spawn.y*64) {
+        let badBoy = new Ennemie(this.scene, spawn.x*64, spawn.y*64);
+        this.watchCollisionEnnemy(badBoy);
+        tabEnnemy.push(badBoy);
+        console.log('tsest')
       }
-    }); 
+    });
+    console.log(tabEnnemy)
+    return tabEnnemy;
   }
 
   public getMap() {
@@ -215,5 +219,10 @@ export default class DungeonLoader {
   public watchCollision(player) {
     // Watch the player and ground layer for collisions, for the duration of the scene:
     this.scene.physics.add.collider(player.playerObject, this.groundLayer);
+  }
+
+  public watchCollisionEnnemy(ennemy) {
+    // Watch the ennemy and ground layer for collisions, for the duration of the scene:
+    this.scene.physics.add.collider(ennemy.ennemieObject, this.groundLayer);
   }
 }
