@@ -3,6 +3,7 @@ import Player from "../Player";
 import UIManager from "../UIManager";
 import DungeonLoader from "../dungeon/DungeonMap";
 import Ennemie from "../Ennemie";
+import ResourcesLoader from "../ResourcesLoader";
 export default class DungeonScene extends Phaser.Scene {
   dungeon: Dungeon;
   dungeonLoader: DungeonLoader;
@@ -14,10 +15,7 @@ export default class DungeonScene extends Phaser.Scene {
   // ... preload omitted for brevity
 
   preload() {
-    //this.load.tilemapTiledJSON("map", "/assets/tilemaps/map.json");
-    this.load.image("dungeon_tiles", "../assets/tilemaps/dungeon_tiles.png");
-    this.load.image("player", "/assets/sprites/player.png");
-    this.load.image("ennemie", "/assets/sprites/ennemie.png");
+    new ResourcesLoader(this);
   }
 
   create() {
@@ -38,7 +36,6 @@ export default class DungeonScene extends Phaser.Scene {
   update(time: number, delta: number) {
     this.player.update(time, delta);
     this.updateEnnemies();
-    
   }
 
   /**
