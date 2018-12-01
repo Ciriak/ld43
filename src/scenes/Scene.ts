@@ -1,7 +1,8 @@
 let player: any;
 import DungeonMap from "../dungeon/DungeonMap";
-
-class TestScene extends Phaser.Scene {
+import PlayerInputs from "../PlayerInputs";
+let playerInputs = new PlayerInputs();
+class MainScene extends Phaser.Scene {
   gridUnit: 8;
   cursors: any;
   groundCollider: any;
@@ -15,7 +16,7 @@ class TestScene extends Phaser.Scene {
 
   constructor() {
     super({
-      key: "TestScene"
+      key: "MainScene"
     });
     this.DungeonRandom = new DungeonMap();
   }
@@ -25,36 +26,28 @@ class TestScene extends Phaser.Scene {
     this.load.image("tiles", "/assets/tilemaps/dungeon_tiles.png");
     this.load.image("groundCollider", "/assets/sprites/groundCollider.png");
     this.load.image("player", "/assets/sprites/player.png");
+    this.load.image("grid", "/assets/bgtest.png");
   }
 
   create() {
+    this.add.image(0, 0, "grid").setOrigin(0);
     player = this.physics.add.sprite(0, -100, "player");
+
     player.setCollideWorldBounds(true);
     this.cursors = this.input.keyboard.createCursorKeys();
+    //camera follow player
 
-    this.cameras.main.startFollow(player, false);
-    this.cameras.main.setBounds(0, window.innerHeight, 500, 500);
+    this.cameras.main.startFollow(player, true, 0.05, 0.05);
+    this.cameras.main.setZoom(1);
+
+    //camera bounds
+    //this.cameras.main.setBounds(0, window.innerHeight, 500, 500);
 
     this.createMap();
   }
 
   update(time: number, delta: number) {
-    if (this.cursors.left.isDown) {
-      player.x -= 5;
-    }
-    if (this.cursors.right.isDown) {
-      player.x += 5;
-    }
-    if (this.cursors.down.isDown) {
-      player.y += 5;
-    }
-    if (this.cursors.up.isDown) {
-      player.y -= 5;
-    }
-    this.generate();
-    this.setGroundCollider();
-
-    this.physics.add.collider(player, this.groundCollider, null, null, null);
+    playerInputs.update(time, delta, player, this);
   }
 
   /**
@@ -73,73 +66,7 @@ class TestScene extends Phaser.Scene {
     });
 
     const tileset = this.map.addTilesetImage("tiles", null, 48, 48, 1, 2);
-
-    this.groundLayer = this.map.createBlankDynamicLayer(
-      "layer",
-      tileset,
-      null,
-      null,
-      null,
-      null
-    );
-  }
-
-  /**
-   * Generate blocs when camera move
-   */
-
-  generate() {
-    if (!this.map) {
-      return;
-    }
-
-    // Turn the dungeon into a 2D array of tiles where each of the four types of tiles is mapped to a
-
-    // tile index within our tileset. Note: using -1 for empty tiles means they won't render.
-
-    const mappedTiles = this.DungeonRandom.getMapTiles({
-      empty: -1,
-      floor: 6,
-      door: 6,
-      wall: 20
-    });
-    const camera = this.cameras.main;
-    let coordinates = {
-      x: camera.width + camera.x,
-      y: camera.height + camera.y
-    };
-
-    //update the values
-    while (this.maxCoordinates.x < coordinates.x) {
-      const tile = this.groundLayer.putTileAt(
-        mappedTiles,
-        this.maxCoordinates.x,
-        window.innerHeight + 58
-      );
-      this.maxCoordinates.x++;
-
-      // this.physics.world.setBounds(
-      //   0,
-      //   window.innerHeight,
-      //   this.maxCoordinates.x + 50,
-      //   500
-      // );
-    }
-  }
-
-  /**
-   * update ground collider
-   */
-  setGroundCollider() {
-    if (!this.groundCollider) {
-      this.groundCollider = this.physics.add.sprite(0, 0, "groundCollider");
-
-      this.groundCollider.collideWorldBounds = true;
-      this.groundCollider.allowGravity = false;
-    }
-    this.groundCollider.x = player.x;
-    this.groundCollider.y = window.innerHeight + 50;
   }
 }
 
-export default TestScene;
+export default MainScene;
