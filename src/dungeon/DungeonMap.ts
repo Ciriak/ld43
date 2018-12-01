@@ -9,9 +9,11 @@ export default class DungeonLoader {
   map: any;
   tileset: any;
   spawn: any;
+  spawn2: any;
   protected scene: Phaser.Scene;
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
+    this.spawn2 = [];
     // Generate a random world with a few extra options:
     //  - Rooms should only have odd dimensions so that they have a center tile.
     //  - Doors should be at least 2 tiles away from corners, to leave enough room for the tiles
@@ -151,14 +153,16 @@ export default class DungeonLoader {
     this.getOtherRooms().forEach(room => {
       var rand = Math.random();
       if (rand <= 0.25) {
+        //const x = Phaser.Math.Between(room.left + 1, room.right - 1);
+        //const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
+       // this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
         // 25% chance of chest
        // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.9) {
         // 50% chance of a pot anywhere in the room... except don't block a door!
-        const x = Phaser.Math.Between(room.left + 1, room.right - 1);
-        const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
-       // this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
-        this.spawn.weightedRandomize(x, y, 1, 1, 173);
+        console.log(room); 
+        this.spawn.putTileAt(13 ,room.centerX, room.centerY);
+         this.spawn2.push({x: room.centerX, y:room.centerY});
 
       } else {
         // 25% of either 2 or 4 towers, depending on the room size
@@ -167,8 +171,8 @@ export default class DungeonLoader {
   }
 
   public spawnEnnemy() {
-    this.spawn.forEachTile( (tile) => {
-      new Ennemie(this.scene,tile.x, tile.y)
+    this.spawn2.forEach( (spawn) => {
+      new Ennemie(this.scene, spawn.x*64, spawn.y*64)
     }); 
   }
 
