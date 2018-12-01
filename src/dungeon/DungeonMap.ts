@@ -1,5 +1,6 @@
 import * as Dungeon from "@mikewesthad/dungeon";
 import TILES from "../helpers/tiledMap";
+import TilemapVisibility from "../helpers/tiledMapVisibility";
 export default class DungeonLoader {
   dungeon : Dungeon;
   groundLayer : any;
@@ -33,8 +34,7 @@ export default class DungeonLoader {
     const tileset = this.map.addTilesetImage("dungeon_tiles", null, 16, 16, 0, 0); // 1px margin, 2px spacing
     this.groundLayer = this.map.createBlankDynamicLayer("Ground", tileset);
     this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", tileset);
-    this.stuffLayer.fill(TILES.BLANK);
-    this.groundLayer.fill(TILES.BLANK);
+    this.generateFogOfWar(tileset);
     this.renderRooms();
     this.groundLayer.setCollisionByExclusion([126, 72, 73, 74, 95, 96,97, 394, ]);
     
@@ -83,8 +83,8 @@ export default class DungeonLoader {
     return this.map;
   }
 
-  private generateFogOfWar() {
-    const shadowLayer = this.map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK);
+  private generateFogOfWar(tileset) {
+    const shadowLayer = this.getMap().createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK);
     this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
   }
 
@@ -106,6 +106,15 @@ export default class DungeonLoader {
 
   public getOtherRooms() {
     return Phaser.Utils.Array.Shuffle(this.getDungeonRooms()).slice(0, this.getDungeonRooms().length * 0.85);
+  }
+
+  public getPlayerRoom(player) {
+    // Find the player's room using another helper method from the dungeon that converts from
+    // dungeon XY (in grid units) to the corresponding room object
+    const playerTileX = this.groundLayer.worldToTileX(player.playerObject.x);
+    const playerTileY = this.groundLayer.worldToTileY(player.playerObject.y);
+    const playerRoom = this.dungeon.getRoomAt(playerTileX, playerTileY);
+    return playerRoom;
   }
 
   public watchCollision(player) {

@@ -12,6 +12,7 @@ export default class DungeonScene extends Phaser.Scene {
   cursors: any;
   player: any;
   ennemies: Ennemie[] = [];
+  tilemapVisibility: any;
   // ... preload omitted for brevity
 
   preload() {
@@ -38,6 +39,8 @@ export default class DungeonScene extends Phaser.Scene {
   update(time: number, delta: number) {
     this.player.update(time, delta);
     this.updateEnnemies();
+    
+    this.tilemapVisibility.setActiveRoom(this.dungeonLoader.getPlayerRoom(this.player));
   }
 
   /**
