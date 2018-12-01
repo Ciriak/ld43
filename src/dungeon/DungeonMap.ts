@@ -12,8 +12,8 @@ export default class DungeonMap {
   }
   private generateMap() {
     return new Dungeon({
-      width: 50,
-      height: 50,
+      width: 32,
+      height: 32,
       doorPadding: 1, // Experimental, minimum number of tiles between a door and a room corner (>= 1)
       randomSeed: 0, // Leave undefined if you don't want to control the seed
       rooms: {
@@ -53,13 +53,8 @@ export default class DungeonMap {
   // Get a 2D array of tiles where each tile type is remapped to a custom value. Useful if you are
   // using this in a tilemap, or if you want to map the tiles to something else, e.g. this is used
   // internally to convert a dungeon to an HTML string.
-  public getMapTiles() {
-    return this.map.getMappedTiles({
-      empty: 0,
-      floor: 1,
-      door: 2,
-      wall: 3
-    });
+  public getMapTiles(config) {
+    return this.map.getMappedTiles(config);
   }
 }
   
