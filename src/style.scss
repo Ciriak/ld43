@@ -1,3 +1,18 @@
+#content {
+  width: 100vw;
+  height: 100vh;
+}
+.button {
+  user-select: none;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px #fff solid;
+  margin: 5px;
+  &:hover {
+    color: #000;
+    background-color: #fff;
+  }
+}
 #main-menu {
   font-family: "Courier New", Courier, monospace;
   position: fixed;
@@ -15,23 +30,23 @@
     font-size: 3rem;
   }
   .how-to-card {
-    width: 800;
-    height: 600;
+    display: none;
+    width: 800px;
+    height: 600px;
     border: 1px #fff solid;
     background: #000;
+    position: absolute;
+    .content {
+      position: relative;
+      height: 100%;
+      .close-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    }
   }
   .gameplay-buttons {
     text-align: center;
-    .button {
-      user-select: none;
-      cursor: pointer;
-      padding: 10px;
-      border: 1px #fff solid;
-      margin: 5px;
-      &:hover {
-        color: #000;
-        background-color: #fff;
-      }
-    }
   }
 }
