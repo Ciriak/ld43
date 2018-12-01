@@ -6,6 +6,7 @@ export default class Ennemie {
   public rof: number = 0.1;
   public followPlayer: boolean = true;
   public health: number = 1;
+  public isDead = false;
   private lastPlayerPos = {
     x: 0,
     y: 0
@@ -63,7 +64,7 @@ export default class Ennemie {
       player.x !== this.lastPlayerPos.x ||
       player.y !== this.lastPlayerPos.y
     ) {
-      this.scene.physics.moveToObject(this.ennemieObject, player, 30);
+      this.scene.physics.moveToObject(this.ennemieObject, player, 50);
       this.lastPlayerPos = {
         x: player.x,
         y: player.y
@@ -76,5 +77,6 @@ export default class Ennemie {
    */
   kill() {
     this.ennemieObject.destroy();
+    this.isDead = true;
   }
 }
