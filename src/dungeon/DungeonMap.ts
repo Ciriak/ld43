@@ -172,7 +172,13 @@ export default class DungeonLoader {
 
   public spawnEnnemy() {
     this.spawn2.forEach( (spawn) => {
-      new Ennemie(this.scene, spawn.x*64, spawn.y*64)
+
+      //Check if the ennemy will spawn on the player and prevent it
+      if(this.scene.player.playerObject.x ==! spawn.x*64) {
+
+      }else {
+        new Ennemie(this.scene, spawn.x*64, spawn.y*64)
+      }
     }); 
   }
 
