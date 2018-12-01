@@ -16,7 +16,7 @@ export default class DungeonLoader {
       this.dungeon = new Dungeon({
         width: 60,
         height: 60,
-        doorPadding: 1,
+        doorPadding: 4,
         rooms: {
           width: { min: 4, max: 9, onlyOdd: true },
           height: { min: 9, max: 15, onlyOdd: true }
@@ -31,8 +31,8 @@ export default class DungeonLoader {
     });
 
     const tileset = this.map.addTilesetImage("dungeon_tiles", null, 16, 16, 0, 0); // 1px margin, 2px spacing
-    this.groundLayer = this.map.createBlankDynamicLayer("Ground", this.tileset);
-    this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", this.tileset);
+    this.groundLayer = this.map.createBlankDynamicLayer("Ground", tileset);
+    this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", tileset);
     this.stuffLayer.fill(TILES.BLANK);
     this.groundLayer.fill(TILES.BLANK);
     this.renderRooms();
@@ -84,7 +84,7 @@ export default class DungeonLoader {
   }
 
   private generateFogOfWar() {
-    const shadowLayer = this.map.createBlankDynamicLayer("Shadow", this.tileset).fill(TILES.BLANK);
+    const shadowLayer = this.map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK);
     this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
   }
 
