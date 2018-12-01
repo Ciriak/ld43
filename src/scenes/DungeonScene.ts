@@ -1,5 +1,6 @@
 import * as Dungeon from "@mikewesthad/dungeon";
 import Player from "../Player";
+import UIManager from "../UIManager";
 import DungeonLoader from "../dungeon/DungeonMap";
 import Ennemie from "../Ennemie";
 export default class DungeonScene extends Phaser.Scene {
@@ -25,7 +26,10 @@ export default class DungeonScene extends Phaser.Scene {
     this.player = new Player(this, 100, 50);
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(4);
-    this.ennemies.push(new Ennemie(this));
+
+    new UIManager(this);
+    //uncomment to  enable a test ennemie
+    //this.ennemies.push(new Ennemie(this));
   }
 
   //camera bounds
