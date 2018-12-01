@@ -2,8 +2,9 @@ import * as Dungeon from "@mikewesthad/dungeon";
 import Player from "../Player";
 import UIManager from "../UIManager";
 import DungeonLoader from "../dungeon/DungeonMap";
-import Ennemie from "../Ennemie";
+import Ennemie from "../Ennemies/Ennemie";
 import ResourcesLoader from "../ResourcesLoader";
+import Witchcraft from "../Ennemies/Witchcraft";
 export default class DungeonScene extends Phaser.Scene {
   constructor() {
     super({
@@ -19,7 +20,6 @@ export default class DungeonScene extends Phaser.Scene {
   uiManager: UIManager;
   ennemies: Ennemie[] = [];
   tilemapVisibility: any;
-  // ... preload omitted for brevity
 
   preload() {
     new ResourcesLoader(this);
@@ -46,8 +46,9 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.uiManager = new UIManager(this);
     //uncomment to  enable a test ennemie
+    let ennemie = new Witchcraft(this, 0, 0);
     this.ennemies.push();
-    new Ennemie(this)
+    new Ennemie(this);
     this.dungeonLoader.spawnEnnemy();
   }
 
@@ -55,20 +56,21 @@ export default class DungeonScene extends Phaser.Scene {
 
   update(time: number, delta: number) {
     this.player.update(time, delta);
-    this.updateEnnemies();
-    console.log(this.player.playerObject.x +  ' ' + this.player.playerObject.y);
-    
-    this.tilemapVisibility.setActiveRoom(this.dungeonLoader.getPlayerRoom(this.player));
+    this.updateEnnemies(time, delta);
+
+    this.tilemapVisibility.setActiveRoom(
+      this.dungeonLoader.getPlayerRoom(this.player)
+    );
   }
 
   /**
    * Update all ennemies attack pattern, called each frame
    */
 
-  updateEnnemies() {
+  updateEnnemies(time: number, delta: number) {
     for (let i = 0; i < this.ennemies.length; i++) {
       const ennemie = this.ennemies[i];
-      ennemie.refreshAttack(this.player.playerObject);
+      ennemie.refreshAttack(this.player.playerObject, time, delta);
     }
   }
 
