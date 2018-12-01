@@ -32,9 +32,10 @@ class MainScene extends Phaser.Scene {
     player = this.physics.add.sprite(0, -100, "player");
     player.setCollideWorldBounds(true);
     this.cursors = this.input.keyboard.createCursorKeys();
-
+    //camera follow player
     this.cameras.main.startFollow(player, false);
-    this.cameras.main.setBounds(0, window.innerHeight, 500, 500);
+    //camera bounds
+    //this.cameras.main.setBounds(0, window.innerHeight, 500, 500);
 
     this.createMap();
   }

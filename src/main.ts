@@ -16,10 +16,9 @@ export class main {
       backgroundColor: "#000000",
       scene: [MainScene],
       physics: {
+        //all physics properties
         default: "arcade",
-        arcade: {
-          gravity: { y: 20 }
-        }
+        arcade: {}
       }
     };
 

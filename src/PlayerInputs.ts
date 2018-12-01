@@ -2,7 +2,6 @@ export default class PlayerInputs {
   update(time: number, delta: number, player: any, scene: any) {
     if (scene.cursors.left.isDown) {
       player.x -= 5;
-      console.log(player);
     }
     if (scene.cursors.right.isDown) {
       player.x += 5;
