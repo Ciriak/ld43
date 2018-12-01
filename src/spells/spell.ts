@@ -3,6 +3,7 @@ export default class Spell {
     castTime: number;
     speed: number;
     scene: Phaser.Scene;
+    sprite: Phaser.Scene.sprite
     constructor(damage : number, castTime : number, speed: number, scene){
         this.castTime = castTime;
         this.damage = damage;
@@ -20,8 +21,11 @@ export default class Spell {
             repeat: -1
         };
         let anim = this.scene.anims.create(config);
-        let sprite = this.scene.add.sprite(x+64,y,"elecBall");
-        sprite.anims.load('cast');
-        sprite.anims.play('cast');
+        this.sprite = this.scene.add.sprite(x+64,y,"elecBall");
+        this.sprite.anims.load('cast');
+        this.sprite.anims.play('cast');
+    }
+    setActive(value) {
+        this.sprite.setActive(value);
     }
 }
