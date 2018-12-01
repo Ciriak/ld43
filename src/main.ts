@@ -1,7 +1,4 @@
 import "phaser";
-
-import UIManager from "./UIManager";
-import MainScene from "./scenes/Scene";
 import DungeonScene from "./scenes/DungeonScene";
 const scale = 4;
 
@@ -24,8 +21,6 @@ export class main {
     };
 
     new Phaser.Game(config);
-
-    new UIManager();
   }
 }
 new main();
