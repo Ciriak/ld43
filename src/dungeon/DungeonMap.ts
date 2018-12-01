@@ -4,8 +4,9 @@ export default class DungeonLoader {
   dungeon : Dungeon;
   groundLayer : any;
   stuffLayer: any;
-  map : any
-  constructor(scene) {
+  map : any;
+  private scene: Phaser.Scene;
+  constructor(scene: Phaser.Scene) {
           // Generate a random world with a few extra options:
       //  - Rooms should only have odd dimensions so that they have a center tile.
       //  - Doors should be at least 2 tiles away from corners, to leave enough room for the tiles
@@ -20,7 +21,7 @@ export default class DungeonLoader {
         }
       });
      // Creating a blank tilemap with dimensions matching the dungeon
-     const map = scene.tilemap({
+     const map = scene.make.tilemap({
       tileWidth: 16,
       tileHeight: 16,
       width: this.dungeon.width,

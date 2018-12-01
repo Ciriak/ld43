@@ -1,9 +1,10 @@
 
 import * as Dungeon from "@mikewesthad/dungeon";
 
-import * as DungeonLoader from "../dungeon/DungeonMap";
+import DungeonLoader from "../dungeon/DungeonMap";
 export default class DungeonScene extends Phaser.Scene {
     dungeon : Dungeon;
+    dungeonLoader : DungeonLoader;
     groundLayer : any;
     stuffLayer: any;
     // ... preload omitted for brevity
@@ -16,11 +17,7 @@ export default class DungeonScene extends Phaser.Scene {
       }
   
     create() {
-        // Use the array of rooms generated to place tiles in the map
-  
-      // Note: using an arrow function here so that "this" still refers to our scene
-   
-  
+        this.dungeonLoader = new DungeonLoader(this);
     }
 
     update(time, delta) {
