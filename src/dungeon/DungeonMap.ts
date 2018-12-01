@@ -5,6 +5,7 @@ export default class DungeonLoader {
   groundLayer : any;
   stuffLayer: any;
   map : any;
+  tileset: any;
   protected scene: Phaser.Scene;
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -15,27 +16,29 @@ export default class DungeonLoader {
       this.dungeon = new Dungeon({
         width: 60,
         height: 60,
-        doorPadding: 1,
+        doorPadding: 4,
         rooms: {
           width: { min: 4, max: 9, onlyOdd: true },
           height: { min: 9, max: 15, onlyOdd: true }
         }
       });
      // Creating a blank tilemap with dimensions matching the dungeon
-     const map = scene.make.tilemap({
+     this.map = scene.make.tilemap({
       tileWidth: 16,
       tileHeight: 16,
       width: this.dungeon.width,
       height: this.dungeon.height
     });
 
-    const tileset = map.addTilesetImage("dungeon_tiles", null, 16, 16, 0, 0); // 1px margin, 2px spacing
-    this.groundLayer = map.createBlankDynamicLayer("Ground", tileset);
-    this.stuffLayer = map.createBlankDynamicLayer("Stuff", tileset);
+    const tileset = this.map.addTilesetImage("dungeon_tiles", null, 16, 16, 0, 0); // 1px margin, 2px spacing
+    this.groundLayer = this.map.createBlankDynamicLayer("Ground", tileset);
+    this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", tileset);
     this.stuffLayer.fill(TILES.BLANK);
     this.groundLayer.fill(TILES.BLANK);
     this.renderRooms();
     this.groundLayer.setCollisionByExclusion([126, 72, 73, 74, 95, 96,97]);
+    
+  
   }
 
   private renderRooms() {
@@ -74,6 +77,35 @@ export default class DungeonLoader {
         }
       }
     });
+  }
+
+  public getMap() {
+    return this.map;
+  }
+
+  private generateFogOfWar() {
+    const shadowLayer = this.map.createBlankDynamicLayer("Shadow", tileset).fill(TILES.BLANK);
+    this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
+  }
+
+  private getDungeonRooms() {
+    // Separate out the rooms into:
+    //  - The starting room (index = 0)
+    //  - A random room to be designated as the end room (with stairs and nothing else)
+    //  - An array of 90% of the remaining rooms, for placing random stuff (leaving 10% empty)
+    return this.dungeon.rooms.slice();
+  }
+
+  public getstartingRoom() {
+    return this.getDungeonRooms().shift();
+  }
+
+  public getendingRoom() {
+    return Phaser.Utils.Array.RemoveRandomElement(this.getDungeonRooms());
+  }
+
+  public getOtherRooms() {
+    return Phaser.Utils.Array.Shuffle(this.getDungeonRooms()).slice(0, this.getDungeonRooms().length * 0.85);
   }
 
   public watchCollision(player) {
