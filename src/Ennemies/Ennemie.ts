@@ -9,7 +9,7 @@ export default class Ennemie {
   public canShoot: boolean = false;
   public health: number = 1;
   public isDead = false;
-  private lastPlayerPos = {
+  public lastPlayerPos = {
     x: 0,
     y: 0
   };

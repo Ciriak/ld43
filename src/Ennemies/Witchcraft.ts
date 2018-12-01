@@ -3,7 +3,7 @@ import Ennemie from "./Ennemie";
 import Phaser from "phaser";
 export default class Witchcraft extends Ennemie {
   private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
-  projectileSpeed: number = 50;
+  projectileSpeed: number = 75;
   shootDelay: number = 1000;
   shootRepeatEvent: any = null;
   private shooting: boolean = false;
@@ -27,6 +27,7 @@ export default class Witchcraft extends Ennemie {
       this.shootRepeatEvent = setTimeout(function() {
         witchRef.shootAtPlayer(player);
       }, this.shootDelay);
+      this.randomMovement();
     }
   }
   /**
@@ -34,7 +35,6 @@ export default class Witchcraft extends Ennemie {
    * @param player
    */
   shootAtPlayer(player: Phaser.Physics.Arcade.Sprite) {
-    console.log("shoot");
     this.shooting = false;
     let projectile = this.scene.physics.add.sprite(
       this.ennemieObject.x,
@@ -81,5 +81,12 @@ export default class Witchcraft extends Ennemie {
       function() {},
       function() {}
     );
+  }
+
+  randomMovement() {
+    let randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
+    this.ennemieObject.setVelocityX(randomVelocity);
+    randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
+    this.ennemieObject.setVelocityY(randomVelocity);
   }
 }
