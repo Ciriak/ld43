@@ -1,7 +1,7 @@
 let player: any;
 import DungeonMap from "../dungeon/DungeonMap";
 
-class TestScene extends Phaser.Scene {
+class MainScene extends Phaser.Scene {
   gridUnit: 8;
   cursors: any;
   groundCollider: any;
@@ -15,7 +15,7 @@ class TestScene extends Phaser.Scene {
 
   constructor() {
     super({
-      key: "TestScene"
+      key: "MainScene"
     });
     this.DungeonRandom = new DungeonMap();
   }
@@ -143,4 +143,4 @@ class TestScene extends Phaser.Scene {
   }
 }
 
-export default TestScene;
+export default MainScene;
