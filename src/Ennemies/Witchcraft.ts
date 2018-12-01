@@ -1,10 +1,11 @@
-declare let game;
 import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
 import Phaser from "phaser";
 export default class Witchcraft extends Ennemie {
-  private projectiles: Phaser.Physics.Arcade.Sprite[];
-  projectileSpeed: number = 30;
+  private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
+  projectileSpeed: number = 50;
+  shootDelay: number = 1000;
+  shootRepeatEvent: any = null;
   private shooting: boolean = false;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
@@ -18,15 +19,14 @@ export default class Witchcraft extends Ennemie {
     time: number,
     delta: number
   ) {
+    let witchRef = this;
     if (this.shooting) {
       return;
     } else {
-      game.time.events.repeat(
-        Phaser.Timer.SECOND * 2,
-        1,
-        this.shootAtPlayer(player),
-        this
-      );
+      this.shooting = true;
+      this.shootRepeatEvent = setTimeout(function() {
+        witchRef.shootAtPlayer(player);
+      }, this.shootDelay);
     }
   }
   /**
@@ -34,6 +34,7 @@ export default class Witchcraft extends Ennemie {
    * @param player
    */
   shootAtPlayer(player: Phaser.Physics.Arcade.Sprite) {
+    console.log("shoot");
     this.shooting = false;
     let projectile = this.scene.physics.add.sprite(
       this.ennemieObject.x,
@@ -49,7 +50,7 @@ export default class Witchcraft extends Ennemie {
       projectile,
       this.scene.player.playerObject,
       function() {
-        ennemiRef.giveDamageToPlayer(this.scene.player);
+        ennemiRef.giveDamageToPlayer(ennemiRef.scene.player);
         projectile.destroy();
       },
       function() {},

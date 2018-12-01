@@ -2,7 +2,7 @@ import DungeonScene from "../scenes/DungeonScene";
 import Player from "../Player";
 import Phaser from "phaser";
 export default class Ennemie {
-  public scene: Phaser.Scene;
+  public scene: DungeonScene;
   public ennemieObject: any;
   public rof: number = 0.1;
   public isFollower: boolean = false;

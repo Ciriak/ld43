@@ -1,7 +1,8 @@
 import * as Dungeon from "@mikewesthad/dungeon";
 import TILES from "../helpers/tiledDungeonMap";
+import DungeonScene from "../scenes/DungeonScene";
 import TilemapVisibility from "../helpers/tiledMapVisibility";
-import Ennemie from "../Ennemie";
+import Ennemie from "../Ennemies/Ennemie";
 export default class DungeonLoader {
   dungeon: Dungeon;
   groundLayer: any;
@@ -10,8 +11,8 @@ export default class DungeonLoader {
   tileset: any;
   spawn: any;
   spawn2: any;
-  protected scene: Phaser.Scene;
-  constructor(scene: Phaser.Scene) {
+  protected scene: DungeonScene;
+  constructor(scene: DungeonScene) {
     this.scene = scene;
     this.spawn2 = [];
     // Generate a random world with a few extra options:
@@ -179,7 +180,10 @@ export default class DungeonLoader {
   }
 
   private generateFogOfWar(tileset) {
-    const shadowLayer = this.getMap().createBlankDynamicLayer("Shadow", tileset);
+    const shadowLayer = this.getMap().createBlankDynamicLayer(
+      "Shadow",
+      tileset
+    );
     shadowLayer.fill(TILES.BLANK);
     this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
   }
