@@ -5,6 +5,7 @@ import DungeonLoader from "../dungeon/DungeonMap";
 import Ennemie from "../Ennemies/Ennemie";
 import ResourcesLoader from "../ResourcesLoader";
 import Witchcraft from "../Ennemies/Witchcraft";
+import Spell from "../spells/Spell";
 export default class DungeonScene extends Phaser.Scene {
   constructor() {
     super({
@@ -59,6 +60,12 @@ export default class DungeonScene extends Phaser.Scene {
     this.tilemapVisibility.setActiveRoom(
       this.dungeonLoader.getPlayerRoom(this.player)
     );
+
+    if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
+    {
+        let spell = new Spell(2,3,300, this);
+        spell.cast(this.player.playerObject.x, this.player.playerObject.y);
+    }
   }
 
   /**

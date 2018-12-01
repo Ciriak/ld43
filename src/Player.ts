@@ -35,4 +35,8 @@ export default class Player {
     }
     this.inputsManager.update(time, delta, this.playerObject, this.scene);
   }
+
+  castSpell() {
+    
+  }
 }
