@@ -25,8 +25,7 @@ export class main {
     };
 
     new Phaser.Game(config);
-    let map = new DungeonMap();
-    map.addDungeonToHtml();
+  
     new UIManager();
   }
 

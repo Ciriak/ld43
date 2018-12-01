@@ -1,4 +1,6 @@
 let player: any;
+import DungeonMap from "../dungeon/DungeonMap";
+
 class TestScene extends Phaser.Scene {
   gridUnit: 8;
   cursors: any;
@@ -24,8 +26,8 @@ class TestScene extends Phaser.Scene {
   }
 
   create() {
-    player = this.physics.add.sprite(0, -100, "player");
-    player.setCollideWorldBounds(true);
+    //player = this.physics.add.sprite(0, -100, "player");
+    //player.setCollideWorldBounds(true);
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.cameras.main.startFollow(player, false);
