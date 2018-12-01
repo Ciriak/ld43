@@ -39,16 +39,41 @@ export default class Witchcraft extends Ennemie {
     let projectile = this.scene.physics.add.sprite(
       this.ennemieObject.x,
       this.ennemieObject.y,
-      "ennemieProjectile"
+      "fireball"
     );
+
+    var config = {
+      key: "fireballCast",
+      frames: this.scene.anims.generateFrameNumbers("fireball"),
+      frameRate: 6,
+      yoyo: true,
+      repeat: -1
+    };
+
+    let anim = this.scene.anims.create(config);
+
+    projectile.anims.play("fireballCast");
 
     this.projectiles.push(projectile);
     this.scene.physics.moveToObject(projectile, player, this.projectileSpeed);
     const ennemiRef = this;
-
+    //collision projectile => player
     this.scene.physics.add.collider(
       projectile,
       this.scene.player.playerObject,
+      function() {
+        ennemiRef.giveDamageToPlayer(ennemiRef.scene.player);
+        projectile.destroy();
+      },
+      function() {},
+      function() {}
+    );
+    // collision projectile / walls
+
+    //collision projectile => player
+    this.scene.physics.add.collider(
+      projectile,
+      this.scene.dungeonLoader.groundLayer,
       function() {
         ennemiRef.giveDamageToPlayer(ennemiRef.scene.player);
         projectile.destroy();
