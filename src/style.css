@@ -12,6 +12,20 @@
     color: #000;
     background-color: #fff; }
 
+#game-ui .items-list {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 10px; }
+  #game-ui .items-list .item {
+    filter: grayscale(100%);
+    opacity: 0.8; }
+    #game-ui .items-list .item.active {
+      filter: grayscale(0%);
+      opacity: 1; }
+
 #main-menu {
   font-family: "Courier New", Courier, monospace;
   position: fixed;
