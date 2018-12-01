@@ -12,7 +12,7 @@ export class main {
       pixelArt: true,
       zoom: scale,
       backgroundColor: "#000000",
-      scene: DungeonScene,
+      scene: [DungeonScene],
       physics: {
         default: "arcade",
         arcade: {
