@@ -2578,7 +2578,7 @@ declare namespace Phaser {
                  * @param gameObjectOrPoint [description]
                  * @param roundPx [description]
                  */
-                startFollow(gameObjectOrPoint: Phaser.GameObjects.GameObject | object, roundPx: boolean): Phaser.Cameras.Scene2D.Camera;
+                startFollow(gameObjectOrPoint: Phaser.GameObjects.GameObject | object, roundPx: boolean, x: any, y:any): Phaser.Cameras.Scene2D.Camera;
 
                 /**
                  * [description]
