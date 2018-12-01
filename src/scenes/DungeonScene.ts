@@ -26,6 +26,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.player = new Player(this, 100, 50);
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(4);
+    this.dungeonLoader.watchCollision(this.player);
 
     new UIManager(this);
     //uncomment to  enable a test ennemie
@@ -37,6 +38,7 @@ export default class DungeonScene extends Phaser.Scene {
   update(time: number, delta: number) {
     this.player.update(time, delta);
     this.updateEnnemies();
+    
   }
 
   /**

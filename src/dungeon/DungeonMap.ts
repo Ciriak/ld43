@@ -5,16 +5,17 @@ export default class DungeonLoader {
   groundLayer : any;
   stuffLayer: any;
   map : any;
-  private scene: Phaser.Scene;
+  protected scene: Phaser.Scene;
   constructor(scene: Phaser.Scene) {
+    this.scene = scene;
           // Generate a random world with a few extra options:
       //  - Rooms should only have odd dimensions so that they have a center tile.
       //  - Doors should be at least 2 tiles away from corners, to leave enough room for the tiles
       //    that we're going to put on either side of the door opening.
       this.dungeon = new Dungeon({
-        width: 80,
-        height: 80,
-        doorPadding: 2,
+        width: 60,
+        height: 60,
+        doorPadding: 1,
         rooms: {
           width: { min: 4, max: 9, onlyOdd: true },
           height: { min: 9, max: 15, onlyOdd: true }
@@ -29,11 +30,12 @@ export default class DungeonLoader {
     });
 
     const tileset = map.addTilesetImage("dungeon_tiles", null, 16, 16, 0, 0); // 1px margin, 2px spacing
-    this.groundLayer = map.createBlankDynamicLayer("Ground", tileset, 16, 16, 16, 16);
-    this.stuffLayer = map.createBlankDynamicLayer("Stuff", tileset, 16, 16, 16, 16);
+    this.groundLayer = map.createBlankDynamicLayer("Ground", tileset);
+    this.stuffLayer = map.createBlankDynamicLayer("Stuff", tileset);
     this.stuffLayer.fill(TILES.BLANK);
     this.groundLayer.fill(TILES.BLANK);
     this.renderRooms();
+    this.groundLayer.setCollisionByExclusion([126, 72, 73, 74, 95, 96,97]);
   }
 
   private renderRooms() {
@@ -72,6 +74,11 @@ export default class DungeonLoader {
         }
       }
     });
+  }
+
+  public watchCollision(player) {
+    // Watch the player and ground layer for collisions, for the duration of the scene:
+    //this.scene.physics.add.collider(player.playerObject, this.groundLayer);
   }
 }
   
