@@ -1,12 +1,14 @@
 import * as Dungeon from "@mikewesthad/dungeon";
 import TILES from "../helpers/tiledMap";
 import TilemapVisibility from "../helpers/tiledMapVisibility";
+import Ennemie from "../Ennemie";
 export default class DungeonLoader {
   dungeon: Dungeon;
   groundLayer: any;
   stuffLayer: any;
   map: any;
   tileset: any;
+  spawn: any;
   protected scene: Phaser.Scene;
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -41,8 +43,10 @@ export default class DungeonLoader {
     ); // 1px margin, 2px spacing
     this.groundLayer = this.map.createBlankDynamicLayer("Ground", tileset);
     this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", tileset);
+    this.spawn = this.map.createBlankDynamicLayer("Spawn", tileset);
     this.generateFogOfWar(tileset);
     this.renderRooms();
+    this.renderOtherRooms();
     this.groundLayer.setCollisionByExclusion([
       126,
       72,
@@ -137,6 +141,32 @@ export default class DungeonLoader {
         }
       }
     });
+  }
+
+  private renderOtherRooms() {
+    // Place stuff in the 90% "otherRooms"
+    this.getOtherRooms().forEach(room => {
+      var rand = Math.random();
+      if (rand <= 0.25) {
+        // 25% chance of chest
+       // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
+      } else if (rand <= 0.9) {
+        // 50% chance of a pot anywhere in the room... except don't block a door!
+        const x = Phaser.Math.Between(room.left + 1, room.right - 1);
+        const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
+       // this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
+        this.spawn.weightedRandomize(x, y, 1, 1, 173);
+
+      } else {
+        // 25% of either 2 or 4 towers, depending on the room size
+      }
+    });
+  }
+
+  public spawnEnnemy() {
+    this.spawn.forEachTile( (tile) => {
+      new Ennemie(this.scene,tile.x, tile.y)
+    }); 
   }
 
   public getMap() {
