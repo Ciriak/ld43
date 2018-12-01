@@ -1,4 +1,4 @@
-const velocity = 100;
+const velocity = 50;
 export default class PlayerInputs {
   update(
     time: number,
