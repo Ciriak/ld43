@@ -21,7 +21,6 @@ class MainScene extends Phaser.Scene {
     super({
       key: "MainScene"
     });
-    this.DungeonRandom = new DungeonMap();
   }
 
   preload() {
