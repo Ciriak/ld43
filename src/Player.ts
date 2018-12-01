@@ -1,16 +1,18 @@
 import PlayerInputs from "./PlayerInputs";
-
+import DungeonScene from "./scenes/DungeonScene";
 export default class Player {
-  private scene: Phaser.Scene;
-  private inputsManager = new PlayerInputs();
+  private scene: DungeonScene;
+  private inputsManager: PlayerInputs;
   public playerObject: any;
+  public isDead = false;
   /**
    *
    * @param scene Target scene
    * @param x x spawn position
    * @param y y spawn position
    */
-  constructor(scene: Phaser.Scene, x?: number, y?: number) {
+  constructor(scene: DungeonScene, x?: number, y?: number) {
+    this.inputsManager = new PlayerInputs();
     if (!x) {
       x = 0;
     }
@@ -19,10 +21,18 @@ export default class Player {
     }
     this.scene = scene;
     this.playerObject = scene.physics.add.sprite(x, y, "player");
-    // this.playerObject.setCollideWorldBounds(true);
+  }
+
+  kill() {
+    this.playerObject.destroy();
+    this.isDead = true;
+    this.scene.uiManager.startDeathScreen();
   }
 
   update(time: number, delta: number) {
+    if (this.isDead) {
+      return;
+    }
     this.inputsManager.update(time, delta, this.playerObject, this.scene);
   }
 }
