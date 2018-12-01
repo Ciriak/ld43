@@ -144,14 +144,13 @@ export default class DungeonLoader {
     this.getOtherRooms().forEach(room => {
       var rand = Math.random();
       if (rand <= 0.25) {
-        //const x = Phaser.Math.Between(room.left + 1, room.right - 1);
-        //const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
-       // this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
+        const x = Phaser.Math.Between(room.left + 1, room.right - 1);
+        const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
+        this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
         // 25% chance of chest
        // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
-      } else if (rand <= 0.9) {
+      } else if (rand <= 0.8) {
         // 50% chance of a pot anywhere in the room... except don't block a door!
-        console.log(room); 
         this.spawn.putTileAt(13 ,room.centerX, room.centerY);
          this.spawn2.push({x: room.centerX, y:room.centerY});
 
