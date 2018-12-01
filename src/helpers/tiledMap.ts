@@ -7,7 +7,7 @@
 // - Array or 2D array for putTilesAt
 
 export const TILE_MAPPING = {
-    BLANK: 126,
+    BLANK: 96,
     WALL: {
   
       TOP_LEFT: 48,
