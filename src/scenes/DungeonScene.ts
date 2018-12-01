@@ -5,6 +5,11 @@ import DungeonLoader from "../dungeon/DungeonMap";
 import Ennemie from "../Ennemie";
 import ResourcesLoader from "../ResourcesLoader";
 export default class DungeonScene extends Phaser.Scene {
+  constructor() {
+    super({
+      key: "DungeonScene"
+    });
+  }
   dungeon: Dungeon;
   dungeonLoader: DungeonLoader;
   groundLayer: any;
@@ -71,6 +76,7 @@ export default class DungeonScene extends Phaser.Scene {
    * Restart the scene
    */
   restart() {
-    this.scene.restart();
+    //fuck this shit
+    location.reload();
   }
 }
