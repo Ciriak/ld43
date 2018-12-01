@@ -1,7 +1,13 @@
-const velocity = 500;
+const velocity = 100;
 export default class PlayerInputs {
-  update(time: number, delta: number, player: any, scene: any) {
-    player.setVelocity(0);
+  update(
+    time: number,
+    delta: number,
+    player: Phaser.Physics.Arcade.Sprite,
+    scene: any
+  ) {
+    //console.log("Player coordinates : " + player.x + ":" + player.y);
+    player.setVelocity(0, 0);
     if (scene.cursors.left.isDown) {
       player.setVelocityX(-velocity);
     }
