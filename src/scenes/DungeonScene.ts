@@ -21,8 +21,12 @@ export default class DungeonScene extends Phaser.Scene {
   create() {
     this.dungeonLoader = new DungeonLoader(this);
     this.cursors = this.input.keyboard.createCursorKeys();
-    const xPlayer = this.dungeonLoader.getMap().tileToWorldX(this.dungeonLoader.getstartingRoom().centerX);
-    const yPlayer = this.dungeonLoader.getMap().tileToWorldY(this.dungeonLoader.getstartingRoom().centerY);
+    const xPlayer = this.dungeonLoader
+      .getMap()
+      .tileToWorldX(this.dungeonLoader.getstartingRoom().centerX);
+    const yPlayer = this.dungeonLoader
+      .getMap()
+      .tileToWorldY(this.dungeonLoader.getstartingRoom().centerY);
     this.player = new Player(this, xPlayer, yPlayer);
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(4);
@@ -30,7 +34,7 @@ export default class DungeonScene extends Phaser.Scene {
 
     new UIManager(this);
     //uncomment to  enable a test ennemie
-    //this.ennemies.push(new Ennemie(this));
+    this.ennemies.push(new Ennemie(this));
   }
 
   //camera bounds
