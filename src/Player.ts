@@ -19,7 +19,7 @@ export default class Player {
     }
     this.scene = scene;
     this.playerObject = scene.physics.add.sprite(x, y, "player");
-    this.playerObject.setCollideWorldBounds(true);
+    // this.playerObject.setCollideWorldBounds(true);
   }
 
   update(time: number, delta: number) {
