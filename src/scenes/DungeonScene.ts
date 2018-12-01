@@ -27,6 +27,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(4);
     this.ennemies.push(new Ennemie(this));
+    this.dungeonLoader.watchCollision(this.player);
   }
 
   //camera bounds
@@ -34,6 +35,7 @@ export default class DungeonScene extends Phaser.Scene {
   update(time: number, delta: number) {
     this.player.update(time, delta);
     this.updateEnnemies();
+    
   }
 
   /**

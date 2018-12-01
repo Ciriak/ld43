@@ -78,7 +78,7 @@ export default class DungeonLoader {
 
   public watchCollision(player) {
     // Watch the player and ground layer for collisions, for the duration of the scene:
-    this.scene.physics.add.collider(player.sprite, this.groundLayer);
+    //this.scene.physics.add.collider(player.sprite, this.groundLayer);
   }
 }
   
