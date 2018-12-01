@@ -14,7 +14,9 @@ export class main {
       backgroundColor: "#000000",
       scene: [DungeonScene],
       physics: {
-        default: "arcade"
+        arcade: {
+          gravity: { y: 0 }
+        }
       }
     };
 
