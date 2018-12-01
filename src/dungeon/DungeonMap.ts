@@ -36,7 +36,7 @@ export default class DungeonLoader {
     this.stuffLayer.fill(TILES.BLANK);
     this.groundLayer.fill(TILES.BLANK);
     this.renderRooms();
-    this.groundLayer.setCollisionByExclusion([126, 72, 73, 74, 95, 96,97]);
+    this.groundLayer.setCollisionByExclusion([126, 72, 73, 74, 95, 96,97, 394, ]);
     
   
   }
@@ -110,7 +110,7 @@ export default class DungeonLoader {
 
   public watchCollision(player) {
     // Watch the player and ground layer for collisions, for the duration of the scene:
-    //this.scene.physics.add.collider(player.playerObject, this.groundLayer);
+    this.scene.physics.add.collider(player.playerObject, this.groundLayer);
   }
 }
   
