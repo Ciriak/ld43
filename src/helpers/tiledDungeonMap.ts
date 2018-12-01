@@ -10,42 +10,42 @@ export const TILE_MAPPING = {
     BLANK: 7,
     WALL: {
   
-      TOP_LEFT: 30,
+      TOP_LEFT: 41,
   
-      TOP_RIGHT: 30,
+      TOP_RIGHT: 41,
   
-      BOTTOM_RIGHT: 30,
+      BOTTOM_RIGHT: 41,
   
-      BOTTOM_LEFT: 30,
+      BOTTOM_LEFT: 41,
   
       // Let's add some randomization to the walls while we are refactoring:
   
-      TOP: [{ index: 30, weight: 4 }, { index: [31, 32, 33], weight: 1 }],
+      TOP: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }],
   
-      LEFT: [{ index: 30, weight: 4 }, { index: [31, 32, 33], weight: 1 }],
+      LEFT: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }],
   
-      RIGHT: [{ index: 30, weight: 4 }, { index: [31, 32, 33], weight: 1 }],
+      RIGHT: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }],
   
-      BOTTOM: [{ index: 30, weight: 4 }, { index: [31, 32, 33], weight: 1 }]
+      BOTTOM: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }]
   
     },
   
-    FLOOR: [{ index: [10], weight: 9 }, { index: [12, 15, 16], weight: 1 }, { index: [17, 11], weight: 0.3 }],
+    FLOOR: [{ index: [13], weight: 9 }, { index: [14, 15, 21], weight: 1 }, { index: [20,19,18], weight: 0.3 }],
   
-    POT: [{ index: 13, weight: 1 }, { index: 32, weight: 1 }, { index: 51, weight: 1 }],
+    POT: [{ index: 32, weight: 1 }, { index: 33, weight: 1 }, { index: 34, weight: 1 }],
   
     DOOR: {
   
-      TOP: [22],
+      TOP: [28],
   
       LEFT: [
-        [21]
+        [27]
       ],
   
-      BOTTOM: [23],
+      BOTTOM: [29],
   
       RIGHT: [
-        [20]
+        [26]
       ]
   
     },

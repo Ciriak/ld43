@@ -48,9 +48,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.uiManager = new UIManager(this);
     //uncomment to  enable a test ennemie
     let ennemie = new Witchcraft(this, 0, 0);
-    this.ennemies.push(ennemie);
-
-    this.dungeonLoader.spawnEnnemy();
+    this.ennemies = this.dungeonLoader.spawnEnnemy();
   }
 
   //camera bounds
