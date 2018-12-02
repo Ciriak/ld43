@@ -22,7 +22,9 @@ export default class DungeonScene extends Phaser.Scene {
   uiManager: UIManager;
   ennemies: Ennemie[] = [];
   tilemapVisibility: any;
-  spellsCasted: any;
+  spellsCasted :any;
+  wallGroup :any;
+  ennemisGroup : any;
 
   preload() {
     new ResourcesLoader(this);
@@ -34,6 +36,8 @@ export default class DungeonScene extends Phaser.Scene {
     this.cursors = null;
     this.dungeonLoader = new DungeonLoader(this);
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.spellsCasted = this.physics.add.group();
+    this.ennemisGroup = this.physics.add.group();
 
     const xPlayer = this.dungeonLoader
       .getMap()
@@ -50,6 +54,8 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.uiManager = new UIManager(this);
     this.ennemies = this.dungeonLoader.spawnEnnemy();
+    this.physics.add.collider(this.spellsCasted, this.wallGroup, this.checkHitWall, null, this);
+
   }
 
   //camera bounds
@@ -62,28 +68,19 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player.currentRoom = currentPlayerRoom;
 
-    if (
-      Phaser.Input.Keyboard.JustDown(
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-      )
-    ) {
-      if (typeof this.spellsCasted !== "undefined") {
-        var spell = this.spellsCasted.get();
-      }
-
-      if (spell) {
-      } else {
-        let currentSpell = new Spell(2, 3, 300, this);
-        currentSpell.cast(
-          this.player.playerObject.x,
-          this.player.playerObject.y
-        );
-        this.spellsCasted = this.add.group({
-          classType: Spell,
-          maxSize: 30
-        });
-      }
+    if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
+    {
+        let newSpell = new Spell(2,3,2,this);
+        newSpell.cast(this.player.playerObject.x, this.player.playerObject.y);
     }
+      this.spellsCasted.getChildren().forEach(sprite => {
+        sprite.x += sprite.spellInfo.speed;
+    });
+  }
+
+  checkHitWall(sprite){
+    console.log(sprite.spellInfo.damage);
+    sprite.destroy();
   }
 
   /**
