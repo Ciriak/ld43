@@ -26,5 +26,6 @@ export default class ResourcesLoader {
       frameHeight: 64
     });
     scene.load.audio("fireball", "assets/sounds/fireball.ogg");
+    scene.load.audio("playerDead", "assets/sounds/ded.ogg");
   }
 }

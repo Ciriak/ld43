@@ -12,6 +12,7 @@ export default class Ennemie extends Entitie {
   public health: number = 3;
   public currentRoom;
   public isDead = false;
+  public sanityGiven: number;
   public lastPlayerPos = {
     x: 0,
     y: 0
@@ -41,9 +42,12 @@ export default class Ennemie extends Entitie {
   }
 
   update(time: number, delta: number) {
-    if(this.ennemieObject.active !== false) {
+    if (this.ennemieObject.active !== false) {
       this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
-      this.refreshAttack(this.scene.player.playerObject, time, delta);      
+      if (this.scene.player.isDead) {
+        return;
+      }
+      this.refreshAttack(this.scene.player.playerObject, time, delta);
     }
   }
 
@@ -81,7 +85,6 @@ export default class Ennemie extends Entitie {
   takeDamage(damage: number, value) {
     this.health -= damage;
     if (this.health <= 0) {
-      console.log('dead')
       this.kill();
     }
   }
@@ -91,6 +94,7 @@ export default class Ennemie extends Entitie {
    */
   kill() {
     this.ennemieObject.destroy();
+    this.scene.player.addSanity(this.sanityGiven);
     this.isDead = true;
   }
 
