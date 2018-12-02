@@ -26,10 +26,12 @@ export default class Ennemie extends Entitie {
       y = 0;
     }
     this.scene = scene;
-    this.ennemieObject = this.scene.add.sprite(x, y, "knight");
+    if(typeof this.ennemieObject !== 'undefined') {
+      //this.ennemieObject = this.scene.add.sprite(x, y, "knight");
+    }
 
     const ennemiRef = this;
-
+/*
     scene.physics.add.collider(
       this.ennemieObject,
       scene.player.playerObject,
@@ -39,6 +41,7 @@ export default class Ennemie extends Entitie {
       function() {},
       function() {}
     );
+    */
   }
 
   update(time: number, delta: number) {

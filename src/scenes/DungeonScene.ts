@@ -25,6 +25,9 @@ export default class DungeonScene extends Phaser.Scene {
   spellsCasted: any;
   wallGroup: any;
   ennemisGroup: any;
+  childGroup: any;
+  knightGroup: any;
+  witchGroup: any;
 
   preload() {
     new ResourcesLoader(this);
@@ -45,6 +48,9 @@ export default class DungeonScene extends Phaser.Scene {
     });
     this.spellsCasted = this.physics.add.group();
     this.ennemisGroup = this.physics.add.group();
+    this.childGroup = this.physics.add.group();
+    this.knightGroup = this.physics.add.group();
+    this.witchGroup = this.physics.add.group();
 
     const xPlayer = this.dungeonLoader
       .getMap()
@@ -62,7 +68,11 @@ export default class DungeonScene extends Phaser.Scene {
     this.uiManager = new UIManager(this);
 
     this.ennemies = this.dungeonLoader.spawnEnnemy();
-    this.ennemisGroup.playAnimation("down");
+    //this.ennemisGroup.playAnimation("idle");
+    this.childGroup.playAnimation("cdown");
+    this.knightGroup.playAnimation("kdown");
+    this.witchGroup.playAnimation("widle");
+
     this.physics.add.collider(
       this.spellsCasted,
       this.wallGroup,
@@ -106,14 +116,20 @@ export default class DungeonScene extends Phaser.Scene {
 
   createAnims() {
     this.anims.create({
-      key: "idle",
+      key: "widle",
       frames: this.anims.generateFrameNumbers("wizard"),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "cdown",
+      frames: this.anims.generateFrameNumbers("child"),
       frameRate: 3,
       repeat: -1
     });
 
     this.anims.create({
-      key: "right",
+      key: "kright",
       frames: this.anims.generateFrameNumbers("knight", { start: 11, end: 14 }),
       frameRate: 15,
       repeat: -1
@@ -133,7 +149,7 @@ export default class DungeonScene extends Phaser.Scene {
       repeat: -1
     });
     this.anims.create({
-      key: "down",
+      key: "kdown",
       frames: this.anims.generateFrameNumbers("knight", { start: 0, end: 2 }),
       frameRate: 5,
       yoyo: true,

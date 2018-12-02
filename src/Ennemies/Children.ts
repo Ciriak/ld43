@@ -7,6 +7,17 @@ export default class Children extends Ennemie {
   sanityGiven: number = 40;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
+    const ennemiRef = this;
+    this.ennemieObject = this.scene.add.sprite(x, y, "child");
+    scene.physics.add.collider(
+      this.ennemieObject,
+      scene.player.playerObject,
+      function() {
+        ennemiRef.giveDamageToPlayer(scene.player);
+      },
+      function() {},
+      function() {}
+    );
   }
 
   /**

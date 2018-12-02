@@ -7,6 +7,17 @@ export default class CloseCombat extends Ennemie {
   sanityGiven: number = 30;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
+    this.ennemieObject = this.scene.add.sprite(x, y, "knight");
+    const ennemiRef = this;
+    scene.physics.add.collider(
+      this.ennemieObject,
+      scene.player.playerObject,
+      function() {
+        ennemiRef.giveDamageToPlayer(scene.player);
+      },
+      function() {},
+      function() {}
+    );
   }
 
   /**

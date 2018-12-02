@@ -24,23 +24,24 @@ export default class PlayerInputs {
   update(time: number, delta: number, player: Player, scene: any) {
     player.playerObject.setVelocity(0, 0);
 
+    player.playerObject.anims.play("widle");
     if (scene.cursors.left.isDown) {
       player.playerObject.setVelocityX(-velocity);
 
-      player.playerObject.anims.play("idle");
+      
     }
     if (scene.cursors.right.isDown) {
       player.playerObject.setVelocityX(velocity);
 
-      player.playerObject.anims.play("idle");
+
     }
     if (scene.cursors.down.isDown) {
       player.playerObject.setVelocityY(velocity);
-      player.playerObject.anims.play("idle");
+
     }
     if (scene.cursors.up.isDown) {
       player.playerObject.setVelocityY(-velocity);
-      player.playerObject.anims.play("idle");
+
     }
   }
   castSpell() {

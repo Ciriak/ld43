@@ -11,6 +11,17 @@ export default class Witchcraft extends Ennemie {
   private shooting: boolean = false;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
+    const ennemiRef = this;
+    this.ennemieObject = this.scene.add.sprite(x, y, "knight");
+    scene.physics.add.collider(
+      this.ennemieObject,
+      scene.player.playerObject,
+      function() {
+        ennemiRef.giveDamageToPlayer(scene.player);
+      },
+      function() {},
+      function() {}
+    );
   }
 
   /**

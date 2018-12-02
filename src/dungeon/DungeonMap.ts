@@ -257,21 +257,27 @@ private generateSpawn2(tile) {
         switch (pickedEnnemieClassName) {
           case "Witchcraft":
             badBoy = new Witchcraft(this.scene, spawn.x *64 , spawn.y *64);
+            badBoy.currentRoom = this.getEnnemieRoom(badBoy);
+            this.scene.witchGroup.add(badBoy.ennemieObject);
             break;
           case "CloseCombat":
             badBoy = new CloseCombat(this.scene, spawn.x *64, spawn.y *64);
+            badBoy.currentRoom = this.getEnnemieRoom(badBoy);
+            this.scene.knightGroup.add(badBoy.ennemieObject);
             break;
           case "Children":
             badBoy = new Children(this.scene, spawn.x*64 , spawn.y *64);
+            badBoy.currentRoom = this.getEnnemieRoom(badBoy);
+            this.scene.childGroup.add(badBoy.ennemieObject);
             break;
 
           default:
             break;
         }
-        badBoy.currentRoom = this.getEnnemieRoom(badBoy);
         mapRef.watchCollisionEnnemy(badBoy);
         tabEnnemy.push(badBoy);
-        this.scene.ennemisGroup.add(badBoy.ennemieObject);
+        //this.scene.ennemisGroup.add(badBoy.ennemieObject);
+        console.log(pickedEnnemieClassName);
       }
     });
     return tabEnnemy;

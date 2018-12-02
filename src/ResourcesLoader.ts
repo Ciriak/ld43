@@ -25,6 +25,10 @@ export default class ResourcesLoader {
       frameWidth: 64,
       frameHeight: 64
     });
+    scene.load.spritesheet("child", "assets/sprites/child.png", {
+      frameWidth: 64,
+      frameHeight: 64
+    });
     scene.load.audio("fireball", "assets/sounds/fireball.ogg");
     scene.load.audio("playerDead", "assets/sounds/ded.ogg");
   }
