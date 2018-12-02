@@ -24,6 +24,7 @@ export default class DungeonScene extends Phaser.Scene {
   tilemapVisibility: any;
   spellsCasted :any;
   wallGroup :any;
+  ennemisGroup : any;
 
   preload() {
     new ResourcesLoader(this);
@@ -36,6 +37,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.dungeonLoader = new DungeonLoader(this);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.spellsCasted = this.physics.add.group();
+    this.ennemisGroup = this.physics.add.group();
 
     const xPlayer = this.dungeonLoader
       .getMap()
@@ -68,22 +70,16 @@ export default class DungeonScene extends Phaser.Scene {
 
     if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
     {
-      var spell = this.spellsCasted.getChildren();
-        
-        if (spell)
-        {
-          let newSpell = new Spell(2,3,300,this);
-          newSpell.cast(this.player.playerObject.x, this.player.playerObject.y);
-        } else {
-          
-        } 
+        let newSpell = new Spell(2,3,2,this);
+        newSpell.cast(this.player.playerObject.x, this.player.playerObject.y);
     }
-    this.spellsCasted.getChildren().forEach(sprite => {
-        sprite.x += 5;
+      this.spellsCasted.getChildren().forEach(sprite => {
+        sprite.x += sprite.spellInfo.speed;
     });
   }
 
   checkHitWall(sprite){
+    console.log(sprite.spellInfo.damage);
     sprite.destroy();
   }
 

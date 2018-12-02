@@ -8,7 +8,7 @@ export default class Ennemie {
   public rof: number = 0.1;
   public isFollower: boolean = false;
   public canShoot: boolean = false;
-  public health: number = 1;
+  public health: number = 3;
   public currentRoom;
   public isDead = false;
   public lastPlayerPos = {
@@ -69,10 +69,10 @@ export default class Ennemie {
    * When ennemie take a damage, kill himselft if he don't have hp left
    * @param damage
    */
-  takeDamage(damage: number) {
+  takeDamage(damage: number, value) { 
     this.health -= damage;
     if (this.health <= 0) {
-      this.kill;
+      this.kill();
     }
   }
 
