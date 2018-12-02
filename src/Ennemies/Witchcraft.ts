@@ -92,5 +92,6 @@ export default class Witchcraft extends Ennemie {
     this.ennemieObject.setVelocityX(randomVelocity);
     randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
     this.ennemieObject.setVelocityY(randomVelocity);
+    
   }
 }

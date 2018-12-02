@@ -17,17 +17,24 @@ export default class PlayerInputs {
     if (scene.cursors.left.isDown) {
       player.playerObject.setVelocityX(-velocity);
       player.direction = "left";
+      player.playerObject.anims.play('idle');
     }
     if (scene.cursors.right.isDown) {
       player.playerObject.setVelocityX(velocity);
       player.direction = "right";
+      player.playerObject.anims.play('idle');
+
     }
     if (scene.cursors.down.isDown) {
       player.playerObject.setVelocityY(velocity);
+      player.playerObject.anims.play('idle');
+
       player.direction = "down";
     }
     if (scene.cursors.up.isDown) {
       player.playerObject.setVelocityY(-velocity);
+      player.playerObject.anims.play('idle');
+
       player.direction = "up";
     }
   }

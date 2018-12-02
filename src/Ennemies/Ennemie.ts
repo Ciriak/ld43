@@ -26,7 +26,7 @@ export default class Ennemie extends Entitie {
       y = 0;
     }
     this.scene = scene;
-    this.ennemieObject = scene.physics.add.sprite(x, y, this.spriteName);
+    this.ennemieObject = this.scene.add.sprite(x, y, "knight");
 
     const ennemiRef = this;
 

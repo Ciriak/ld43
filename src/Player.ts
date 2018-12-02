@@ -25,7 +25,7 @@ export default class Player extends Entitie {
       y = 0;
     }
     this.scene = scene;
-    this.playerObject = scene.physics.add.sprite(x, y, "player");
+    this.playerObject = this.scene.physics.add.sprite(x, y, "wizard");
     const playerRef = this;
     this.sanityCooldown = setInterval(function() {
       if (playerRef.sanity > 0) {

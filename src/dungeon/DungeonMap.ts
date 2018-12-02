@@ -198,19 +198,19 @@ export default class DungeonLoader {
         ];
       //Check if the ennemy will spawn on the player and prevent it
       if (
-        mapRef.scene.player.playerObject.x !== spawn.x * 64 &&
-        mapRef.scene.player.playerObject.y !== spawn.y * 64
+        this.scene.player.playerObject.x !== spawn.x * 64 &&
+        this.scene.player.playerObject.y !== spawn.y * 64
       ) {
         let badBoy: Ennemie;
         switch (pickedEnnemieClassName) {
           case "Witchcraft":
-            badBoy = new Witchcraft(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            badBoy = new Witchcraft(this.scene, spawn.x * 64, spawn.y * 64);
             break;
           case "CloseCombat":
-            badBoy = new CloseCombat(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            badBoy = new CloseCombat(this.scene, spawn.x * 64, spawn.y * 64);
             break;
           case "Children":
-            badBoy = new Children(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            badBoy = new Children(this.scene, spawn.x * 64, spawn.y * 64);
             break;
 
           default:
