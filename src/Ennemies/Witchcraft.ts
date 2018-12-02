@@ -2,6 +2,7 @@ import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
 import Phaser from "phaser";
 export default class Witchcraft extends Ennemie {
+  spriteName = "witchcraft";
   private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
   projectileSpeed: number = 100;
   shootDelay: number = 3000;

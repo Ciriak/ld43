@@ -4,6 +4,7 @@ import DungeonScene from "../scenes/DungeonScene";
 import TilemapVisibility from "../helpers/tiledMapVisibility";
 import CloseCombat from "../Ennemies/CloseCombat";
 import Witchcraft from "../Ennemies/Witchcraft";
+import Children from "../Ennemies/Children";
 import Ennemie from "../Ennemies/Ennemie";
 import Player from "../Player";
 export default class DungeonLoader {
@@ -176,7 +177,7 @@ export default class DungeonLoader {
     let tabEnnemy = [];
     let mapRef = this;
     this.spawn2.forEach(spawn => {
-      const possibleEnnemiesList = ["Witchcraft", "CloseCombat"];
+      const possibleEnnemiesList = ["Witchcraft", "CloseCombat", "Children"];
       const pickedEnnemieClassName =
         possibleEnnemiesList[
           Math.floor(Math.random() * possibleEnnemiesList.length)
@@ -193,6 +194,9 @@ export default class DungeonLoader {
             break;
           case "CloseCombat":
             badBoy = new CloseCombat(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            break;
+          case "Children":
+            badBoy = new Children(mapRef.scene, spawn.x * 64, spawn.y * 64);
             break;
 
           default:
