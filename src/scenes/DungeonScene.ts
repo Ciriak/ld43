@@ -4,7 +4,7 @@ import UIManager from "../UIManager";
 import DungeonLoader from "../dungeon/DungeonMap";
 import Ennemie from "../Ennemies/Ennemie";
 import ResourcesLoader from "../ResourcesLoader";
-import Witchcraft from "../Ennemies/Witchcraft";
+
 import Spell from "../spells/Spell";
 export default class DungeonScene extends Phaser.Scene {
   constructor() {
@@ -73,29 +73,35 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player.currentRoom = currentPlayerRoom;
 
-    if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
-    {
-        let newSpell = new Spell(2,3,2,this);
-        newSpell.cast(this.player.playerObject.x, this.player.playerObject.y, this.player.direction);
+    if (
+      Phaser.Input.Keyboard.JustDown(
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+      )
+    ) {
+      let newSpell = new Spell(2, 3, 2, this);
+      newSpell.cast(
+        this.player.playerObject.x,
+        this.player.playerObject.y,
+        this.player.direction
+      );
     }
-      this.spellsCasted.getChildren().forEach(sprite => {
-        switch (sprite.spellInfo.direction) {
-          case 'left':
-            sprite.x -= sprite.spellInfo.speed;
-              break;
-          case 'right':
-            sprite.x += sprite.spellInfo.speed;
-              break;
-          case 'up':
-            sprite.y -= sprite.spellInfo.speed;
-              break;
-          case 'down':
-            sprite.y += sprite.spellInfo.speed;
-              break;
-          default:
-              break;
+    this.spellsCasted.getChildren().forEach(sprite => {
+      switch (sprite.spellInfo.direction) {
+        case "left":
+          sprite.x -= sprite.spellInfo.speed;
+          break;
+        case "right":
+          sprite.x += sprite.spellInfo.speed;
+          break;
+        case "up":
+          sprite.y -= sprite.spellInfo.speed;
+          break;
+        case "down":
+          sprite.y += sprite.spellInfo.speed;
+          break;
+        default:
+          break;
       }
-        
     });
   }
 
@@ -112,7 +118,7 @@ export default class DungeonScene extends Phaser.Scene {
     for (let i = 0; i < this.ennemies.length; i++) {
       const ennemie = this.ennemies[i];
       ennemie.update(time, delta);
-      if(ennemie.isDead){
+      if (ennemie.isDead) {
         this.ennemies.splice(i, 1);
       }
     }

@@ -28,6 +28,22 @@ export default class UIManager {
       sceneRef.restart();
     });
   }
+
+  updateSanity(value: number) {
+    let sanityPercent;
+    if (!value) {
+      sanityPercent = 0;
+    } else {
+      sanityPercent = (20 / value) * 100;
+    }
+
+    $(".sanity-bar .sanity-progress").css("width", sanityPercent + "%");
+    if (sanityPercent > 85) {
+      $(".sanity-container").addClass("critical");
+    } else {
+      $(".sanity-container").removeClass("critical");
+    }
+  }
   generateItemsCards() {}
   /**
    * UI event when the player die

@@ -18,5 +18,6 @@ export default class ResourcesLoader {
       endFrame: 3
     });
     scene.load.audio("fireball", "assets/sounds/fireball.ogg");
+    scene.load.audio("playerDead", "assets/sounds/ded.ogg");
   }
 }

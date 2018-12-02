@@ -4,6 +4,7 @@ import Phaser from "phaser";
 
 export default class Children extends Ennemie {
   spriteName = "children";
+  sanityGiven: number = 5;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
   }
