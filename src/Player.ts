@@ -1,6 +1,7 @@
 import PlayerInputs from "./PlayerInputs";
+import Entitie from "./Entitie";
 import DungeonScene from "./scenes/DungeonScene";
-export default class Player {
+export default class Player extends Entitie {
   private scene: DungeonScene;
   private inputsManager: PlayerInputs;
   public playerObject: any;
@@ -13,6 +14,7 @@ export default class Player {
    * @param y y spawn position
    */
   constructor(scene: DungeonScene, x?: number, y?: number) {
+    super();
     this.inputsManager = new PlayerInputs();
     if (!x) {
       x = 0;
@@ -34,7 +36,7 @@ export default class Player {
     if (this.isDead) {
       return;
     }
-    this.inputsManager.update(time, delta, this.playerObject, this.scene);
+    this.inputsManager.update(time, delta, this, this.scene);
   }
 
   castSpell() {}
