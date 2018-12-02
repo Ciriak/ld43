@@ -48,6 +48,8 @@ export default class Witchcraft extends Ennemie {
       "fireball"
     );
 
+    projectile.setScale(0.5, 0.5);
+
     let sound = this.scene.sound.add("fireball");
 
     sound.play();
@@ -92,6 +94,5 @@ export default class Witchcraft extends Ennemie {
     this.ennemieObject.setVelocityX(randomVelocity);
     randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
     this.ennemieObject.setVelocityY(randomVelocity);
-    
   }
 }

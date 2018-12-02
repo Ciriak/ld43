@@ -10,6 +10,9 @@ export default class Spell {
   }
 
   cast(x: number, y: number, direction: string) {
+    if (!direction) {
+      return;
+    }
     var config = {
       key: "SpellsCasted",
       frames: this.scene.anims.generateFrameNumbers("elecBall"),
@@ -35,8 +38,10 @@ export default class Spell {
         break;
     }
     this.spellInfo.direction = direction;
+
     this.sprite.spellInfo = this.spellInfo;
 
+    this.sprite.setScale(0.5, 0.5);
     this.scene.spellsCasted.add(this.sprite);
     this.scene.physics.add.collider(this.sprite, this.scene.groundLayer);
     this.scene.physics.moveTo(
