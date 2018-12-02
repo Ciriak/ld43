@@ -5,7 +5,7 @@ export default class Witchcraft extends Ennemie {
   spriteName = "witchcraft";
   private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
   projectileSpeed: number = 100;
-  shootDelay: number = 3000;
+  shootDelay: number = 1500;
   shootRepeatEvent: any = null;
   sanityGiven: number = 20;
   private shooting: boolean = false;

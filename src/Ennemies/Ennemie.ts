@@ -26,12 +26,12 @@ export default class Ennemie extends Entitie {
       y = 0;
     }
     this.scene = scene;
-    if(typeof this.ennemieObject !== 'undefined') {
+    if (typeof this.ennemieObject !== "undefined") {
       //this.ennemieObject = this.scene.add.sprite(x, y, "knight");
     }
 
     const ennemiRef = this;
-/*
+    /*
     scene.physics.add.collider(
       this.ennemieObject,
       scene.player.playerObject,
@@ -50,26 +50,23 @@ export default class Ennemie extends Entitie {
       if (this.scene.player.isDead) {
         return;
       }
-      this.refreshAttack(this.scene.player.playerObject, time, delta);
+
+      this.refreshAttack(this.scene.player, time, delta);
     }
   }
 
   giveDamageToPlayer(player: Player) {
     player.kill();
   }
-  refreshAttack(
-    player: Phaser.Physics.Arcade.Sprite,
-    time: number,
-    delta: number
-  ) {
+  refreshAttack(player: Player, time: number, delta: number) {
     if (this.isInSameRoomThan(player) && this.ennemieObject.active !== false) {
-      this.applyPattern(player, time, delta);
+      this.applyPattern(player.playerObject, time, delta);
     }
   }
 
   private isInSameRoomThan(player: any) {
     let targetRoom = player.currentRoom;
-    if(typeof targetRoom === 'undefined'){
+    if (typeof targetRoom === "undefined") {
       return false;
     }
     if (player instanceof Ennemie === false) {
