@@ -54,10 +54,9 @@ export default class DungeonScene extends Phaser.Scene {
     this.dungeonLoader.watchCollision(this.player);
 
     this.uiManager = new UIManager(this);
-    
-    
+
     this.ennemies = this.dungeonLoader.spawnEnnemy();
-    this.ennemisGroup.playAnimation('down');
+    this.ennemisGroup.playAnimation("down");
     this.physics.add.collider(
       this.spellsCasted,
       this.wallGroup,
@@ -76,37 +75,6 @@ export default class DungeonScene extends Phaser.Scene {
     this.tilemapVisibility.setActiveRoom(currentPlayerRoom);
 
     this.player.currentRoom = currentPlayerRoom;
-
-    if (
-      Phaser.Input.Keyboard.JustDown(
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-      )
-    ) {
-      let newSpell = new Spell(2, 3, 2, this);debugger;
-      newSpell.cast(
-        this.player.playerObject.x,
-        this.player.playerObject.y,
-        this.player.direction
-      );
-    }
-    this.spellsCasted.getChildren().forEach(sprite => {
-      switch (sprite.spellInfo.direction) {
-        case "left":
-          sprite.x -= sprite.spellInfo.speed;
-          break;
-        case "right":
-          sprite.x += sprite.spellInfo.speed;
-          break;
-        case "up":
-          sprite.y -= sprite.spellInfo.speed;
-          break;
-        case "down":
-          sprite.y += sprite.spellInfo.speed;
-          break;
-        default:
-          break;
-      }
-    });
   }
 
   checkHitWall(sprite) {
@@ -132,39 +100,39 @@ export default class DungeonScene extends Phaser.Scene {
 
   createAnims() {
     this.anims.create({
-      key: 'idle',
-      frames: this.anims.generateFrameNumbers('wizard'),
+      key: "idle",
+      frames: this.anims.generateFrameNumbers("wizard"),
       frameRate: 3,
       repeat: -1
-  });
-  
-  this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers('knight', {start: 11, end: 14}),
+    });
+
+    this.anims.create({
+      key: "right",
+      frames: this.anims.generateFrameNumbers("knight", { start: 11, end: 14 }),
       frameRate: 15,
       repeat: -1
-  });
-  this.anims.create({
-    key: 'left',
-    frames: this.anims.generateFrameNumbers('knight'),
-    frameRate: 100,
-    yoyo: true,
-    repeat: -1
-  });
-  this.anims.create({
-    key: 'up',
-    frames: this.anims.generateFrameNumbers('knight'),
-    frameRate: 100,
-    yoyo: true,
-    repeat: -1
-  });
-  this.anims.create({
-    key: 'down',
-    frames: this.anims.generateFrameNumbers('knight', {start: 0, end:2}),
-    frameRate: 5,
-    yoyo: true,
-    repeat: -1
-  });
+    });
+    this.anims.create({
+      key: "left",
+      frames: this.anims.generateFrameNumbers("knight"),
+      frameRate: 100,
+      yoyo: true,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "up",
+      frames: this.anims.generateFrameNumbers("knight"),
+      frameRate: 100,
+      yoyo: true,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "down",
+      frames: this.anims.generateFrameNumbers("knight", { start: 0, end: 2 }),
+      frameRate: 5,
+      yoyo: true,
+      repeat: -1
+    });
   }
 
   /**
