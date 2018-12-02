@@ -17,7 +17,7 @@ export default class Player extends Entitie {
    */
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super();
-    this.inputsManager = new PlayerInputs();
+    this.inputsManager = new PlayerInputs(scene, this);
     if (!x) {
       x = 0;
     }

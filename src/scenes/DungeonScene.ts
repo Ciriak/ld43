@@ -75,19 +75,6 @@ export default class DungeonScene extends Phaser.Scene {
     this.tilemapVisibility.setActiveRoom(currentPlayerRoom);
 
     this.player.currentRoom = currentPlayerRoom;
-
-    if (
-      Phaser.Input.Keyboard.JustDown(
-        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-      )
-    ) {
-      let newSpell = new Spell(2, 3, 2, this);
-      newSpell.cast(
-        this.player.playerObject.x,
-        this.player.playerObject.y,
-        this.player.direction
-      );
-    }
   }
 
   checkHitWall(sprite) {
