@@ -42,11 +42,13 @@ export default class Ennemie extends Entitie {
   }
 
   update(time: number, delta: number) {
+    if(this.ennemieObject.active !== false) {
+      this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
     if (this.scene.player.isDead) {
       return;
     }
-    this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
     this.refreshAttack(this.scene.player.playerObject, time, delta);
+    }
   }
 
   giveDamageToPlayer(player: Player) {
@@ -57,7 +59,7 @@ export default class Ennemie extends Entitie {
     time: number,
     delta: number
   ) {
-    if (this.isInSameRoomThan(player)) {
+    if (this.isInSameRoomThan(player) && this.ennemieObject.active !== false) {
       this.applyPattern(player, time, delta);
     }
   }
