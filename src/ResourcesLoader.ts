@@ -21,6 +21,10 @@ export default class ResourcesLoader {
       frameWidth: 64,
       frameHeight: 64
     });
+    scene.load.spritesheet("wizard", "assets/sprites/wizard.png", {
+      frameWidth: 64,
+      frameHeight: 64
+    });
     scene.load.audio("fireball", "assets/sounds/fireball.ogg");
   }
 }

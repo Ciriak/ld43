@@ -35,6 +35,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.player = null;
     this.cursors = null;
     this.dungeonLoader = new DungeonLoader(this);
+    this.createAnims();
     this.cursors = this.input.keyboard.createCursorKeys();
     this.spellsCasted = this.physics.add.group();
     this.ennemisGroup = this.physics.add.group();
@@ -53,9 +54,10 @@ export default class DungeonScene extends Phaser.Scene {
     this.dungeonLoader.watchCollision(this.player);
 
     this.uiManager = new UIManager(this);
-    this.createAnims();
+    
     
     this.ennemies = this.dungeonLoader.spawnEnnemy();
+    this.ennemisGroup.playAnimation('down');
     this.physics.add.collider(
       this.spellsCasted,
       this.wallGroup,
@@ -75,16 +77,11 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player.currentRoom = currentPlayerRoom;
 
-    //this.ennemisGroup.playAnimation('right');
+    //
     if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
     {
         let newSpell = new Spell(2,3,2,this);
         newSpell.cast(this.player.playerObject.x, this.player.playerObject.y, this.player.direction);
-    }
-    if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A))){
-      let test = this.add.sprite(this.player.playerObject.x +64, this.player.playerObject.y, "knight");
-      test.anims.load('right');
-      test.anims.play('right');
     }
       this.spellsCasted.getChildren().forEach(sprite => {
         switch (sprite.spellInfo.direction) {
@@ -130,6 +127,13 @@ export default class DungeonScene extends Phaser.Scene {
 
   createAnims() {
     this.anims.create({
+      key: 'idle',
+      frames: this.anims.generateFrameNumbers('wizard'),
+      frameRate: 3,
+      repeat: -1
+  });
+  
+  this.anims.create({
       key: 'right',
       frames: this.anims.generateFrameNumbers('knight', {start: 11, end: 14}),
       frameRate: 15,

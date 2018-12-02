@@ -26,7 +26,6 @@ export default class Ennemie extends Entitie {
     }
     this.scene = scene;
     this.ennemieObject = this.scene.add.sprite(x, y, "knight");
-    this.ennemieObject.anims.play('down');
 
     const ennemiRef = this;
 
@@ -44,10 +43,7 @@ export default class Ennemie extends Entitie {
   update(time: number, delta: number) {
     if(this.ennemieObject.active !== false) {
       this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
-      this.refreshAttack(this.scene.player.playerObject, time, delta);
-      //console.log(this.direction);
-      //this.ennemieObject.anims.load('right');
-      
+      this.refreshAttack(this.scene.player.playerObject, time, delta);      
     }
   }
 
