@@ -7,6 +7,7 @@ export default class ResourcesLoader {
     );
     scene.load.image("player", "/assets/sprites/player.png");
     scene.load.image("ennemie", "/assets/sprites/ennemie.png");
+    scene.load.spritesheet("elecBall", "/assets/sprites/skills/elec_ball.png",  { frameWidth: 64, frameHeight: 64 })
     scene.load.spritesheet("fireball", "assets/sprites/fireball.png", {
       frameWidth: 64,
       frameHeight: 64,
