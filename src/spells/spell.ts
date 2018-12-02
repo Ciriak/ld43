@@ -10,7 +10,7 @@ export default class Spell {
 
     }
 
-    cast(x: number, y: number) {
+    cast(x: number, y: number, direction:string) {
         var config = {
             key: 'SpellsCasted',
             frames: this.scene.anims.generateFrameNumbers('elecBall'),
@@ -19,7 +19,23 @@ export default class Spell {
             repeat: -1
         };
         let anim = this.scene.anims.create(config);
-        this.sprite = this.scene.add.sprite(x+64,y,"elecBall");
+        switch (direction) {
+            case 'left':
+                this.sprite = this.scene.add.sprite(x -64,y,"elecBall");
+                break;
+            case 'right':
+                this.sprite = this.scene.add.sprite(x +64,y,"elecBall");
+                break;
+            case 'up':
+                this.sprite = this.scene.add.sprite(x,y-64,"elecBall");
+                break;
+            case 'down':
+                this.sprite = this.scene.add.sprite(x,y+64,"elecBall");
+                break;
+            default:
+                break;
+        }
+        this.spellInfo.direction = direction;
         this.sprite.spellInfo = this.spellInfo;
         this.scene.spellsCasted.add(this.sprite);
         this.scene.physics.add.collider(this.sprite, this.scene.groundLayer);
