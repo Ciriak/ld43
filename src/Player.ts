@@ -5,6 +5,7 @@ export default class Player {
   private inputsManager: PlayerInputs;
   public playerObject: any;
   public isDead = false;
+  public currentRoom;
   /**
    *
    * @param scene Target scene
@@ -36,7 +37,5 @@ export default class Player {
     this.inputsManager.update(time, delta, this.playerObject, this.scene);
   }
 
-  castSpell() {
-    
-  }
+  castSpell() {}
 }

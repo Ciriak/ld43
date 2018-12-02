@@ -1,7 +1,12 @@
 import * as Dungeon from "@mikewesthad/dungeon";
 import TILES from "../helpers/tiledDungeonMap";
+import DungeonScene from "../scenes/DungeonScene";
 import TilemapVisibility from "../helpers/tiledMapVisibility";
-import Ennemie from "../Ennemie";
+import CloseCombat from "../Ennemies/CloseCombat";
+import Witchcraft from "../Ennemies/Witchcraft";
+import Children from "../Ennemies/Children";
+import Ennemie from "../Ennemies/Ennemie";
+import Player from "../Player";
 export default class DungeonLoader {
   dungeon: Dungeon;
   groundLayer: any;
@@ -10,8 +15,8 @@ export default class DungeonLoader {
   tileset: any;
   spawn: any;
   spawn2: any;
-  protected scene: Phaser.Scene;
-  constructor(scene: Phaser.Scene) {
+  protected scene: DungeonScene;
+  constructor(scene: DungeonScene) {
     this.scene = scene;
     this.spawn2 = [];
     // Generate a random world with a few extra options:
@@ -49,8 +54,18 @@ export default class DungeonLoader {
     this.generateFogOfWar(tileset);
     this.renderRooms();
     this.renderOtherRooms();
-    this.scene.groundLayer.setCollisionByExclusion([
-      13,14,15,21,20,19,18,28,27,29,26
+    this.groundLayer.setCollisionByExclusion([
+      13,
+      14,
+      15,
+      21,
+      20,
+      19,
+      18,
+      28,
+      27,
+      29,
+      26
     ]);
   }
 
@@ -159,12 +174,11 @@ export default class DungeonLoader {
         const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
         this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
         // 25% chance of chest
-       // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
+        // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.8) {
         // 50% chance of a pot anywhere in the room... except don't block a door!
-        this.spawn.putTileAt(16 ,room.centerX, room.centerY);
-         this.spawn2.push({x: room.centerX, y:room.centerY});
-
+        this.spawn.putTileAt(16, room.centerX, room.centerY);
+        this.spawn2.push({ x: room.centerX, y: room.centerY });
       } else {
         // 25% of either 2 or 4 towers, depending on the room size
       }
@@ -173,16 +187,38 @@ export default class DungeonLoader {
 
   public spawnEnnemy() {
     let tabEnnemy = [];
-    this.spawn2.forEach( (spawn) => {
+    let mapRef = this;
+    this.spawn2.forEach(spawn => {
+      const possibleEnnemiesList = ["Witchcraft", "CloseCombat", "Children"];
+      const pickedEnnemieClassName =
+        possibleEnnemiesList[
+          Math.floor(Math.random() * possibleEnnemiesList.length)
+        ];
       //Check if the ennemy will spawn on the player and prevent it
-      if(this.scene.player.playerObject.x !== spawn.x*64 && this.scene.player.playerObject.y !== spawn.y*64) {
-        let badBoy = new Ennemie(this.scene, spawn.x*64, spawn.y*64);
-        this.watchCollisionEnnemy(badBoy);
+      if (
+        mapRef.scene.player.playerObject.x !== spawn.x * 64 &&
+        mapRef.scene.player.playerObject.y !== spawn.y * 64
+      ) {
+        let badBoy: Ennemie;
+        switch (pickedEnnemieClassName) {
+          case "Witchcraft":
+            badBoy = new Witchcraft(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            break;
+          case "CloseCombat":
+            badBoy = new CloseCombat(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            break;
+          case "Children":
+            badBoy = new Children(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            break;
+
+          default:
+            break;
+        }
+        badBoy.currentRoom = this.getEnnemieRoom(badBoy);
+        mapRef.watchCollisionEnnemy(badBoy);
         tabEnnemy.push(badBoy);
-        console.log('tsest')
       }
     });
-    console.log(tabEnnemy)
     return tabEnnemy;
   }
 
@@ -191,7 +227,11 @@ export default class DungeonLoader {
   }
 
   private generateFogOfWar(tileset) {
-    const shadowLayer = this.getMap().createBlankDynamicLayer("Shadow", tileset);
+    console.log("ttt");
+    const shadowLayer = this.getMap().createBlankDynamicLayer(
+      "Shadow",
+      tileset
+    );
     shadowLayer.fill(TILES.BLANK);
     this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
   }
@@ -219,13 +259,26 @@ export default class DungeonLoader {
     );
   }
 
-  public getPlayerRoom(player) {
+  public getPlayerRoom(player: Player) {
+    let target = player.playerObject;
+    if (player instanceof Player === false) {
+      target = player;
+    }
     // Find the player's room using another helper method from the dungeon that converts from
     // dungeon XY (in grid units) to the corresponding room object
-    const playerTileX = this.scene.groundLayer.worldToTileX(player.playerObject.x);
-    const playerTileY = this.scene.groundLayer.worldToTileY(player.playerObject.y);
+    const playerTileX = this.groundLayer.worldToTileX(target.x);
+    const playerTileY = this.groundLayer.worldToTileY(target.y);
     const playerRoom = this.dungeon.getRoomAt(playerTileX, playerTileY);
     return playerRoom;
+  }
+
+  public getEnnemieRoom(ennemie: Ennemie) {
+    // Find the ennemie's room using another helper method from the dungeon that converts from
+    // dungeon XY (in grid units) to the corresponding room object
+    const ennemieTileX = this.groundLayer.worldToTileX(ennemie.ennemieObject.x);
+    const ennemieTileY = this.groundLayer.worldToTileY(ennemie.ennemieObject.y);
+    const ennemieRoom = this.dungeon.getRoomAt(ennemieTileX, ennemieTileY);
+    return ennemieRoom;
   }
 
   public watchCollision(player) {

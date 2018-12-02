@@ -2,14 +2,16 @@ import DungeonScene from "../scenes/DungeonScene";
 import Player from "../Player";
 import Phaser from "phaser";
 export default class Ennemie {
-  public scene: Phaser.Scene;
+  spriteName = "ennemie";
+  public scene: DungeonScene;
   public ennemieObject: any;
   public rof: number = 0.1;
   public isFollower: boolean = false;
   public canShoot: boolean = false;
   public health: number = 1;
+  public currentRoom;
   public isDead = false;
-  private lastPlayerPos = {
+  public lastPlayerPos = {
     x: 0,
     y: 0
   };
@@ -21,7 +23,7 @@ export default class Ennemie {
       y = 0;
     }
     this.scene = scene;
-    this.ennemieObject = scene.physics.add.sprite(x, y, "ennemie");
+    this.ennemieObject = scene.physics.add.sprite(x, y, this.spriteName);
 
     const ennemiRef = this;
 
@@ -44,7 +46,23 @@ export default class Ennemie {
     time: number,
     delta: number
   ) {
-    this.applyPattern(player, time, delta);
+    if (this.isInSameRoomThan(player)) {
+      this.applyPattern(player, time, delta);
+    }
+  }
+
+  private isInSameRoomThan(player: any) {
+    let targetRoom = player.currentRoom;
+    if (player instanceof Ennemie === false) {
+      targetRoom = this.scene.dungeonLoader.getPlayerRoom(player);
+    }
+    if (
+      this.currentRoom.x === targetRoom.x &&
+      this.currentRoom.y === targetRoom.y
+    ) {
+      return true;
+    }
+    return false;
   }
 
   /**

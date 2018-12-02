@@ -1,10 +1,12 @@
-declare let game;
 import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
 import Phaser from "phaser";
 export default class Witchcraft extends Ennemie {
-  private projectiles: Phaser.Physics.Arcade.Sprite[];
-  projectileSpeed: number = 30;
+  spriteName = "witchcraft";
+  private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
+  projectileSpeed: number = 100;
+  shootDelay: number = 3000;
+  shootRepeatEvent: any = null;
   private shooting: boolean = false;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
@@ -18,15 +20,15 @@ export default class Witchcraft extends Ennemie {
     time: number,
     delta: number
   ) {
+    let witchRef = this;
     if (this.shooting) {
       return;
     } else {
-      game.time.events.repeat(
-        Phaser.Timer.SECOND * 2,
-        1,
-        this.shootAtPlayer(player),
-        this
-      );
+      this.shooting = true;
+      this.shootRepeatEvent = setTimeout(function() {
+        witchRef.shootAtPlayer(player);
+      }, this.shootDelay);
+      this.randomMovement();
     }
   }
   /**
@@ -38,22 +40,48 @@ export default class Witchcraft extends Ennemie {
     let projectile = this.scene.physics.add.sprite(
       this.ennemieObject.x,
       this.ennemieObject.y,
-      "ennemieProjectile"
+      "fireball"
     );
+
+    var config = {
+      key: "fireballCast",
+      frames: this.scene.anims.generateFrameNumbers("fireball"),
+      frameRate: 6,
+      yoyo: true,
+      repeat: -1
+    };
+
+    let anim = this.scene.anims.create(config);
+
+    projectile.anims.play("fireballCast");
 
     this.projectiles.push(projectile);
     this.scene.physics.moveToObject(projectile, player, this.projectileSpeed);
     const ennemiRef = this;
-
+    //collision projectile => player
     this.scene.physics.add.collider(
       projectile,
       this.scene.player.playerObject,
       function() {
-        ennemiRef.giveDamageToPlayer(this.scene.player);
+        ennemiRef.giveDamageToPlayer(ennemiRef.scene.player);
         projectile.destroy();
       },
       function() {},
       function() {}
     );
+    // collision projectile / walls
+
+    //collision projectile => player
+    //destroy after 5 seconds
+    setTimeout(function() {
+      projectile.destroy();
+    }, 5000);
+  }
+
+  randomMovement() {
+    let randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
+    this.ennemieObject.setVelocityX(randomVelocity);
+    randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
+    this.ennemieObject.setVelocityY(randomVelocity);
   }
 }
