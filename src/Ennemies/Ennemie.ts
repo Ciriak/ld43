@@ -8,6 +8,7 @@ export default class Ennemie {
   public isFollower: boolean = false;
   public canShoot: boolean = false;
   public health: number = 1;
+  public currentRoom;
   public isDead = false;
   public lastPlayerPos = {
     x: 0,
@@ -44,7 +45,23 @@ export default class Ennemie {
     time: number,
     delta: number
   ) {
-    this.applyPattern(player, time, delta);
+    if (this.isInSameRoomThan(player)) {
+      this.applyPattern(player, time, delta);
+    }
+  }
+
+  private isInSameRoomThan(player: any) {
+    let targetRoom = player.currentRoom;
+    if (player instanceof Ennemie === false) {
+      targetRoom = this.scene.dungeonLoader.getPlayerRoom(player);
+    }
+    if (
+      this.currentRoom.x === targetRoom.x &&
+      this.currentRoom.y === targetRoom.y
+    ) {
+      return true;
+    }
+    return false;
   }
 
   /**
