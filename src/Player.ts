@@ -8,6 +8,9 @@ export default class Player extends Entitie {
   public isDead = false;
   public sanity: number = 0;
   public currentRoom;
+  public onCd : boolean;
+  public cd : number;
+  private castTime : number;
   private sanityCooldown;
   /**
    *
@@ -25,6 +28,9 @@ export default class Player extends Entitie {
       y = 0;
     }
     this.scene = scene;
+    this.onCd = false;
+    this.cd = 2000;
+    this.castTime = 2000;
     this.playerObject = this.scene.physics.add.sprite(x, y, "wizard");
     const playerRef = this;
     this.currentRoom = this.scene.dungeonLoader.getPlayerRoom(this);
@@ -98,7 +104,22 @@ export default class Player extends Entitie {
     if (this.isDead) {
       return;
     }
+    if(this.checkCD()) {
+      if(this.cd > 0) {
+        this.cd -= delta;
+      }else {
+        this.cd = this.castTime;
+        this.setonCd();
+      }
+    }
     this.inputsManager.update(time, delta, this, this.scene);
+  }
+  setonCd(){
+    this.onCd = !this.onCd;
+  }
+
+  checkCD() {
+    return this.onCd;
   }
 
   castSpell() {}

@@ -252,7 +252,6 @@ private generateSpawn2(tile) {
         const eRoom = this.dungeon.getRoomAt(x, y);
         //Check if the ennemy will spawn on the player and prevent it
         if (eRoom !== pRoom) {
-          console.log('monster spawn');
         let badBoy: Ennemie;
         switch (pickedEnnemieClassName) {
           case "Witchcraft":
@@ -276,8 +275,6 @@ private generateSpawn2(tile) {
         }
         mapRef.watchCollisionEnnemy(badBoy);
         tabEnnemy.push(badBoy);
-        //this.scene.ennemisGroup.add(badBoy.ennemieObject);
-        console.log(pickedEnnemieClassName);
       }
     });
     return tabEnnemy;
