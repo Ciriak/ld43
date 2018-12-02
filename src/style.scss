@@ -40,9 +40,10 @@ body {
     align-items: center;
     justify-content: center;
     position: fixed;
-    bottom: 40px;
+    top: 0px;
+    left: 0;
+    margin: 20px;
 
-    width: 100vw;
     .sanity-bar {
       transition-duration: 1s;
       box-shadow: 4px 4px 10px #000000;
