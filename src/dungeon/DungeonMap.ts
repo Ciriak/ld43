@@ -9,6 +9,9 @@ import Ennemie from "../Ennemies/Ennemie";
 import Player from "../Player";
 export default class DungeonLoader {
   dungeon: Dungeon;
+  startRoom: any;
+  dungeonRooms: any;
+  endingRoom:any;
   groundLayer: any;
   stuffLayer: any;
   map: any;
@@ -26,10 +29,10 @@ export default class DungeonLoader {
     this.dungeon = new Dungeon({
       width: 60,
       height: 60,
-      doorPadding: 4,
+      doorPadding: 2,
       rooms: {
-        width: { min: 13, max: 30, onlyOdd: true },
-        height: { min: 15, max: 40, onlyOdd: true }
+        width: { min: 8, max: 10, onlyOdd: true },
+        height: { min: 10, max: 12, onlyOdd: true }
       }
     });
     // Creating a blank tilemap with dimensions matching the dungeon
@@ -39,6 +42,12 @@ export default class DungeonLoader {
       width: this.dungeon.width,
       height: this.dungeon.height
     });
+    this.startRoom = this.getDungeonRooms().shift();
+    this.dungeonRooms = Phaser.Utils.Array.Shuffle(this.getDungeonRooms()).slice(
+      0,
+      this.getDungeonRooms().length * 0.99
+    );
+    this.endingRoom = Phaser.Utils.Array.RemoveRandomElement(this.getDungeonRooms());
 
     const tileset = this.map.addTilesetImage(
       "dungeon_tiles",
@@ -53,10 +62,10 @@ export default class DungeonLoader {
       tileset
     );
     this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", tileset);
-    this.spawn = this.map.createBlankDynamicLayer("Spawn", tileset);
     this.generateFogOfWar(tileset);
     this.renderRooms();
     this.renderOtherRooms();
+    this.generateSpawn();
     this.scene.groundLayer.setCollisionByExclusion([
       13,
       14,
@@ -156,7 +165,6 @@ export default class DungeonLoader {
       }
     });
     let wallIndex = [41, 39, 40, 41, 42];
-
     this.scene.groundLayer.forEachTile(tile => {
       if (wallIndex.includes(tile.index)) {
         // A sprite has its origin at the center, so place the sprite at the center of the tile
@@ -170,47 +178,91 @@ export default class DungeonLoader {
   private renderOtherRooms() {
     // Place stuff in the 90% "otherRooms"
     this.getOtherRooms().forEach(room => {
+      const { x, y, width, height, left, right, top, bottom } = room;
       var rand = Math.random();
       if (rand <= 0.25) {
-        const x = Phaser.Math.Between(room.left + 1, room.right - 1);
-        const y = Phaser.Math.Between(room.top + 1, room.bottom - 1);
-        this.stuffLayer.weightedRandomize(x, y, 1, 1, TILES.POT);
+        const tx = Phaser.Math.Between(left + 1, right - 1);
+        const ty = Phaser.Math.Between(top + 1, bottom - 1);
+        this.stuffLayer.weightedRandomize(tx, ty, 1, 1, TILES.POT);
         // 25% chance of chest
         // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.8) {
+        
         // 50% chance of a pot anywhere in the room... except don't block a door!
-        this.spawn.putTileAt(16, room.centerX, room.centerY);
-        this.spawn2.push({ x: room.centerX, y: room.centerY });
+
       } else {
         // 25% of either 2 or 4 towers, depending on the room size
       }
     });
   }
 
+  private generateSpawn() {
+    // Place stuff in the 90% "otherRooms"
+    this.getOtherRooms().forEach(room => {
+      let { x, y, width, height, left, right, top, bottom } = room;
+      var rand = Math.random();
+      if (rand <= 0.25) {
+        for (let i =0; i < 5; i++) {
+          const tx = Phaser.Math.Between(left + 2, right - 2);
+          const ty = Phaser.Math.Between(top + 2, bottom - 2);
+          this.spawn2.push({ x: tx, y: ty });
+        }
+
+      } else if (rand <= 0.5) {
+        for (let i =0; i < 2; i++) {
+          const tx = Phaser.Math.Between(left + 2, right - 2);
+          const ty = Phaser.Math.Between(top + 2, bottom - 2);
+          this.spawn2.push({ x: tx, y: ty });
+        }
+      } else {
+        for (let i =0; i < 1; i++) {
+          const tx = Phaser.Math.Between(left + 2, right - 2);
+          const ty = Phaser.Math.Between(top + 2, bottom - 2);
+          this.spawn2.push({ x: tx, y: ty });
+        }
+      }
+    });
+  }
+
+private generateSpawn2(tile) {
+  if(tile.index !== -1) {
+    var rand = Math.random();
+    if(rand < 0.06) {
+      this.spawn2.push({ x: tile.getCenterY(), y: tile.getCenterY() });
+    }
+  }
+}
+
   public spawnEnnemy() {
     let tabEnnemy = [];
     let mapRef = this;
+    console.log(this.spawn2);
     this.spawn2.forEach(spawn => {
       const possibleEnnemiesList = ["Witchcraft", "CloseCombat", "Children"];
       const pickedEnnemieClassName =
         possibleEnnemiesList[
           Math.floor(Math.random() * possibleEnnemiesList.length)
         ];
-      //Check if the ennemy will spawn on the player and prevent it
-      if (
-        this.scene.player.playerObject.x !== spawn.x * 64 &&
-        this.scene.player.playerObject.y !== spawn.y * 64
-      ) {
+        let pRoom = this.scene.dungeonLoader.getPlayerRoom(this.scene.player);
+      
+        const playerTileX = this.scene.groundLayer.tileToWorldX(spawn.x);
+        const playerTileY = this.scene.groundLayer.tileToWorldY(spawn.y);
+        const x = this.scene.groundLayer.worldToTileX(playerTileX);
+        const y = this.scene.groundLayer.worldToTileY(playerTileY);
+        const eRoom = this.dungeon.getRoomAt(x, y);
+        //Check if the ennemy will spawn on the player and prevent it
+        if (eRoom !== pRoom) {
+          console.log('monster spawn');
         let badBoy: Ennemie;
         switch (pickedEnnemieClassName) {
           case "Witchcraft":
-            badBoy = new Witchcraft(this.scene, spawn.x * 64, spawn.y * 64);
+            badBoy = new Witchcraft(this.scene, spawn.x *64 , spawn.y *64);
             break;
           case "CloseCombat":
-            badBoy = new CloseCombat(this.scene, spawn.x * 64, spawn.y * 64);
+            badBoy = new CloseCombat(this.scene, spawn.x *64, spawn.y *64);
             break;
           case "Children":
-            badBoy = new Children(this.scene, spawn.x * 64, spawn.y * 64);
+            badBoy = new Children(this.scene, spawn.x*64 , spawn.y *64);
             break;
 
           default:
@@ -247,18 +299,15 @@ export default class DungeonLoader {
   }
 
   public getstartingRoom() {
-    return this.getDungeonRooms().shift();
+    return this.startRoom;
   }
 
   public getendingRoom() {
-    return Phaser.Utils.Array.RemoveRandomElement(this.getDungeonRooms());
+    return this.endingRoom;
   }
 
   public getOtherRooms() {
-    return Phaser.Utils.Array.Shuffle(this.getDungeonRooms()).slice(
-      0,
-      this.getDungeonRooms().length * 0.85
-    );
+    return this.dungeonRooms;
   }
 
   public getPlayerRoom(player: Player) {

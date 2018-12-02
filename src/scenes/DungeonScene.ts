@@ -82,7 +82,7 @@ export default class DungeonScene extends Phaser.Scene {
         this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
       )
     ) {
-      let newSpell = new Spell(2, 3, 2, this);
+      let newSpell = new Spell(2, 3, 2, this);debugger;
       newSpell.cast(
         this.player.playerObject.x,
         this.player.playerObject.y,

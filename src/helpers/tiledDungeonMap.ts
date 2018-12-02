@@ -8,6 +8,7 @@
 
 export const TILE_MAPPING = {
     BLANK: 7,
+    TRANSPARENT: 8,
     WALL: {
   
       TOP_LEFT: 41,

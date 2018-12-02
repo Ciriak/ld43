@@ -66,6 +66,9 @@ export default class Ennemie extends Entitie {
 
   private isInSameRoomThan(player: any) {
     let targetRoom = player.currentRoom;
+    if(typeof targetRoom === 'undefined'){
+      return false;
+    }
     if (player instanceof Ennemie === false) {
       targetRoom = this.scene.dungeonLoader.getPlayerRoom(player);
     }

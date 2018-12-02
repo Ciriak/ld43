@@ -27,6 +27,7 @@ export default class Player extends Entitie {
     this.scene = scene;
     this.playerObject = this.scene.physics.add.sprite(x, y, "wizard");
     const playerRef = this;
+    this.currentRoom = this.scene.dungeonLoader.getPlayerRoom(this);
     this.sanityCooldown = setInterval(function() {
       if (playerRef.sanity > 0) {
         playerRef.sanity -= 1;
