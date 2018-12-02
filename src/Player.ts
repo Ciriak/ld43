@@ -40,7 +40,6 @@ export default class Player extends Entitie {
       function(pointer) {
         playerRef.updateDirection(pointer);
         console.log(this.direction);
-        //console.log(pointer.positionx, y, twidth, theight, this.direction);
       },
       this
     );
@@ -73,7 +72,7 @@ export default class Player extends Entitie {
       return;
     }
     if (angle > -2 && angle < -0.45) {
-      this.direction = "top";
+      this.direction = "up";
       return;
     }
   }
