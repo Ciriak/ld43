@@ -2,6 +2,7 @@ import DungeonScene from "../scenes/DungeonScene";
 import Player from "../Player";
 import Phaser from "phaser";
 export default class Ennemie {
+  spriteName = "ennemie";
   public scene: DungeonScene;
   public ennemieObject: any;
   public rof: number = 0.1;
@@ -22,7 +23,7 @@ export default class Ennemie {
       y = 0;
     }
     this.scene = scene;
-    this.ennemieObject = scene.physics.add.sprite(x, y, "ennemie");
+    this.ennemieObject = scene.physics.add.sprite(x, y, this.spriteName);
 
     const ennemiRef = this;
 
