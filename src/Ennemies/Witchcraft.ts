@@ -43,6 +43,10 @@ export default class Witchcraft extends Ennemie {
       "fireball"
     );
 
+    let sound = this.scene.sound.add("fireball");
+
+    sound.play();
+
     var config = {
       key: "fireballCast",
       frames: this.scene.anims.generateFrameNumbers("fireball"),
