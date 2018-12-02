@@ -1,34 +1,34 @@
+import Player from "./Player";
+
 const velocity = 100;
 export default class PlayerInputs {
-  update(
-    time: number,
-    delta: number,
-    player: Phaser.Physics.Arcade.Sprite,
-    scene: any
-  ) {
+  update(time: number, delta: number, player: Player, scene: any) {
     //console.log("Player coordinates : " + player.x + ":" + player.y);
-    player.setVelocity(0, 0);
+    player.playerObject.setVelocity(0, 0);
 
-  // Fire fire bullet
+    // Fire fire bullet
     if (scene.cursors.space.isDown) {
-        // let bullet = this.bullets.get();
-
-        // if (bullet) {
-          // bullet.fire(this.gun.x, this.gun.y);
-        // }
+      // let bullet = this.bullets.get();
+      // if (bullet) {
+      // bullet.fire(this.gun.x, this.gun.y);
+      // }
     }
-    
+
     if (scene.cursors.left.isDown) {
-      player.setVelocityX(-velocity);
+      player.playerObject.setVelocityX(-velocity);
+      player.direction = "left";
     }
     if (scene.cursors.right.isDown) {
-      player.setVelocityX(velocity);
+      player.playerObject.setVelocityX(velocity);
+      player.direction = "right";
     }
     if (scene.cursors.down.isDown) {
-      player.setVelocityY(velocity);
+      player.playerObject.setVelocityY(velocity);
+      player.direction = "down";
     }
     if (scene.cursors.up.isDown) {
-      player.setVelocityY(-velocity);
+      player.playerObject.setVelocityY(-velocity);
+      player.direction = "up";
     }
   }
 }

@@ -1,7 +1,8 @@
 import DungeonScene from "../scenes/DungeonScene";
 import Player from "../Player";
+import Entitie from "../Entitie";
 import Phaser from "phaser";
-export default class Ennemie {
+export default class Ennemie extends Entitie {
   spriteName = "ennemie";
   public scene: DungeonScene;
   public ennemieObject: any;
@@ -16,6 +17,7 @@ export default class Ennemie {
     y: 0
   };
   constructor(scene: DungeonScene, x?: number, y?: number) {
+    super();
     if (!x) {
       x = 0;
     }
