@@ -41,8 +41,10 @@ export default class Ennemie extends Entitie {
   }
 
   update(time: number, delta: number) {
-    this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
+    if(this.ennemieObject.active !== false) {
+      this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
     this.refreshAttack(this.scene.player.playerObject, time, delta);
+    }
   }
 
   giveDamageToPlayer(player: Player) {
