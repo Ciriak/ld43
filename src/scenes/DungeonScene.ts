@@ -53,6 +53,8 @@ export default class DungeonScene extends Phaser.Scene {
     this.dungeonLoader.watchCollision(this.player);
 
     this.uiManager = new UIManager(this);
+    this.createAnims();
+    
     this.ennemies = this.dungeonLoader.spawnEnnemy();
     this.physics.add.collider(
       this.spellsCasted,
@@ -73,10 +75,16 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player.currentRoom = currentPlayerRoom;
 
+    //this.ennemisGroup.playAnimation('right');
     if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
     {
         let newSpell = new Spell(2,3,2,this);
         newSpell.cast(this.player.playerObject.x, this.player.playerObject.y, this.player.direction);
+    }
+    if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A))){
+      let test = this.add.sprite(this.player.playerObject.x +64, this.player.playerObject.y, "knight");
+      test.anims.load('right');
+      test.anims.play('right');
     }
       this.spellsCasted.getChildren().forEach(sprite => {
         switch (sprite.spellInfo.direction) {
@@ -100,7 +108,6 @@ export default class DungeonScene extends Phaser.Scene {
   }
 
   checkHitWall(sprite) {
-    console.log(sprite.spellInfo.damage);
     sprite.destroy();
   }
 
@@ -119,6 +126,36 @@ export default class DungeonScene extends Phaser.Scene {
         ennemie.refreshAttack(this.player.playerObject, time, delta);
       }
     }
+  }
+
+  createAnims() {
+    this.anims.create({
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('knight', {start: 11, end: 14}),
+      frameRate: 15,
+      repeat: -1
+  });
+  this.anims.create({
+    key: 'left',
+    frames: this.anims.generateFrameNumbers('knight'),
+    frameRate: 100,
+    yoyo: true,
+    repeat: -1
+  });
+  this.anims.create({
+    key: 'up',
+    frames: this.anims.generateFrameNumbers('knight'),
+    frameRate: 100,
+    yoyo: true,
+    repeat: -1
+  });
+  this.anims.create({
+    key: 'down',
+    frames: this.anims.generateFrameNumbers('knight', {start: 0, end:2}),
+    frameRate: 5,
+    yoyo: true,
+    repeat: -1
+  });
   }
 
   /**

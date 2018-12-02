@@ -28,6 +28,7 @@ export default class CloseCombat extends Ennemie {
       player.x !== this.lastPlayerPos.x ||
       player.y !== this.lastPlayerPos.y
     ) {
+    
       this.scene.physics.moveToObject(this.ennemieObject, player, 50);
       this.lastPlayerPos = {
         x: player.x,
