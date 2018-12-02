@@ -42,12 +42,12 @@ export default class Ennemie extends Entitie {
   }
 
   update(time: number, delta: number) {
-    if(this.ennemieObject.active !== false) {
+    if (this.ennemieObject.active !== false) {
       this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
-    if (this.scene.player.isDead) {
-      return;
-    }
-    this.refreshAttack(this.scene.player.playerObject, time, delta);
+      if (this.scene.player.isDead) {
+        return;
+      }
+      this.refreshAttack(this.scene.player.playerObject, time, delta);
     }
   }
 
@@ -85,7 +85,6 @@ export default class Ennemie extends Entitie {
   takeDamage(damage: number, value) {
     this.health -= damage;
     if (this.health <= 0) {
-      console.log("dead");
       this.kill();
     }
   }

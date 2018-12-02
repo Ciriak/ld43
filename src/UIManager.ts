@@ -1,5 +1,6 @@
 import * as $ from "jquery";
 import DungeonScene from "./scenes/DungeonScene";
+const maxSanity = 100;
 export default class UIManager {
   private scene: DungeonScene;
   itemsCard = {
@@ -30,15 +31,11 @@ export default class UIManager {
   }
 
   updateSanity(value: number) {
-    let sanityPercent;
-    if (!value) {
-      sanityPercent = 0;
-    } else {
-      sanityPercent = (20 / value) * 100;
+    if (value > 100) {
+      value = 100;
     }
-
-    $(".sanity-bar .sanity-progress").css("width", sanityPercent + "%");
-    if (sanityPercent > 85) {
+    $(".sanity-bar .sanity-progress").css("width", value + "%");
+    if (value >= 85) {
       $(".sanity-container").addClass("critical");
     } else {
       $(".sanity-container").removeClass("critical");

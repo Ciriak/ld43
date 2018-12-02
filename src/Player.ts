@@ -26,11 +26,13 @@ export default class Player extends Entitie {
     }
     this.scene = scene;
     this.playerObject = scene.physics.add.sprite(x, y, "player");
+    const playerRef = this;
     this.sanityCooldown = setInterval(function() {
-      if (this.sanity > 0) {
-        this.sanity -= 1;
+      if (playerRef.sanity > 0) {
+        playerRef.sanity -= 1;
+        playerRef.scene.uiManager.updateSanity(playerRef.sanity);
       }
-    });
+    }, 500);
   }
 
   kill() {
@@ -46,6 +48,7 @@ export default class Player extends Entitie {
    * @param amount
    */
   addSanity(amount: number) {
+    this.sanity += amount;
     this.scene.uiManager.updateSanity(this.sanity);
   }
 
