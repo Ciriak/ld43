@@ -3,7 +3,7 @@ import Ennemie from "./Ennemie";
 import Phaser from "phaser";
 export default class Witchcraft extends Ennemie {
   private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
-  projectileSpeed: number = 80;
+  projectileSpeed: number = 100;
   shootDelay: number = 3000;
   shootRepeatEvent: any = null;
   private shooting: boolean = false;
@@ -71,16 +71,10 @@ export default class Witchcraft extends Ennemie {
     // collision projectile / walls
 
     //collision projectile => player
-    this.scene.physics.add.collider(
-      projectile,
-      this.scene.dungeonLoader.groundLayer,
-      function() {
-        ennemiRef.giveDamageToPlayer(ennemiRef.scene.player);
-        projectile.destroy();
-      },
-      function() {},
-      function() {}
-    );
+    //destroy after 5 seconds
+    setTimeout(function() {
+      projectile.destroy();
+    }, 5000);
   }
 
   randomMovement() {

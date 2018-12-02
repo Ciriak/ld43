@@ -2,8 +2,10 @@ import * as Dungeon from "@mikewesthad/dungeon";
 import TILES from "../helpers/tiledDungeonMap";
 import DungeonScene from "../scenes/DungeonScene";
 import TilemapVisibility from "../helpers/tiledMapVisibility";
-import Ennemie from "../Ennemies/Ennemie";
+import CloseCombat from "../Ennemies/CloseCombat";
 import Witchcraft from "../Ennemies/Witchcraft";
+import Ennemie from "../Ennemies/Ennemie";
+import Player from "../Player";
 export default class DungeonLoader {
   dungeon: Dungeon;
   groundLayer: any;
@@ -172,19 +174,35 @@ export default class DungeonLoader {
 
   public spawnEnnemy() {
     let tabEnnemy = [];
+    let mapRef = this;
     this.spawn2.forEach(spawn => {
+      const possibleEnnemiesList = ["Witchcraft", "CloseCombat"];
+      const pickedEnnemieClassName =
+        possibleEnnemiesList[
+          Math.floor(Math.random() * possibleEnnemiesList.length)
+        ];
       //Check if the ennemy will spawn on the player and prevent it
       if (
-        this.scene.player.playerObject.x !== spawn.x * 64 &&
-        this.scene.player.playerObject.y !== spawn.y * 64
+        mapRef.scene.player.playerObject.x !== spawn.x * 64 &&
+        mapRef.scene.player.playerObject.y !== spawn.y * 64
       ) {
-        let badBoy = new Witchcraft(this.scene, spawn.x * 64, spawn.y * 64);
-        this.watchCollisionEnnemy(badBoy);
+        let badBoy: Ennemie;
+        switch (pickedEnnemieClassName) {
+          case "Witchcraft":
+            badBoy = new Witchcraft(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            break;
+          case "CloseCombat":
+            badBoy = new CloseCombat(mapRef.scene, spawn.x * 64, spawn.y * 64);
+            break;
+
+          default:
+            break;
+        }
+        badBoy.currentRoom = this.getEnnemieRoom(badBoy);
+        mapRef.watchCollisionEnnemy(badBoy);
         tabEnnemy.push(badBoy);
-        console.log("tsest");
       }
     });
-    console.log(tabEnnemy);
     return tabEnnemy;
   }
 
@@ -193,6 +211,7 @@ export default class DungeonLoader {
   }
 
   private generateFogOfWar(tileset) {
+    console.log("ttt");
     const shadowLayer = this.getMap().createBlankDynamicLayer(
       "Shadow",
       tileset
@@ -224,13 +243,26 @@ export default class DungeonLoader {
     );
   }
 
-  public getPlayerRoom(player) {
+  public getPlayerRoom(player: Player) {
+    let target = player.playerObject;
+    if (player instanceof Player === false) {
+      target = player;
+    }
     // Find the player's room using another helper method from the dungeon that converts from
     // dungeon XY (in grid units) to the corresponding room object
-    const playerTileX = this.groundLayer.worldToTileX(player.playerObject.x);
-    const playerTileY = this.groundLayer.worldToTileY(player.playerObject.y);
+    const playerTileX = this.groundLayer.worldToTileX(target.x);
+    const playerTileY = this.groundLayer.worldToTileY(target.y);
     const playerRoom = this.dungeon.getRoomAt(playerTileX, playerTileY);
     return playerRoom;
+  }
+
+  public getEnnemieRoom(ennemie: Ennemie) {
+    // Find the ennemie's room using another helper method from the dungeon that converts from
+    // dungeon XY (in grid units) to the corresponding room object
+    const ennemieTileX = this.groundLayer.worldToTileX(ennemie.ennemieObject.x);
+    const ennemieTileY = this.groundLayer.worldToTileY(ennemie.ennemieObject.y);
+    const ennemieRoom = this.dungeon.getRoomAt(ennemieTileX, ennemieTileY);
+    return ennemieRoom;
   }
 
   public watchCollision(player) {
