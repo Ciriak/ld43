@@ -18,16 +18,12 @@ export default class PlayerInputs {
       this
     );
   }
+
+  // Any key down, check event
+
   update(time: number, delta: number, player: Player, scene: any) {
     player.playerObject.setVelocity(0, 0);
 
-    // Fire fire bullet
-    if (scene.cursors.space.isDown) {
-      // let bullet = this.bullets.get();
-      // if (bullet) {
-      // bullet.fire(this.gun.x, this.gun.y);
-      // }
-    }
     player.playerObject.anims.play("widle");
     if (scene.cursors.left.isDown) {
       player.playerObject.setVelocityX(-velocity);
