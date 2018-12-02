@@ -28,8 +28,8 @@ export default class DungeonLoader {
       height: 60,
       doorPadding: 4,
       rooms: {
-        width: { min: 4, max: 9, onlyOdd: true },
-        height: { min: 9, max: 15, onlyOdd: true }
+        width: { min: 13, max: 30, onlyOdd: true },
+        height: { min: 15, max: 40, onlyOdd: true }
       }
     });
     // Creating a blank tilemap with dimensions matching the dungeon
@@ -297,13 +297,22 @@ export default class DungeonLoader {
 
   public watchCollisionEnnemy(ennemy) {
     // Watch the ennemy and ground layer for collisions, for the duration of the scene:
-    this.scene.physics.add.collider(ennemy.ennemieObject, this.scene.groundLayer);
-    this.scene.physics.add.collider(this.scene.ennemisGroup, this.scene.spellsCasted, this.test, null, ennemy);
+    this.scene.physics.add.collider(
+      ennemy.ennemieObject,
+      this.scene.groundLayer
+    );
+    this.scene.physics.add.collider(
+      this.scene.ennemisGroup,
+      this.scene.spellsCasted,
+      this.test,
+      null,
+      ennemy
+    );
   }
 
   public test(target, spell) {
     this.takeDamage(spell.spellInfo.damage);
-    if(this.isDead) {
+    if (this.isDead) {
       target.destroy();
     }
     spell.destroy();
