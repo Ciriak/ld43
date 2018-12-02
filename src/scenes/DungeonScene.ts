@@ -22,9 +22,9 @@ export default class DungeonScene extends Phaser.Scene {
   uiManager: UIManager;
   ennemies: Ennemie[] = [];
   tilemapVisibility: any;
-  spellsCasted :any;
-  wallGroup :any;
-  ennemisGroup : any;
+  spellsCasted: any;
+  wallGroup: any;
+  ennemisGroup: any;
 
   preload() {
     new ResourcesLoader(this);
@@ -54,8 +54,13 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.uiManager = new UIManager(this);
     this.ennemies = this.dungeonLoader.spawnEnnemy();
-    this.physics.add.collider(this.spellsCasted, this.wallGroup, this.checkHitWall, null, this);
-
+    this.physics.add.collider(
+      this.spellsCasted,
+      this.wallGroup,
+      this.checkHitWall,
+      null,
+      this
+    );
   }
 
   //camera bounds
@@ -68,17 +73,20 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player.currentRoom = currentPlayerRoom;
 
-    if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
-    {
-        let newSpell = new Spell(2,3,2,this);
-        newSpell.cast(this.player.playerObject.x, this.player.playerObject.y);
+    if (
+      Phaser.Input.Keyboard.JustDown(
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+      )
+    ) {
+      let newSpell = new Spell(2, 3, 2, this);
+      newSpell.cast(this.player.playerObject.x, this.player.playerObject.y);
     }
-      this.spellsCasted.getChildren().forEach(sprite => {
-        sprite.x += sprite.spellInfo.speed;
+    this.spellsCasted.getChildren().forEach(sprite => {
+      sprite.x += sprite.spellInfo.speed;
     });
   }
 
-  checkHitWall(sprite){
+  checkHitWall(sprite) {
     console.log(sprite.spellInfo.damage);
     sprite.destroy();
   }
@@ -90,7 +98,7 @@ export default class DungeonScene extends Phaser.Scene {
   updateEnnemies(time: number, delta: number) {
     for (let i = 0; i < this.ennemies.length; i++) {
       const ennemie = this.ennemies[i];
-      ennemie.refreshAttack(this.player.playerObject, time, delta);
+      ennemie.update(time, delta);
     }
   }
 

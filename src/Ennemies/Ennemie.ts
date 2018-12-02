@@ -40,6 +40,11 @@ export default class Ennemie extends Entitie {
     );
   }
 
+  update(time: number, delta: number) {
+    this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
+    this.refreshAttack(this.scene.player.playerObject, time, delta);
+  }
+
   giveDamageToPlayer(player: Player) {
     player.kill();
   }
@@ -71,7 +76,7 @@ export default class Ennemie extends Entitie {
    * When ennemie take a damage, kill himselft if he don't have hp left
    * @param damage
    */
-  takeDamage(damage: number, value) { 
+  takeDamage(damage: number, value) {
     this.health -= damage;
     if (this.health <= 0) {
       this.kill();
