@@ -13,6 +13,7 @@ export default class Witchcraft extends Ennemie {
     super(scene, x, y);
     const ennemiRef = this;
     this.ennemieObject = this.scene.add.sprite(x, y, "knight");
+    this.reduceCoolDown = 20;
     scene.physics.add.collider(
       this.ennemieObject,
       scene.player.playerObject,

@@ -9,6 +9,7 @@ export default class Children extends Ennemie {
     super(scene, x, y);
     const ennemiRef = this;
     this.ennemieObject = this.scene.add.sprite(x, y, "child");
+    this.reduceCoolDown = 1;
     scene.physics.add.collider(
       this.ennemieObject,
       scene.player.playerObject,

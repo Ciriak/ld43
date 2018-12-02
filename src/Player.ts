@@ -29,8 +29,8 @@ export default class Player extends Entitie {
     }
     this.scene = scene;
     this.onCd = false;
-    this.cd = 2000;
-    this.castTime = 2000;
+    this.cd = 2500;
+    this.castTime = 2500;
     this.playerObject = this.scene.physics.add.sprite(x, y, "wizard");
     const playerRef = this;
     this.currentRoom = this.scene.dungeonLoader.getPlayerRoom(this);
@@ -98,6 +98,13 @@ export default class Player extends Entitie {
   addSanity(amount: number) {
     this.sanity += amount;
     this.scene.uiManager.updateSanity(this.sanity);
+  }
+  decreaseCastTime(amount: number) {
+    if (this.castTime > amount) {
+      this.castTime -= amount;
+    }else {
+      this.castTime = 0;
+    }
   }
 
   update(time: number, delta: number) {

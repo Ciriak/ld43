@@ -13,6 +13,7 @@ export default class Ennemie extends Entitie {
   public currentRoom;
   public isDead = false;
   public sanityGiven: number;
+  public reduceCoolDown: number;
   public lastPlayerPos = {
     x: 0,
     y: 0
@@ -26,6 +27,7 @@ export default class Ennemie extends Entitie {
       y = 0;
     }
     this.scene = scene;
+    this.reduceCoolDown = 0;
 /*
     scene.physics.add.collider(
       this.ennemieObject,
@@ -93,6 +95,7 @@ export default class Ennemie extends Entitie {
   kill() {
     this.ennemieObject.destroy();
     this.scene.player.addSanity(this.sanityGiven);
+    this.scene.player.decreaseCastTime(this.reduceCoolDown);
     this.isDead = true;
   }
 

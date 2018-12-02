@@ -273,6 +273,7 @@ private generateSpawn2(tile) {
           default:
             break;
         }
+        this.scene.ennemisGroup.add(badBoy.ennemieObject);
         mapRef.watchCollisionEnnemy(badBoy);
         tabEnnemy.push(badBoy);
       }
