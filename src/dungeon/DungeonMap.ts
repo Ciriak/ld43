@@ -54,7 +54,7 @@ export default class DungeonLoader {
     this.generateFogOfWar(tileset);
     this.renderRooms();
     this.renderOtherRooms();
-    this.groundLayer.setCollisionByExclusion([
+    this.scene.groundLayer.setCollisionByExclusion([
       13,
       14,
       15,
@@ -160,7 +160,7 @@ export default class DungeonLoader {
         // A sprite has its origin at the center, so place the sprite at the center of the tile
         const x = tile.getCenterX();
         const y = tile.getCenterY();
-        this.scene.wallGroup.create(x, y, "wall");
+        this.scene.wallGroup.create(x, y, "collisionWall");
       }
     });
   }
@@ -266,8 +266,8 @@ export default class DungeonLoader {
     }
     // Find the player's room using another helper method from the dungeon that converts from
     // dungeon XY (in grid units) to the corresponding room object
-    const playerTileX = this.groundLayer.worldToTileX(target.x);
-    const playerTileY = this.groundLayer.worldToTileY(target.y);
+    const playerTileX = this.scene.groundLayer.worldToTileX(target.x);
+    const playerTileY = this.scene.groundLayer.worldToTileY(target.y);
     const playerRoom = this.dungeon.getRoomAt(playerTileX, playerTileY);
     return playerRoom;
   }
@@ -275,8 +275,8 @@ export default class DungeonLoader {
   public getEnnemieRoom(ennemie: Ennemie) {
     // Find the ennemie's room using another helper method from the dungeon that converts from
     // dungeon XY (in grid units) to the corresponding room object
-    const ennemieTileX = this.groundLayer.worldToTileX(ennemie.ennemieObject.x);
-    const ennemieTileY = this.groundLayer.worldToTileY(ennemie.ennemieObject.y);
+    const ennemieTileX = this.scene.groundLayer.worldToTileX(ennemie.ennemieObject.x);
+    const ennemieTileY = this.scene.groundLayer.worldToTileY(ennemie.ennemieObject.y);
     const ennemieRoom = this.dungeon.getRoomAt(ennemieTileX, ennemieTileY);
     return ennemieRoom;
   }
