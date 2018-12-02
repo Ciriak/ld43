@@ -14,7 +14,7 @@ export default class Spell {
 
     cast(x: number, y: number) {
         var config = {
-            key: 'cast',
+            key: 'SpellsCasted',
             frames: this.scene.anims.generateFrameNumbers('elecBall'),
             frameRate: 6,
             yoyo: true,
@@ -22,10 +22,9 @@ export default class Spell {
         };
         let anim = this.scene.anims.create(config);
         this.sprite = this.scene.add.sprite(x+64,y,"elecBall");
-        this.sprite.anims.load('cast');
-        this.sprite.anims.play('cast');
-    }
-    setActive(value) {
-        this.sprite.setActive(value);
+        this.scene.spellsCasted.add(this.sprite);
+        this.scene.physics.add.collider(this.sprite, this.scene.groundLayer);
+        this.sprite.anims.load('SpellsCasted');
+        this.sprite.anims.play('SpellsCasted');
     }
 }

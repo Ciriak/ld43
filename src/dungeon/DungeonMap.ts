@@ -43,25 +43,27 @@ export default class DungeonLoader {
       0,
       0
     ); // 1px margin, 2px spacing
-    this.groundLayer = this.map.createBlankDynamicLayer("Ground", tileset);
+    this.scene.groundLayer = this.map.createBlankDynamicLayer("Ground", tileset);
     this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", tileset);
     this.spawn = this.map.createBlankDynamicLayer("Spawn", tileset);
     this.generateFogOfWar(tileset);
     this.renderRooms();
     this.renderOtherRooms();
-    this.groundLayer.setCollisionByExclusion([
+    this.scene.groundLayer.setCollisionByExclusion([
       13,14,15,21,20,19,18,28,27,29,26
     ]);
   }
 
   private renderRooms() {
+
+    this.scene.wallGroup = this.scene.physics.add.staticGroup();
     // Use the array of rooms generated to place tiles in the map
     // Note: using an arrow function here so that "this" still refers to our scene
     this.dungeon.rooms.forEach(room => {
       const { x, y, width, height, left, right, top, bottom } = room;
 
       // Fill the floor with mostly clean tiles
-      this.groundLayer.weightedRandomize(
+      this.scene.groundLayer.weightedRandomize(
         x + 1,
         y + 1,
         width - 2,
@@ -70,34 +72,34 @@ export default class DungeonLoader {
       );
 
       // Place the room corners tiles
-      this.groundLayer.putTileAt(TILES.WALL.TOP_LEFT, left, top);
-      this.groundLayer.putTileAt(TILES.WALL.TOP_RIGHT, right, top);
-      this.groundLayer.putTileAt(TILES.WALL.BOTTOM_RIGHT, right, bottom);
-      this.groundLayer.putTileAt(TILES.WALL.BOTTOM_LEFT, left, bottom);
+      this.scene.groundLayer.putTileAt(TILES.WALL.TOP_LEFT, left, top);
+      this.scene.groundLayer.putTileAt(TILES.WALL.TOP_RIGHT, right, top);
+      this.scene.groundLayer.putTileAt(TILES.WALL.BOTTOM_RIGHT, right, bottom);
+      this.scene.groundLayer.putTileAt(TILES.WALL.BOTTOM_LEFT, left, bottom);
 
       // Fill the walls with mostly clean tiles
-      this.groundLayer.weightedRandomize(
+      let topWall = this.scene.groundLayer.weightedRandomize(
         left + 1,
         top,
         width - 2,
         1,
         TILES.WALL.TOP
       );
-      this.groundLayer.weightedRandomize(
+      this.scene.groundLayer.weightedRandomize(
         left + 1,
         bottom,
         width - 2,
         1,
         TILES.WALL.BOTTOM
       );
-      this.groundLayer.weightedRandomize(
+      this.scene.groundLayer.weightedRandomize(
         left,
         top + 1,
         1,
         height - 2,
         TILES.WALL.LEFT
       );
-      this.groundLayer.weightedRandomize(
+      this.scene.groundLayer.weightedRandomize(
         right,
         top + 1,
         1,
@@ -110,30 +112,40 @@ export default class DungeonLoader {
       var doors = room.getDoorLocations(); // → Returns an array of {x, y} objects
       for (var i = 0; i < doors.length; i++) {
         if (doors[i].y === 0) {
-          this.groundLayer.putTilesAt(
+          this.scene.groundLayer.putTilesAt(
             TILES.DOOR.TOP,
             x + doors[i].x - 1,
             y + doors[i].y
           );
         } else if (doors[i].y === room.height - 1) {
-          this.groundLayer.putTilesAt(
+          this.scene.groundLayer.putTilesAt(
             TILES.DOOR.BOTTOM,
             x + doors[i].x - 1,
             y + doors[i].y
           );
         } else if (doors[i].x === 0) {
-          this.groundLayer.putTilesAt(
+          this.scene.groundLayer.putTilesAt(
             TILES.DOOR.LEFT,
             x + doors[i].x,
             y + doors[i].y - 1
           );
         } else if (doors[i].x === room.width - 1) {
-          this.groundLayer.putTilesAt(
+          this.scene.groundLayer.putTilesAt(
             TILES.DOOR.RIGHT,
             x + doors[i].x,
             y + doors[i].y - 1
           );
         }
+      }
+    });
+    let wallIndex = [41, 39, 40,41,42];
+
+    this.scene.groundLayer.forEachTile(tile => {
+      if (wallIndex.includes(tile.index)) {
+        // A sprite has its origin at the center, so place the sprite at the center of the tile
+        const x = tile.getCenterX();
+        const y = tile.getCenterY();
+        this.scene.wallGroup.create(x, y, "wall");
       }
     });
   }
@@ -210,19 +222,19 @@ export default class DungeonLoader {
   public getPlayerRoom(player) {
     // Find the player's room using another helper method from the dungeon that converts from
     // dungeon XY (in grid units) to the corresponding room object
-    const playerTileX = this.groundLayer.worldToTileX(player.playerObject.x);
-    const playerTileY = this.groundLayer.worldToTileY(player.playerObject.y);
+    const playerTileX = this.scene.groundLayer.worldToTileX(player.playerObject.x);
+    const playerTileY = this.scene.groundLayer.worldToTileY(player.playerObject.y);
     const playerRoom = this.dungeon.getRoomAt(playerTileX, playerTileY);
     return playerRoom;
   }
 
   public watchCollision(player) {
     // Watch the player and ground layer for collisions, for the duration of the scene:
-    this.scene.physics.add.collider(player.playerObject, this.groundLayer);
+    this.scene.physics.add.collider(player.playerObject, this.scene.groundLayer);
   }
 
   public watchCollisionEnnemy(ennemy) {
     // Watch the ennemy and ground layer for collisions, for the duration of the scene:
-    this.scene.physics.add.collider(ennemy.ennemieObject, this.groundLayer);
+    this.scene.physics.add.collider(ennemy.ennemieObject, this.scene.groundLayer);
   }
 }
