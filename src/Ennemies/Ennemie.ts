@@ -74,6 +74,7 @@ export default class Ennemie extends Entitie {
   takeDamage(damage: number, value) { 
     this.health -= damage;
     if (this.health <= 0) {
+      console.log('dead')
       this.kill();
     }
   }

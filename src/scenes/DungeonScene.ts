@@ -106,6 +106,9 @@ export default class DungeonScene extends Phaser.Scene {
   updateEnnemies(time: number, delta: number) {
     for (let i = 0; i < this.ennemies.length; i++) {
       const ennemie = this.ennemies[i];
+      if(ennemie.isDead){
+        this.ennemies.splice(i, 1);
+      }
       ennemie.refreshAttack(this.player.playerObject, time, delta);
     }
   }

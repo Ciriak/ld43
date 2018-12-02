@@ -295,6 +295,9 @@ export default class DungeonLoader {
 
   public test(target, spell) {
     this.takeDamage(spell.spellInfo.damage);
+    if(this.isDead) {
+      target.destroy();
+    }
     spell.destroy();
   }
 }
