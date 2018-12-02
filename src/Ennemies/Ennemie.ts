@@ -48,7 +48,7 @@ export default class Ennemie extends Entitie {
     time: number,
     delta: number
   ) {
-    if (this.isInSameRoomThan(player)) {
+    if (this.isInSameRoomThan(player) && this.ennemieObject.active !== false) {
       this.applyPattern(player, time, delta);
     }
   }
