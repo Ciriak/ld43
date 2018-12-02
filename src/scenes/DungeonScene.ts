@@ -22,9 +22,9 @@ export default class DungeonScene extends Phaser.Scene {
   uiManager: UIManager;
   ennemies: Ennemie[] = [];
   tilemapVisibility: any;
-  spellsCasted :any;
-  wallGroup :any;
-  ennemisGroup : any;
+  spellsCasted: any;
+  wallGroup: any;
+  ennemisGroup: any;
 
   preload() {
     new ResourcesLoader(this);
@@ -54,8 +54,13 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.uiManager = new UIManager(this);
     this.ennemies = this.dungeonLoader.spawnEnnemy();
-    this.physics.add.collider(this.spellsCasted, this.wallGroup, this.checkHitWall, null, this);
-
+    this.physics.add.collider(
+      this.spellsCasted,
+      this.wallGroup,
+      this.checkHitWall,
+      null,
+      this
+    );
   }
 
   //camera bounds
@@ -94,7 +99,7 @@ export default class DungeonScene extends Phaser.Scene {
     });
   }
 
-  checkHitWall(sprite){
+  checkHitWall(sprite) {
     console.log(sprite.spellInfo.damage);
     sprite.destroy();
   }
@@ -106,6 +111,7 @@ export default class DungeonScene extends Phaser.Scene {
   updateEnnemies(time: number, delta: number) {
     for (let i = 0; i < this.ennemies.length; i++) {
       const ennemie = this.ennemies[i];
+      ennemie.update(time, delta);
       if(ennemie.isDead){
         ennemie.kill();
         this.ennemies.splice(i, 1);
