@@ -19,7 +19,6 @@ export default class PlayerInputs {
     );
   }
   update(time: number, delta: number, player: Player, scene: any) {
-    //console.log("Player coordinates : " + player.x + ":" + player.y);
     player.playerObject.setVelocity(0, 0);
 
     // Fire fire bullet

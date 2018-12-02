@@ -39,7 +39,6 @@ export default class Player extends Entitie {
       "pointermove",
       function(pointer) {
         playerRef.updateDirection(pointer);
-        console.log(this.direction);
       },
       this
     );
