@@ -46,10 +46,14 @@ export default class PlayerInputs {
   }
   castSpell() {
     let newSpell = new Spell(2, 3, 2, this.scene);
-    newSpell.cast(
-      this.player.playerObject.x,
-      this.player.playerObject.y,
-      this.player.direction
-    );
+    console.log(this.player.cd)
+    if(!this.player.checkCD()) {
+      newSpell.cast(
+        this.player.playerObject.x,
+        this.player.playerObject.y,
+        this.player.direction
+      );
+      this.player.setonCd();
+    }
   }
 }

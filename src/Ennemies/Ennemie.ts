@@ -13,6 +13,7 @@ export default class Ennemie extends Entitie {
   public currentRoom;
   public isDead = false;
   public sanityGiven: number;
+  public reduceCoolDown: number;
   public lastPlayerPos = {
     x: 0,
     y: 0
@@ -26,12 +27,8 @@ export default class Ennemie extends Entitie {
       y = 0;
     }
     this.scene = scene;
-    if (typeof this.ennemieObject !== "undefined") {
-      //this.ennemieObject = this.scene.add.sprite(x, y, "knight");
-    }
-
-    const ennemiRef = this;
-    /*
+    this.reduceCoolDown = 0;
+/*
     scene.physics.add.collider(
       this.ennemieObject,
       scene.player.playerObject,
@@ -98,6 +95,7 @@ export default class Ennemie extends Entitie {
   kill() {
     this.ennemieObject.destroy();
     this.scene.player.addSanity(this.sanityGiven);
+    this.scene.player.decreaseCastTime(this.reduceCoolDown);
     this.isDead = true;
   }
 
