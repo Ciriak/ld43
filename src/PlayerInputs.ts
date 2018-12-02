@@ -28,24 +28,24 @@ export default class PlayerInputs {
       // bullet.fire(this.gun.x, this.gun.y);
       // }
     }
-
+    player.playerObject.anims.play("widle");
     if (scene.cursors.left.isDown) {
       player.playerObject.setVelocityX(-velocity);
 
-      player.playerObject.anims.play("idle");
+      
     }
     if (scene.cursors.right.isDown) {
       player.playerObject.setVelocityX(velocity);
 
-      player.playerObject.anims.play("idle");
+
     }
     if (scene.cursors.down.isDown) {
       player.playerObject.setVelocityY(velocity);
-      player.playerObject.anims.play("idle");
+
     }
     if (scene.cursors.up.isDown) {
       player.playerObject.setVelocityY(-velocity);
-      player.playerObject.anims.play("idle");
+
     }
   }
   castSpell() {
