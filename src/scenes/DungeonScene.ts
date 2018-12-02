@@ -37,6 +37,12 @@ export default class DungeonScene extends Phaser.Scene {
     this.dungeonLoader = new DungeonLoader(this);
     this.createAnims();
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.addKeys({
+      up: Phaser.Input.Keyboard.KeyCodes.W,
+      down: Phaser.Input.Keyboard.KeyCodes.S,
+      left: Phaser.Input.Keyboard.KeyCodes.A,
+      right: Phaser.Input.Keyboard.KeyCodes.D
+    });
     this.spellsCasted = this.physics.add.group();
     this.ennemisGroup = this.physics.add.group();
 
