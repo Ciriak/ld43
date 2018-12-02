@@ -71,10 +71,26 @@ export default class DungeonScene extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)))
     {
         let newSpell = new Spell(2,3,2,this);
-        newSpell.cast(this.player.playerObject.x, this.player.playerObject.y);
+        newSpell.cast(this.player.playerObject.x, this.player.playerObject.y, this.player.direction);
     }
       this.spellsCasted.getChildren().forEach(sprite => {
-        sprite.x += sprite.spellInfo.speed;
+        switch (sprite.spellInfo.direction) {
+          case 'left':
+            sprite.x -= sprite.spellInfo.speed;
+              break;
+          case 'right':
+            sprite.x += sprite.spellInfo.speed;
+              break;
+          case 'up':
+            sprite.y -= sprite.spellInfo.speed;
+              break;
+          case 'down':
+            sprite.y += sprite.spellInfo.speed;
+              break;
+          default:
+              break;
+      }
+        
     });
   }
 
