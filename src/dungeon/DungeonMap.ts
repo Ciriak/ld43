@@ -217,7 +217,7 @@ export default class DungeonLoader {
         badBoy.currentRoom = this.getEnnemieRoom(badBoy);
         mapRef.watchCollisionEnnemy(badBoy);
         tabEnnemy.push(badBoy);
-        //this.scene.ennemisGroup.add(badBoy);
+        this.scene.ennemisGroup.add(badBoy.ennemieObject);
       }
     });
     return tabEnnemy;
@@ -290,7 +290,7 @@ export default class DungeonLoader {
   public watchCollisionEnnemy(ennemy) {
     // Watch the ennemy and ground layer for collisions, for the duration of the scene:
     this.scene.physics.add.collider(ennemy.ennemieObject, this.scene.groundLayer);
-    this.scene.physics.add.collider(ennemy.ennemieObject, this.scene.spellsCasted, this.test, null, ennemy);
+    this.scene.physics.add.collider(this.scene.ennemisGroup, this.scene.spellsCasted, this.test, null, ennemy);
   }
 
   public test(target, spell) {
