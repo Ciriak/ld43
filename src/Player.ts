@@ -33,6 +33,49 @@ export default class Player extends Entitie {
         playerRef.scene.uiManager.updateSanity(playerRef.sanity);
       }
     }, 500);
+
+    // update dir
+    scene.input.on(
+      "pointermove",
+      function(pointer) {
+        playerRef.updateDirection(pointer);
+        console.log(this.direction);
+        //console.log(pointer.positionx, y, twidth, theight, this.direction);
+      },
+      this
+    );
+  }
+
+  /**
+   * Update the player watch direction according to the cursor position
+   * @param pointer
+   */
+  updateDirection(pointer) {
+    // retrieve angle between cursor and player
+
+    const angle = Phaser.Math.Angle.Between(
+      screen.width / 2,
+      screen.height / 2,
+      pointer.position.x,
+      pointer.position.y
+    );
+
+    if (angle > -0.9 && angle < 0.45) {
+      this.direction = "right";
+      return;
+    }
+    if (angle > 0.45 && angle < 3) {
+      this.direction = "down";
+      return;
+    }
+    if (angle > -3 && angle < -2) {
+      this.direction = "left";
+      return;
+    }
+    if (angle > -2 && angle < -0.45) {
+      this.direction = "top";
+      return;
+    }
   }
 
   kill() {
