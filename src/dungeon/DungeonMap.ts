@@ -48,7 +48,10 @@ export default class DungeonLoader {
       0,
       0
     ); // 1px margin, 2px spacing
-    this.scene.groundLayer = this.map.createBlankDynamicLayer("Ground", tileset);
+    this.scene.groundLayer = this.map.createBlankDynamicLayer(
+      "Ground",
+      tileset
+    );
     this.stuffLayer = this.map.createBlankDynamicLayer("Stuff", tileset);
     this.spawn = this.map.createBlankDynamicLayer("Spawn", tileset);
     this.generateFogOfWar(tileset);
@@ -70,7 +73,6 @@ export default class DungeonLoader {
   }
 
   private renderRooms() {
-
     this.scene.wallGroup = this.scene.physics.add.staticGroup();
     // Use the array of rooms generated to place tiles in the map
     // Note: using an arrow function here so that "this" still refers to our scene
@@ -153,7 +155,7 @@ export default class DungeonLoader {
         }
       }
     });
-    let wallIndex = [41, 39, 40,41,42];
+    let wallIndex = [41, 39, 40, 41, 42];
 
     this.scene.groundLayer.forEachTile(tile => {
       if (wallIndex.includes(tile.index)) {
@@ -228,7 +230,6 @@ export default class DungeonLoader {
   }
 
   private generateFogOfWar(tileset) {
-    console.log("ttt");
     const shadowLayer = this.getMap().createBlankDynamicLayer(
       "Shadow",
       tileset
@@ -276,21 +277,37 @@ export default class DungeonLoader {
   public getEnnemieRoom(ennemie: Ennemie) {
     // Find the ennemie's room using another helper method from the dungeon that converts from
     // dungeon XY (in grid units) to the corresponding room object
-    const ennemieTileX = this.scene.groundLayer.worldToTileX(ennemie.ennemieObject.x);
-    const ennemieTileY = this.scene.groundLayer.worldToTileY(ennemie.ennemieObject.y);
+    const ennemieTileX = this.scene.groundLayer.worldToTileX(
+      ennemie.ennemieObject.x
+    );
+    const ennemieTileY = this.scene.groundLayer.worldToTileY(
+      ennemie.ennemieObject.y
+    );
     const ennemieRoom = this.dungeon.getRoomAt(ennemieTileX, ennemieTileY);
     return ennemieRoom;
   }
 
   public watchCollision(player) {
     // Watch the player and ground layer for collisions, for the duration of the scene:
-    this.scene.physics.add.collider(player.playerObject, this.scene.groundLayer);
+    this.scene.physics.add.collider(
+      player.playerObject,
+      this.scene.groundLayer
+    );
   }
 
   public watchCollisionEnnemy(ennemy) {
     // Watch the ennemy and ground layer for collisions, for the duration of the scene:
-    this.scene.physics.add.collider(ennemy.ennemieObject, this.scene.groundLayer);
-    this.scene.physics.add.collider(ennemy.ennemieObject, this.scene.spellsCasted, this.test, null, ennemy);
+    this.scene.physics.add.collider(
+      ennemy.ennemieObject,
+      this.scene.groundLayer
+    );
+    this.scene.physics.add.collider(
+      ennemy.ennemieObject,
+      this.scene.spellsCasted,
+      this.test,
+      null,
+      ennemy
+    );
   }
 
   public test(target, spell) {
