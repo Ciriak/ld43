@@ -3,8 +3,8 @@ import Ennemie from "./Ennemie";
 import Phaser from "phaser";
 export default class Witchcraft extends Ennemie {
   private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
-  projectileSpeed: number = 75;
-  shootDelay: number = 1000;
+  projectileSpeed: number = 80;
+  shootDelay: number = 3000;
   shootRepeatEvent: any = null;
   private shooting: boolean = false;
   constructor(scene: DungeonScene, x?: number, y?: number) {
