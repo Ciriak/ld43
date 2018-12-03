@@ -215,7 +215,7 @@ export default class DungeonLoader {
         const tx = Phaser.Math.Between(left + 1, right - 1);
         const ty = Phaser.Math.Between(top + 1, bottom - 1);
         this.stuffLayer.weightedRandomize(tx, ty, 1, 1, TILES.POT);
-        this.spawnRelic(tx, ty)
+        this.spawnRelic(tx*64, ty*64)
         // 25% chance of chest
         // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.8) {

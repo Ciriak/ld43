@@ -76,7 +76,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.cameras.main.fadeIn();
     this.dungeonLoader.watchCollision(this.player);
 
-    this.uiManager = new UIManager(this);
+    this.uiManager = new UIManager(this.scene);
 
     this.ennemies = this.ennemies.concat(this.dungeonLoader.spawnEnnemy());
     //this.ennemisGroup.playAnimation("idle");
@@ -198,7 +198,7 @@ export default class DungeonScene extends Phaser.Scene {
     //CHILD ANIMS END
     //Witch ANIMS
     this.anims.create({
-      key: "wdown",
+      key: "wtop",
       frames: this.anims.generateFrameNumbers("woman", { start: 17, end: 28 }),
       frameRate: 6,
       repeat: -1
@@ -216,7 +216,7 @@ export default class DungeonScene extends Phaser.Scene {
       repeat: -1
     });
     this.anims.create({
-      key: "wtop",
+      key: "wdown",
       frames: this.anims.generateFrameNumbers("woman", { start: 0, end: 8 }),
       frameRate: 6,
       repeat: -1
@@ -232,25 +232,25 @@ export default class DungeonScene extends Phaser.Scene {
     this.anims.create({
       key: "kright",
       frames: this.anims.generateFrameNumbers("knight", { start: 11, end: 14 }),
-      frameRate: 15,
+      frameRate: 5,
       repeat: -1
     });
     this.anims.create({
       key: "kleft",
       frames: this.anims.generateFrameNumbers("knight", { start: 4, end: 6 }),
-      frameRate: 100,
-      yoyo: true,
-      repeat: -1
-    });
-    this.anims.create({
-      key: "ktop",
-      frames: this.anims.generateFrameNumbers("knight", { start: 7, end: 10 }),
-      frameRate: 100,
+      frameRate: 5,
       yoyo: true,
       repeat: -1
     });
     this.anims.create({
       key: "kdown",
+      frames: this.anims.generateFrameNumbers("knight", { start: 7, end: 10 }),
+      frameRate: 5,
+      yoyo: true,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "ktop",
       frames: this.anims.generateFrameNumbers("knight", { start: 0, end: 2 }),
       frameRate: 5,
       yoyo: true,
@@ -269,13 +269,5 @@ export default class DungeonScene extends Phaser.Scene {
 
   updateScore() {
     this.uiManager.setScore(this.score);
-  }
-
-  /**
-   * Restart the scene
-   */
-  restart() {
-    //fuck this shit
-    location.reload();
   }
 }

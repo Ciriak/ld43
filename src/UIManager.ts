@@ -25,7 +25,6 @@ export default class UIManager {
     // relaunch a game
     $(".retry-btn").click(function() {
       $("#death-screen").removeClass("active");
-
       sceneRef.restart();
     });
   }
@@ -63,7 +62,7 @@ export default class UIManager {
    */
   startDeathScreen() {
     //flash red
-    const cameraRef = this.scene.cameras.main;
+    const cameraRef = this.scene.scene.cameras.main;
     cameraRef.flash(1000, 255, 0, 0, 10);
 
     setTimeout(function() {

@@ -36,23 +36,26 @@ export default class Ennemie extends Entitie {
     if (this.ennemieObject.active !== false) {
       this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
       let char = this.spriteName.charAt(0);
-      switch (this.direction) {
-        case "left":
-          this.ennemieObject.anims.play(char + "left", true);
-          break;
-        case "right":
-          this.ennemieObject.anims.play(char + "right", true);
-          break;
-        case "top":
-          this.ennemieObject.anims.play(char + "top", true);
-          break;
-        case "bottom":
-          this.ennemieObject.anims.play(char + "down", true);
-          break;
-        default:
-          this.ennemieObject.anims.play(char + "idle", true);
-          break;
+      if(typeof this.direction !== 'undefined') {
+        switch (this.direction) {
+          case "left":
+            this.ennemieObject.anims.play(char + "left", true);
+            break;
+          case "right":
+            this.ennemieObject.anims.play(char + "right", true);
+            break;
+          case "top":
+            this.ennemieObject.anims.play(char + "top", true);
+            break;
+          case "bottom":
+            this.ennemieObject.anims.play(char + "down", true);
+            break;
+          default:
+            this.ennemieObject.anims.play(char + "idle", true);
+            break;
+        }
       }
+
 
       if (this.scene.player.isDead) {
         return;

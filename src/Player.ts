@@ -34,6 +34,7 @@ export default class Player extends Entitie {
     this.onCd = false;
     this.cd = 2500;
     this.castTime = 2500;
+    this.loadFromLocal();
     this.playerObject = this.scene.physics.add.sprite(x, y, "wizard");
 
     this.playerObject.body.setSize(32, 45);
@@ -83,6 +84,22 @@ export default class Player extends Entitie {
     }
   }
 
+  getallStats() {
+    return {cd: this.cd, castTime: this.castTime, rof: this.rof, damage: this.damage, sanity: this.sanity, speed: this.speed }
+  }
+
+  loadFromLocal() {
+    let playerStorage = JSON.parse(localStorage.getItem("player"));
+    if(playerStorage){
+      this.castTime = playerStorage.castTime;
+      this.cd = playerStorage.cd;
+      this.rof = playerStorage.rof;
+      this.damage = playerStorage.damage;
+      this.sanity = playerStorage.sanity;
+      this.speed = playerStorage.speed;
+    }
+  }
+
   kill() {
     this.playerObject.destroy();
     this.isDead = true;
@@ -124,6 +141,7 @@ export default class Player extends Entitie {
 
   update(time: number, delta: number) {
     if (this.isDead) {
+      localStorage.removeItem("player");
       return;
     }
     if (this.checkCD()) {
@@ -135,6 +153,12 @@ export default class Player extends Entitie {
       }
     }
     this.inputsManager.update(time, delta, this, this.scene);
+    this.saveLocalStorage();
+  }
+
+  saveLocalStorage() {
+
+    localStorage.setItem("player", JSON.stringify(this.getallStats()));
   }
   setonCd() {
     this.onCd = !this.onCd;

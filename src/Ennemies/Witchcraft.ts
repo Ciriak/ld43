@@ -109,6 +109,7 @@ export default class Witchcraft extends Ennemie {
 
   buff() {
     this.shootDelay = this.shootDelay - 100;
+    this.health = this.health + 8;
   }
 
   kill() {
