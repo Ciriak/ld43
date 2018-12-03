@@ -3,7 +3,7 @@ import Ennemie from "./Ennemie";
 import Phaser from "phaser";
 
 export default class CloseCombat extends Ennemie {
-  spriteName = "closeCombat";
+  spriteName = "knight";
   sanityGiven: number = 30;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
