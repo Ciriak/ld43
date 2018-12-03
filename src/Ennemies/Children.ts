@@ -35,7 +35,7 @@ export default class Children extends Ennemie {
   }
   buff() {
     this.speed = this.speed + 20;
-    this.health = this.health + 5;
+    this.health = this.health + 1;
   }
 
   /**

@@ -86,7 +86,8 @@ export default class Player extends Entitie {
   }
 
   getallStats() {
-    return {cd: this.cd, castTime: this.castTime, rof: this.rof, damage: this.damage, sanity: this.sanity, speed: this.speed }
+    return {cd: this.cd, castTime: this.castTime, rof: this.rof, damage: this.damage, sanity: this.sanity, speed: this.speed
+    score: this.score }
   }
 
   loadFromLocal() {
@@ -98,6 +99,7 @@ export default class Player extends Entitie {
       this.damage = playerStorage.damage;
       this.sanity = playerStorage.sanity;
       this.speed = playerStorage.speed;
+      this.score = playerStorage.score;
     }
   }
 
@@ -154,7 +156,7 @@ export default class Player extends Entitie {
       if (this.cd > 0) {
         this.cd -= delta;
       } else {
-        this.cd = this.castTime;
+        this.cd = this.castTime - this.rof *350// this.castTime;
         this.setonCd();
       }
     }

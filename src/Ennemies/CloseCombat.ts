@@ -40,8 +40,8 @@ export default class CloseCombat extends Ennemie {
   }
 
   buff() {
-    this.speed = this.speed + 10;
-    this.health = this.health + 15;
+    this.speed = this.speed + 50;
+    this.health = this.health + 3;
   }
 
   /**

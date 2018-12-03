@@ -195,20 +195,18 @@ export default class DungeonLoader {
   }
   //This = Scene
   collectRelic(player, relic) {
-    console.log("relic collected");
-    console.log(relic.name);
     switch (relic.name) {
       case "eye_relic":
-        player.decreaseCastTime(5000);
+        this.player.decreaseCastTime(100);
         break;
       case "foot_relic":
-        player.giveStat("speed", 5);
+      this.player.giveStat("speed", 5);
         break;
       case "hand_relic":
-        player.giveStat("damage", 5);
+      this.player.giveStat("damage", 5);
         break;
       case "heart_relic":
-        player.kill();
+      this.player.kill();
         break;
       default:
         break;
