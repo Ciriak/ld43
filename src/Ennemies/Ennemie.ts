@@ -14,6 +14,7 @@ export default class Ennemie extends Entitie {
   public isDead = false;
   public sanityGiven: number;
   public reduceCoolDown: number;
+  public scoreGiven: number = 0;
   public lastPlayerPos = {
     x: 0,
     y: 0
@@ -42,7 +43,7 @@ export default class Ennemie extends Entitie {
           this.ennemieObject.anims.play(char + "right", true);
           break;
         case "top":
-        this.ennemieObject.anims.play(char+"top", true);
+          this.ennemieObject.anims.play(char + "top", true);
           break;
         case "bottom":
           this.ennemieObject.anims.play(char + "down", true);
@@ -91,8 +92,6 @@ export default class Ennemie extends Entitie {
    * @param damage
    */
   takeDamage(damage: number, value) {
-    console.log(this.spriteName)
-    console.log(this.health)
     this.health -= damage;
     if (this.health <= 0) {
       this.kill();
@@ -106,6 +105,8 @@ export default class Ennemie extends Entitie {
     this.ennemieObject.destroy();
     this.scene.player.addSanity(this.sanityGiven);
     this.scene.player.decreaseCastTime(this.reduceCoolDown);
+    this.scene.score += this.scoreGiven;
+    console.log("Score => " + this.scene.score);
     this.isDead = true;
   }
 

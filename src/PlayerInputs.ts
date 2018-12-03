@@ -1,7 +1,8 @@
 import Player from "./Player";
 import DungeonScene from "./scenes/DungeonScene";
 import Spell from "./spells/spell";
-const velocity = 100;
+const initialVelocity = 100;
+let velocity;
 export default class PlayerInputs {
   private scene: DungeonScene;
   private player;
@@ -22,6 +23,8 @@ export default class PlayerInputs {
   // Any key down, check event
 
   update(time: number, delta: number, player: Player, scene: any) {
+    velocity = initialVelocity + initialVelocity * ((player.speed / 10) * 2);
+
     player.playerObject.setVelocity(0, 0);
 
     switch (player.direction) {
@@ -57,7 +60,6 @@ export default class PlayerInputs {
   }
   castSpell() {
     let newSpell = new Spell(2, 3, 2, this.scene);
-    console.log(this.player.cd);
     if (!this.player.checkCD()) {
       newSpell.cast(
         this.player.playerObject.x,
