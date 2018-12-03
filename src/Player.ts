@@ -37,6 +37,7 @@ export default class Player extends Entitie {
     this.cd = 2500;
     this.castTime = 2500;
     this.loadFromLocal();
+    this.resetUiStats();
     this.playerObject = this.scene.physics.add.sprite(x, y, "wizard");
     
     this.playerObject.body.setSize(32, 45);
@@ -103,6 +104,14 @@ export default class Player extends Entitie {
       this.score = playerStorage.score;
       this.level = playerStorage.level;
     }
+  }
+
+  resetUiStats() {
+    this.scene.uiManager.updateSanity(this.sanity);
+    this.scene.uiManager.updateStat('rof',this.rof );
+    this.scene.uiManager.updateStat('damage',this.damage );
+    this.scene.uiManager.updateStat('speed',this.speed );
+    this.scene.uiManager.setScore(this.score );
   }
 
   kill() {
