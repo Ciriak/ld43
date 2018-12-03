@@ -203,10 +203,10 @@ export default class DungeonLoader {
       this.decreaseCastTime(5000);
         break;
       case "foot_relic":
-        this.giveStat('speed', 100);
+        this.giveStat('speed', 5);
         break;
       case "hand_relic":
-      this.giveStat('damage', 100);
+      this.giveStat('damage', 5);
         break;
       case "heart_relic":
       this.kill();

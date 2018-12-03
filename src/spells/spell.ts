@@ -50,6 +50,7 @@ export default class Spell {
       this.scene.input.y + this.scene.cameras.main.scrollY,
       150
     );
+
     this.sprite.anims.play("SpellsCasted");
   }
 }
