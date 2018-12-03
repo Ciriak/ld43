@@ -5,7 +5,9 @@ import Player from "../Player";
 
 export default class CloseCombat extends Ennemie {
   spriteName = "knight";
+  bonusText = "Damage";
   sanityGiven: number = 3;
+  scoreGiven: number = 20;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
     this.health = 10;

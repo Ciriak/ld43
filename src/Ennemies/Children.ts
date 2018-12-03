@@ -6,7 +6,8 @@ import Player from "../Player";
 export default class Children extends Ennemie {
   spriteName = "children";
   sanityGiven: number = 5;
-
+  scoreGiven: number = 5;
+  public bonusText: string = "Speed";
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
     const ennemiRef = this;
