@@ -27,7 +27,6 @@ export default class DungeonScene extends Phaser.Scene {
   childGroup: any;
   knightGroup: any;
   witchGroup: any;
-  score: number = 0;
   relicGroup: any;
 
   preload() {
@@ -51,7 +50,11 @@ export default class DungeonScene extends Phaser.Scene {
       up: Phaser.Input.Keyboard.KeyCodes.Z,
       down: Phaser.Input.Keyboard.KeyCodes.S,
       left: Phaser.Input.Keyboard.KeyCodes.Q,
-      right: Phaser.Input.Keyboard.KeyCodes.D
+      right: Phaser.Input.Keyboard.KeyCodes.D,
+      sacriDamage: Phaser.Input.Keyboard.KeyCodes.X,
+      sacriSpeed: Phaser.Input.Keyboard.KeyCodes.C,
+      sacriRof: Phaser.Input.Keyboard.KeyCodes.V,
+      sacriHealth: Phaser.Input.Keyboard.KeyCodes.B
     });
 
     const xPlayer = this.dungeonLoader
@@ -84,7 +87,13 @@ export default class DungeonScene extends Phaser.Scene {
     this.knightGroup.playAnimation("kdown");
     this.witchGroup.playAnimation("widle");
 
-    this.physics.add.overlap(this.player.playerObject, this.relicGroup, this.dungeonLoader.collectRelic, null, this);
+    this.physics.add.overlap(
+      this.player.playerObject,
+      this.relicGroup,
+      this.dungeonLoader.collectRelic,
+      null,
+      this
+    );
 
     this.physics.add.collider(
       this.spellsCasted,
@@ -125,7 +134,7 @@ export default class DungeonScene extends Phaser.Scene {
   }
 
   buffMonsters() {
-    console.log('buff Monster');
+    console.log("buff Monster");
     this.ennemies.forEach(monster => {
       monster.buff();
     });
@@ -268,7 +277,7 @@ export default class DungeonScene extends Phaser.Scene {
   }
 
   updateScore() {
-    this.uiManager.setScore(this.score);
+    this.uiManager.setScore(this.player.score);
   }
 
   /**

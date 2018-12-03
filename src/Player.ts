@@ -13,6 +13,7 @@ export default class Player extends Entitie {
   public currentRoom;
   public onCd: boolean;
   public cd: number;
+  public score: number = 0;
   private castTime: number;
 
   /**
@@ -138,6 +139,20 @@ export default class Player extends Entitie {
   }
   setonCd() {
     this.onCd = !this.onCd;
+  }
+
+  /**
+   * Reset a stat, low the sanity and add a score bonus
+   * @param stat
+   */
+  sacrifical(stat) {
+    //reset player stat
+    if (typeof this[stat] !== "undefined") {
+      if (this[stat] >= 5) {
+        this[stat] = 0;
+        this.scene.uiManager.updateStat(stat, 0);
+      }
+    }
   }
 
   checkCD() {
