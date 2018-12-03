@@ -7,9 +7,9 @@ export default class Player extends Entitie {
   public playerObject: any;
   public isDead = false;
   public sanity: number = 0;
-  public speed: number = 1;
-  public rof: number = 1;
-  public damage: number = 1;
+  public speed: number = 0;
+  public rof: number = 0;
+  public damage: number = 0;
   public currentRoom;
   public onCd: boolean;
   public cd: number;
