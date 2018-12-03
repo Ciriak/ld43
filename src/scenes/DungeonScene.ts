@@ -173,8 +173,14 @@ export default class DungeonScene extends Phaser.Scene {
       repeat: -1
     });
     this.anims.create({
-      key: "ctop",
+      key: "cdown",
       frames: this.anims.generateFrameNumbers("child", {start: 24, end: 27}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "ctop",
+      frames: this.anims.generateFrameNumbers("child", {start: 13, end: 16}),
       frameRate: 3,
       repeat: -1
     });

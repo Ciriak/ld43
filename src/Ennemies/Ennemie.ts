@@ -28,17 +28,6 @@ export default class Ennemie extends Entitie {
     }
     this.scene = scene;
     this.reduceCoolDown = 0;
-    /*
-    scene.physics.add.collider(
-      this.ennemieObject,
-      scene.player.playerObject,
-      function() {
-        ennemiRef.giveDamageToPlayer(scene.player);
-      },
-      function() {},
-      function() {}
-    );
-    */
   }
 
   update(time: number, delta: number) {
@@ -53,7 +42,7 @@ export default class Ennemie extends Entitie {
         this.ennemieObject.anims.play(char+"right", true);
           break;
         case "top":
-        this.ennemieObject.anims.play(char+"wtop", true);
+        this.ennemieObject.anims.play(char+"top", true);
           break;
         case "bottom":
         this.ennemieObject.anims.play(char+"down", true);
