@@ -290,6 +290,8 @@ private generateSpawn2(tile) {
       "Shadow",
       tileset
     );
+    // Set the "z-index"
+    shadowLayer.setDepth(50);
     shadowLayer.fill(TILES.BLANK);
     this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
   }
