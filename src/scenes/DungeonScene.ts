@@ -28,6 +28,7 @@ export default class DungeonScene extends Phaser.Scene {
   childGroup: any;
   knightGroup: any;
   witchGroup: any;
+  score: number = 0;
 
   preload() {
     new ResourcesLoader(this);
@@ -125,63 +126,63 @@ export default class DungeonScene extends Phaser.Scene {
     //PLAYER ANIMS
     this.anims.create({
       key: "pidle",
-      frames: this.anims.generateFrameNumbers("wizard", {start: 8, end: 9}),
+      frames: this.anims.generateFrameNumbers("wizard", { start: 8, end: 9 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "pleft",
-      frames: this.anims.generateFrameNumbers("wizard", {start: 0, end: 1}),
+      frames: this.anims.generateFrameNumbers("wizard", { start: 0, end: 1 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "pright",
-      frames: this.anims.generateFrameNumbers("wizard", {start: 2, end: 5}),
+      frames: this.anims.generateFrameNumbers("wizard", { start: 2, end: 5 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "ptop",
-      frames: this.anims.generateFrameNumbers("wizard", {start: 6, end: 7}),
+      frames: this.anims.generateFrameNumbers("wizard", { start: 6, end: 7 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "pdown",
-      frames: this.anims.generateFrameNumbers("wizard", {start: 8, end: 9}),
+      frames: this.anims.generateFrameNumbers("wizard", { start: 8, end: 9 }),
       frameRate: 3,
       repeat: -1
     });
     //PLAYER ANIMS END
-//CHILD ANIMS
+    //CHILD ANIMS
     this.anims.create({
       key: "cidle",
-      frames: this.anims.generateFrameNumbers("child", {start: 17, end: 23}),
+      frames: this.anims.generateFrameNumbers("child", { start: 17, end: 23 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "cleft",
-      frames: this.anims.generateFrameNumbers("child", {start: 5, end: 8}),
+      frames: this.anims.generateFrameNumbers("child", { start: 5, end: 8 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "cright",
-      frames: this.anims.generateFrameNumbers("child", {start: 9, end: 12}),
+      frames: this.anims.generateFrameNumbers("child", { start: 9, end: 12 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "cdown",
-      frames: this.anims.generateFrameNumbers("child", {start: 24, end: 27}),
+      frames: this.anims.generateFrameNumbers("child", { start: 24, end: 27 }),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
       key: "ctop",
-      frames: this.anims.generateFrameNumbers("child", {start: 13, end: 16}),
+      frames: this.anims.generateFrameNumbers("child", { start: 13, end: 16 }),
       frameRate: 3,
       repeat: -1
     });
@@ -189,36 +190,36 @@ export default class DungeonScene extends Phaser.Scene {
     //Witch ANIMS
     this.anims.create({
       key: "wdown",
-      frames: this.anims.generateFrameNumbers("woman", {start: 17, end:28}),
+      frames: this.anims.generateFrameNumbers("woman", { start: 17, end: 28 }),
       frameRate: 6,
       repeat: -1
     });
     this.anims.create({
       key: "wleft",
-      frames: this.anims.generateFrameNumbers("woman", {start: 13, end:16}),
+      frames: this.anims.generateFrameNumbers("woman", { start: 13, end: 16 }),
       frameRate: 6,
       repeat: -1
     });
     this.anims.create({
       key: "wright",
-      frames: this.anims.generateFrameNumbers("woman", {start: 9, end:12}),
+      frames: this.anims.generateFrameNumbers("woman", { start: 9, end: 12 }),
       frameRate: 6,
       repeat: -1
     });
     this.anims.create({
       key: "wtop",
-      frames: this.anims.generateFrameNumbers("woman", {start: 0, end:8}),
+      frames: this.anims.generateFrameNumbers("woman", { start: 0, end: 8 }),
       frameRate: 6,
       repeat: -1
     });
     this.anims.create({
       key: "widle",
-      frames: this.anims.generateFrameNumbers("woman", {start: 17, end:19}),
+      frames: this.anims.generateFrameNumbers("woman", { start: 17, end: 19 }),
       frameRate: 6,
       repeat: -1
     });
-//Witch ANIMS END
-//knight ANIMS
+    //Witch ANIMS END
+    //knight ANIMS
     this.anims.create({
       key: "kright",
       frames: this.anims.generateFrameNumbers("knight", { start: 11, end: 14 }),
@@ -227,14 +228,14 @@ export default class DungeonScene extends Phaser.Scene {
     });
     this.anims.create({
       key: "kleft",
-      frames: this.anims.generateFrameNumbers("knight", {start: 4, end: 6}),
+      frames: this.anims.generateFrameNumbers("knight", { start: 4, end: 6 }),
       frameRate: 100,
       yoyo: true,
       repeat: -1
     });
     this.anims.create({
       key: "ktop",
-      frames: this.anims.generateFrameNumbers("knight", {start: 7, end: 10}),
+      frames: this.anims.generateFrameNumbers("knight", { start: 7, end: 10 }),
       frameRate: 100,
       yoyo: true,
       repeat: -1
