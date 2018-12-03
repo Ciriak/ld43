@@ -9,6 +9,7 @@ export default class Player extends Entitie {
   public sanity: number = 0;
   public speed: number = 0;
   public rof: number = 0;
+  public level: number = 1;
   public damage: number = 0;
   public currentRoom;
   public onCd: boolean;
@@ -87,7 +88,7 @@ export default class Player extends Entitie {
 
   getallStats() {
     return {cd: this.cd, castTime: this.castTime, rof: this.rof, damage: this.damage, sanity: this.sanity, speed: this.speed
-    score: this.score }
+    score: this.score, level: this.level }
   }
 
   loadFromLocal() {
@@ -100,6 +101,7 @@ export default class Player extends Entitie {
       this.sanity = playerStorage.sanity;
       this.speed = playerStorage.speed;
       this.score = playerStorage.score;
+      this.level = playerStorage.level;
     }
   }
 

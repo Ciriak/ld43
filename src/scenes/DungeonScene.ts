@@ -76,7 +76,6 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player = new Player(this, xPlayer, yPlayer);
     this.dungeonLoader.spawnRelic(xRlic, YRlic);
-
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(1);
     this.cameras.main.fadeIn();
@@ -87,6 +86,13 @@ export default class DungeonScene extends Phaser.Scene {
     this.childGroup.playAnimation("cidle");
     this.knightGroup.playAnimation("kdown");
     this.witchGroup.playAnimation("widle");
+
+    if(this.player.level > 1) {
+      for (let i =0; i < this.player.level; i++) {
+        console.log("buffMONSTER HUEHUEHUEHUHUE");
+        this.buffMonsters();
+      }
+    }
 
     this.physics.add.overlap(
       this.player.playerObject,
@@ -108,6 +114,10 @@ export default class DungeonScene extends Phaser.Scene {
   //camera bounds
 
   update(time: number, delta: number) {
+    //If no ennemies just restart the scene
+    if(this.ennemies.length === 0) {
+      this.scene.restart();
+    }
     this.player.update(time, delta);
     this.updateEnnemies(time, delta);
     const currentPlayerRoom = this.dungeonLoader.getPlayerRoom(this.player);
