@@ -111,31 +111,34 @@ export default class Ennemie extends Entitie {
   }
 
   manageHPBar() {
-    // if (!this.hpEnabled) {
-    //   return;
-    // }
-    // let hpPos = {
-    //   x: this.ennemieObject.body.position.x + 32,
-    //   y: this.ennemieObject.body.position.y - 32
-    // };
-    // if (!this.hpBar) {
-    //   this.hpBar = this.scene.physics.add.sprite(
-    //     hpPos.x,
-    //     hpPos.y,
-    //     "hp_container"
-    //   );
-    //   this.hpBarProgress = this.scene.physics.add.sprite(
-    //     hpPos.x,
-    //     hpPos.y,
-    //     "hp"
-    //   );
-    // }
-    // //refresh bar position
-    // this.hpBar.setPosition(hpPos.x, hpPos.y);
-    // this.hpBarProgress.setPosition(hpPos.x, hpPos.y);
-    // const hpWidth = ((this.health / 30) * 100) % 32;
-    // this.hpBar.setScale(32, 3);
-    // this.hpBarProgress.setScale(hpWidth, 3);
+    if (!this.hpEnabled) {
+      return;
+    }
+    let hpPos = {
+      x: this.ennemieObject.body.position.x + 32,
+      y: this.ennemieObject.body.position.y - 32
+    };
+    if (!this.hpBar) {
+      this.hpBar = this.scene.physics.add.sprite(
+        hpPos.x,
+        hpPos.y,
+        "hp_container"
+      );
+      this.hpBarProgress = this.scene.physics.add.sprite(
+        hpPos.x,
+        hpPos.y,
+        "hp"
+      );
+    }
+    //refresh bar position
+    this.hpBar.setPosition(hpPos.x, hpPos.y);
+
+    debugger;
+    const hpWidth = ((this.health / 30) * 100) % 32;
+    this.hpBar.setDisplaySize(32, 5);
+    console.log(hpWidth);
+    this.hpBarProgress.setDisplaySize(Math.round(hpWidth), 3, 32 - hpWidth);
+    this.hpBarProgress.setPosition(hpPos.x - (32 - hpWidth), hpPos.y);
   }
 
   /**
