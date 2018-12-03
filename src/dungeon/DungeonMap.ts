@@ -182,27 +182,27 @@ export default class DungeonLoader {
     relic.name = spriteName;
     this.scene.relicGroup.add(relic);
   }
-
+//This = Scene
   collectRelic(player, relic){
     console.log("relic collected");
-    console.log(this);
     console.log(relic.name);
     switch (relic.name) {
       case "eye_relic":
-      this.decreaseCastTime(5000);
+      this.player.decreaseCastTime(5000);
         break;
       case "foot_relic":
-        this.giveStat('speed', 5);
+        this.player.giveStat('speed', 5);
         break;
       case "hand_relic":
-      this.giveStat('damage', 5);
+      this.player.giveStat('damage', 5);
         break;
       case "heart_relic":
-      this.kill();
+      this.player.kill();
         break;
       default:
         break;
     }
+    this.buffMonsters();
     relic.destroy();
   }
 
