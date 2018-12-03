@@ -83,7 +83,7 @@ body {
         user-select: none;
         width: 24px;
         height: 24px;
-        display: flex;
+
         border-radius: 3px;
         align-items: center;
         justify-content: center;
@@ -123,14 +123,14 @@ body {
           opacity: 1;
         }
       }
-    }
-    &.available {
-      .img {
-        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-        animation-iteration-count: infinite;
-      }
-      .activate-key {
-        display: block;
+      &.available {
+        .img {
+          animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+          animation-iteration-count: infinite;
+        }
+        .activate-key {
+          display: flex;
+        }
       }
     }
   }

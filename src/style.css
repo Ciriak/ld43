@@ -74,7 +74,6 @@ body {
       user-select: none;
       width: 24px;
       height: 24px;
-      display: flex;
       border-radius: 3px;
       align-items: center;
       justify-content: center;
@@ -106,11 +105,11 @@ body {
       #game-ui .items-list .item.active img {
         filter: grayscale(0%);
         opacity: 1; }
-  #game-ui .items-list.available .img {
-    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    animation-iteration-count: infinite; }
-  #game-ui .items-list.available .activate-key {
-    display: block; }
+    #game-ui .items-list .item.available .img {
+      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      animation-iteration-count: infinite; }
+    #game-ui .items-list .item.available .activate-key {
+      display: flex; }
 
 #game-ui .sanity-container {
   display: flex;
