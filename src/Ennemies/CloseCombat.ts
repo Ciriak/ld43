@@ -14,7 +14,9 @@ export default class CloseCombat extends Ennemie {
     this.health = 10;
     this.speed = 50;
     const ennemiRef = this;
-    this.ennemieObject = this.scene.add.sprite(x, y, "knight");
+    this.ennemieObject = this.scene.physics.add.sprite(x, y, "knight");
+    this.ennemieObject.body.setSize(32, 45);
+    this.ennemieObject.body.setOffset(32 / 2, 64 - 45);
     this.reduceCoolDown = 5;
     scene.physics.add.collider(
       this.ennemieObject,

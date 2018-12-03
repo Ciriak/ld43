@@ -6,7 +6,7 @@ import Player from "../Player";
 export default class Children extends Ennemie {
   spriteName = "children";
   sanityGiven: number = 5;
-  speed : number = 80;
+  speed: number = 80;
 
   scoreGiven: number = 5;
   public bonusText: string = "Speed";
@@ -14,7 +14,9 @@ export default class Children extends Ennemie {
     super(scene, x, y);
     const ennemiRef = this;
     this.health = 1;
-    this.ennemieObject = this.scene.add.sprite(x, y, "child");
+    this.ennemieObject = this.scene.physics.add.sprite(x, y, "child");
+    this.ennemieObject.body.setSize(32, 45);
+    this.ennemieObject.body.setOffset(32 / 2, 64 - 45);
     this.reduceCoolDown = 1;
     scene.physics.add.collider(
       this.ennemieObject,

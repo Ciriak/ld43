@@ -16,7 +16,9 @@ export default class Witchcraft extends Ennemie {
     super(scene, x, y);
     const ennemiRef = this;
     this.health = 5;
-    this.ennemieObject = this.scene.add.sprite(x, y, "woman");
+    this.ennemieObject = this.scene.physics.add.sprite(x, y, "woman");
+    this.ennemieObject.body.setSize(32, 45);
+    this.ennemieObject.body.setOffset(32 / 2, 64 - 45);
     this.reduceCoolDown = 20;
     scene.physics.add.collider(
       this.ennemieObject,
@@ -108,10 +110,10 @@ export default class Witchcraft extends Ennemie {
   }
 
   buff() {
-    if(this.shootDelay - 200 < 300) {
+    if (this.shootDelay - 200 < 300) {
       this.shootDelay = 300;
     } else {
-    this.shootDelay = this.shootDelay - 200;
+      this.shootDelay = this.shootDelay - 200;
     }
     this.health = this.health + 2;
   }
