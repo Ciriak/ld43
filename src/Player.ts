@@ -113,6 +113,10 @@ export default class Player extends Entitie {
    */
   giveStat(stat: string, value: number) {
     if (typeof this[stat] !== "undefined") {
+      //can't have more than 5
+      if (this[stat] >= 5) {
+        return;
+      }
       this[stat] = this[stat] + value;
       this.scene.uiManager.updateStat(stat, this[stat]);
     }
