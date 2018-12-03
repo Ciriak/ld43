@@ -43,6 +43,7 @@ export default class DungeonLoader {
       height: this.dungeon.height
     });
     this.startRoom = this.getDungeonRooms().shift();
+    console.log(this.startRoom);
     this.dungeonRooms = Phaser.Utils.Array.Shuffle(this.getDungeonRooms()).slice(
       0,
       this.getDungeonRooms().length * 0.99
@@ -175,6 +176,31 @@ export default class DungeonLoader {
     });
   }
 
+  public spawnRelic(x, y) {
+    console.log(x,y);
+    var rand = Math.random();
+    if(rand <= 0.25) {
+      let spriteName = 'eye_relic';
+    }else if(rand <=0.50) {
+      let spriteName = 'foot_relic';
+
+    }else if(rand <= 0.75){
+      let spriteName = 'hand_relic';
+
+    }else{
+      let spriteName = 'heart_relic';
+
+    }
+    console.log(spriteName);
+    let relic = this.scene.add.sprite(x, y, spriteName);
+    this.scene.physics.add.overlap(this.scene.player.playerObject, relic, this.collectRelic, null, this);
+  }
+
+  collectRelic(player, relic){
+    console.log("relic collected");
+    relic.disableBody(true, true);
+  }
+
   private renderOtherRooms() {
     // Place stuff in the 90% "otherRooms"
     this.getOtherRooms().forEach(room => {
@@ -223,15 +249,6 @@ export default class DungeonLoader {
       }
     });
   }
-
-private generateSpawn2(tile) {
-  if(tile.index !== -1) {
-    var rand = Math.random();
-    if(rand < 0.06) {
-      this.spawn2.push({ x: tile.getCenterY(), y: tile.getCenterY() });
-    }
-  }
-}
 
   public spawnEnnemy() {
     let tabEnnemy = [];
