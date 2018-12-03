@@ -83,7 +83,11 @@ export default class DungeonScene extends Phaser.Scene {
     this.dungeonLoader.watchCollision(this.player);
     this.ennemies = this.ennemies.concat(this.dungeonLoader.spawnEnnemy());
     //this.ennemisGroup.playAnimation("idle");
-    this.childGroup.playAnimation("cidle");
+    if(this.player.level == 1) {
+      this.childGroup.playAnimation("dab");
+    }else {
+      this.childGroup.playAnimation("cidle");
+    }
     this.knightGroup.playAnimation("kdown");
     this.witchGroup.playAnimation("widle");
 
@@ -155,8 +159,8 @@ export default class DungeonScene extends Phaser.Scene {
     //PLAYER ANIMS
     this.anims.create({
       key: "pidle",
-      frames: this.anims.generateFrameNumbers("wizard", { start: 8, end: 9 }),
-      frameRate: 3,
+      frames: this.anims.generateFrameNumbers("wizard", { start: 10, end: 15 }),
+      frameRate: 7,
       repeat: -1
     });
     this.anims.create({
@@ -188,6 +192,12 @@ export default class DungeonScene extends Phaser.Scene {
     this.anims.create({
       key: "cidle",
       frames: this.anims.generateFrameNumbers("child", { start: 17, end: 23 }),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "dab",
+      frames: this.anims.generateFrameNumbers("child", { start: 0, end: 4 }),
       frameRate: 3,
       repeat: -1
     });
