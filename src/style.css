@@ -15,6 +15,28 @@ body {
     color: #000;
     background-color: #fff; }
 
+#game-ui .score-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  #game-ui .score-container .score {
+    margin-top: 10px;
+    width: 100px;
+    height: 40px;
+    background-image: url("../assets/ui/wood.jpg");
+    box-shadow: 2px 2px 10px #212121;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    #game-ui .score-container .score .score-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #fff; }
+
 #game-ui .items-list {
   position: fixed;
   top: 0;
