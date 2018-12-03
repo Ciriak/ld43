@@ -23,16 +23,16 @@ export default class Spell {
     let anim = this.scene.anims.create(config);
     switch (direction) {
       case "left":
-        this.sprite = this.scene.physics.add.sprite(x - 64, y, "elecBall");
+        this.sprite = this.scene.physics.add.sprite(x - 32, y, "elecBall");
         break;
       case "right":
-        this.sprite = this.scene.physics.add.sprite(x + 64, y, "elecBall");
+        this.sprite = this.scene.physics.add.sprite(x + 32, y, "elecBall");
         break;
       case "up":
-        this.sprite = this.scene.physics.add.sprite(x, y - 64, "elecBall");
+        this.sprite = this.scene.physics.add.sprite(x, y - 32, "elecBall");
         break;
       case "down":
-        this.sprite = this.scene.physics.add.sprite(x, y + 64, "elecBall");
+        this.sprite = this.scene.physics.add.sprite(x, y + 32, "elecBall");
         break;
       default:
         break;
