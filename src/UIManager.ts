@@ -75,6 +75,12 @@ export default class UIManager {
       $("#game-ui").addClass("isDead");
     }, 1500);
   }
+  /**
+   * UI event when the scene restart
+   */
+  hideDeathScreen() {
+    $("#game-ui").removeClass("isDead");
+  }
   setScore(score: number) {
     $(".score-value").text(score);
   }

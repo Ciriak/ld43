@@ -77,6 +77,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(1);
     this.cameras.main.fadeIn();
+    this.uiManager.hideDeathScreen();
     this.dungeonLoader.watchCollision(this.player);
     if(typeof this.uiManager === 'undefined') {
       this.uiManager = new UIManager(this.scene);
