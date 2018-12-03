@@ -47,7 +47,6 @@ export default class UIManager {
    * @param value value to add or remove
    */
   updateStat(stat, value) {
-    console.log(stat, "+", value);
     let statItem = $("." + stat);
 
     statItem.removeClass("active");

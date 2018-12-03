@@ -178,7 +178,6 @@ export default class DungeonLoader {
   }
 
   public spawnRelic(x, y) {
-    console.log("relic spawn");
     var rand = Math.random();
     if (rand <= 0.25) {
       let spriteName = "eye_relic";
@@ -265,7 +264,6 @@ export default class DungeonLoader {
   public spawnEnnemy() {
     let tabEnnemy = [];
     let mapRef = this;
-    console.log(this.spawn2);
     this.spawn2.forEach(spawn => {
       const possibleEnnemiesList = ["Witchcraft", "CloseCombat", "Children"];
       const pickedEnnemieClassName =

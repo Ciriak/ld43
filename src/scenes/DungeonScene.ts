@@ -93,7 +93,6 @@ export default class DungeonScene extends Phaser.Scene {
 
     if(this.player.level > 1) {
       for (let i =0; i < this.player.level; i++) {
-        console.log("buffMONSTER HUEHUEHUEHUHUE");
         this.buffMonsters();
       }
     }
@@ -149,7 +148,6 @@ export default class DungeonScene extends Phaser.Scene {
   }
 
   buffMonsters() {
-    console.log("buff Monster");
     this.ennemies.forEach(monster => {
       monster.buff();
     });
