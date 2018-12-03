@@ -197,7 +197,7 @@ export default class DungeonLoader {
   collectRelic(player, relic) {
     switch (relic.name) {
       case "eye_relic":
-        this.player.decreaseCastTime(100);
+        this.player.giveStat('rof', 5);
         break;
       case "foot_relic":
       this.player.giveStat("speed", 5);

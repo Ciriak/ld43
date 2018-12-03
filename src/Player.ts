@@ -167,7 +167,7 @@ export default class Player extends Entitie {
       if (this.cd > 0) {
         this.cd -= delta;
       } else {
-        this.cd = this.castTime - this.rof *350// this.castTime;
+        this.cd = this.castTime - this.rof *390// this.castTime;
         this.setonCd();
       }
     }
