@@ -11,27 +11,27 @@ export const TILE_MAPPING = {
     TRANSPARENT: 8,
     WALL: {
   
-      TOP_LEFT: 41,
+      TOP_LEFT: 74,
   
-      TOP_RIGHT: 41,
+      TOP_RIGHT: 75,
   
-      BOTTOM_RIGHT: 41,
+      BOTTOM_RIGHT: 76,
   
-      BOTTOM_LEFT: 41,
+      BOTTOM_LEFT: 77,
   
       // Let's add some randomization to the walls while we are refactoring:
   
-      TOP: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }],
+      TOP: [{ index: 65, weight: 4 }, { index: [69,67, 70, 72], weight: 1 }],
   
-      LEFT: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }],
+      LEFT: [{ index: 71, weight: 4 }, { index: [73,68], weight: 1 }],
   
-      RIGHT: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }],
+      RIGHT: [{ index: 68, weight: 4 }, { index: [66,73], weight: 1 }],
   
-      BOTTOM: [{ index: 39, weight: 4 }, { index: [40,41, 42], weight: 1 }]
+      BOTTOM: [{ index: 65, weight: 4 }, { index: [69,67, 70, 72], weight: 1 }]
   
     },
   
-    FLOOR: [{ index: [13], weight: 9 }, { index: [14, 15, 21], weight: 1 }, { index: [20,19,18], weight: 0.3 }],
+    FLOOR: [{ index: [52, 53 ,54, 59], weight: 9 }, { index: [55, 56, 57, 58], weight: 1 }],
   
     POT: [{ index: 32, weight: 1 }, { index: 33, weight: 1 }, { index: 34, weight: 1 }],
   
