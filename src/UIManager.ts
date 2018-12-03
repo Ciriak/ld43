@@ -48,9 +48,14 @@ export default class UIManager {
    */
   updateStat(stat, value) {
     console.log(stat, "+", value);
-    const statItem = $(".item." + stat);
+    let statItem = $("." + stat);
+
+    statItem.removeClass("active");
     statItem.find(".item-progress").text(value + "/5");
     statItem.attr("value", value);
+    if (value >= 5) {
+      statItem.addClass("active");
+    }
   }
   generateItemsCards() {}
   /**

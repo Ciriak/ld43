@@ -43,6 +43,9 @@ body {
         opacity: 0.8;
       }
       &.active {
+        animation-name: flash;
+        animation-duration: 0.5s;
+        animation-iteration-count: 1;
         img {
           filter: grayscale(0%);
           opacity: 1;
@@ -116,6 +119,15 @@ body {
   40%,
   60% {
     transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes flash {
+  from {
+    background-color: #fff;
+  }
+  to {
+    background-color: transparent;
   }
 }
 
