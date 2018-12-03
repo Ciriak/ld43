@@ -6,6 +6,7 @@ import Player from "../Player";
 export default class Children extends Ennemie {
   spriteName = "children";
   sanityGiven: number = 5;
+  speed : number = 80;
 
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
@@ -29,6 +30,9 @@ export default class Children extends Ennemie {
    */
   applyPattern(player: Player, time: number, delta: number) {
     this.fleePlayer(player);
+  }
+  buff() {
+    this.speed = this.speed + 20;
   }
 
   /**

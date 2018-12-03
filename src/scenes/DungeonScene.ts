@@ -78,7 +78,7 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.uiManager = new UIManager(this);
 
-    this.ennemies = this.dungeonLoader.spawnEnnemy();
+    this.ennemies = this.ennemies.concat(this.dungeonLoader.spawnEnnemy());
     //this.ennemisGroup.playAnimation("idle");
     this.childGroup.playAnimation("cidle");
     this.knightGroup.playAnimation("kdown");
@@ -122,6 +122,12 @@ export default class DungeonScene extends Phaser.Scene {
         ennemie.refreshAttack(this.player.playerObject, time, delta);
       }
     }
+  }
+
+  buffMonsters() {
+    this.ennemies.forEach(monster => {
+      monster.buff();
+    });
   }
 
   createAnims() {

@@ -6,9 +6,11 @@ import Player from "../Player";
 export default class CloseCombat extends Ennemie {
   spriteName = "knight";
   sanityGiven: number = 3;
+  speed: number;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
     this.health = 10;
+    this.speed = 50;
     const ennemiRef = this;
     this.ennemieObject = this.scene.add.sprite(x, y, "knight");
     this.reduceCoolDown = 5;
@@ -35,6 +37,10 @@ export default class CloseCombat extends Ennemie {
     super.kill();
   }
 
+  buff() {
+    this.speed = this.speed + 10;
+  }
+
   /**
    * Move the ennemie to the player
    * @param player
@@ -44,7 +50,7 @@ export default class CloseCombat extends Ennemie {
       player.x !== this.lastPlayerPos.x ||
       player.y !== this.lastPlayerPos.y
     ) {
-      this.scene.physics.moveToObject(this.ennemieObject, player, 50);
+      this.scene.physics.moveToObject(this.ennemieObject, player, this.speed);
       this.lastPlayerPos = {
         x: player.x,
         y: player.y

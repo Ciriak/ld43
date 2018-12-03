@@ -105,6 +105,10 @@ export default class Witchcraft extends Ennemie {
     }, 5000);
   }
 
+  buff() {
+    this.shootDelay = this.shootDelay - 100;
+  }
+
   kill() {
     clearTimeout(this.shootRepeatEvent);
     this.scene.player.giveStat("rof", 1);
