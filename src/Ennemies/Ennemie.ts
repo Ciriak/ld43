@@ -109,9 +109,9 @@ export default class Ennemie extends Entitie {
     this.ennemieObject.destroy();
     this.scene.player.addSanity(this.sanityGiven);
     this.scene.player.decreaseCastTime(this.reduceCoolDown);
-    this.scene.score += this.scoreGiven;
+    this.scene.player.score += this.scoreGiven;
     this.scene.updateScore();
-    console.log("Score => " + this.scene.score);
+
     this.isDead = true;
   }
 

@@ -27,7 +27,6 @@ export default class DungeonScene extends Phaser.Scene {
   childGroup: any;
   knightGroup: any;
   witchGroup: any;
-  score: number = 0;
   relicGroup: any;
 
   preload() {
@@ -278,7 +277,7 @@ export default class DungeonScene extends Phaser.Scene {
   }
 
   updateScore() {
-    this.uiManager.setScore(this.score);
+    this.uiManager.setScore(this.player.score);
   }
 
   /**

@@ -56,6 +56,8 @@ export default class UIManager {
     statItem.addClass("active");
     if (value >= 5) {
       statItem.addClass("available");
+    } else {
+      statItem.removeClass("available");
     }
   }
   generateItemsCards() {}
