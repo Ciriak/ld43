@@ -28,6 +28,7 @@ export default class DungeonScene extends Phaser.Scene {
   childGroup: any;
   knightGroup: any;
   witchGroup: any;
+  relicGroup: any;
 
   preload() {
     new ResourcesLoader(this);
@@ -37,6 +38,12 @@ export default class DungeonScene extends Phaser.Scene {
     this.ennemies = [];
     this.player = null;
     this.cursors = null;
+    this.spellsCasted = this.physics.add.group();
+    this.relicGroup = this.physics.add.group();
+    this.ennemisGroup = this.physics.add.group();
+    this.childGroup = this.physics.add.group();
+    this.knightGroup = this.physics.add.group();
+    this.witchGroup = this.physics.add.group();
     this.dungeonLoader = new DungeonLoader(this);
     this.createAnims();
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -46,11 +53,6 @@ export default class DungeonScene extends Phaser.Scene {
       left: Phaser.Input.Keyboard.KeyCodes.Q,
       right: Phaser.Input.Keyboard.KeyCodes.D
     });
-    this.spellsCasted = this.physics.add.group();
-    this.ennemisGroup = this.physics.add.group();
-    this.childGroup = this.physics.add.group();
-    this.knightGroup = this.physics.add.group();
-    this.witchGroup = this.physics.add.group();
 
     const xPlayer = this.dungeonLoader
       .getMap()
@@ -68,7 +70,6 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player = new Player(this, xPlayer, yPlayer);
     this.dungeonLoader.spawnRelic(xRlic, YRlic);
-    this.dungeonLoader.spawnRelic(xPlayer, yPlayer);
 
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(1);
@@ -77,11 +78,13 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.uiManager = new UIManager(this);
 
-    this.ennemies = this.dungeonLoader.spawnEnnemy();
+    this.ennemies = this.ennemies.concat(this.dungeonLoader.spawnEnnemy());
     //this.ennemisGroup.playAnimation("idle");
     this.childGroup.playAnimation("cidle");
     this.knightGroup.playAnimation("kdown");
     this.witchGroup.playAnimation("widle");
+
+    this.physics.add.overlap(this.player.playerObject, this.relicGroup, this.dungeonLoader.collectRelic, null, this.player);
 
     this.physics.add.collider(
       this.spellsCasted,
@@ -119,6 +122,12 @@ export default class DungeonScene extends Phaser.Scene {
         ennemie.refreshAttack(this.player.playerObject, time, delta);
       }
     }
+  }
+
+  buffMonsters() {
+    this.ennemies.forEach(monster => {
+      monster.buff();
+    });
   }
 
   createAnims() {

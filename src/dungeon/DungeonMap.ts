@@ -176,22 +176,21 @@ export default class DungeonLoader {
   }
 
   public spawnRelic(x, y) {
+    console.log('relic spawn');
     var rand = Math.random();
     if(rand <= 0.25) {
       let spriteName = 'eye_relic';
     }else if(rand <=0.50) {
       let spriteName = 'foot_relic';
-
     }else if(rand <= 0.75){
       let spriteName = 'hand_relic';
-
     }else{
       let spriteName = 'heart_relic';
 
     }
     let relic = this.scene.physics.add.sprite(x, y, spriteName);
-    relic.name =spriteName;
-    this.scene.physics.add.overlap(this.scene.player.playerObject, relic, this.collectRelic, null, this.scene.player);
+    relic.name = spriteName;
+    this.scene.relicGroup.add(relic);
   }
 
   collectRelic(player, relic){
@@ -222,10 +221,11 @@ export default class DungeonLoader {
     this.getOtherRooms().forEach(room => {
       const { x, y, width, height, left, right, top, bottom } = room;
       var rand = Math.random();
-      if (rand <= 0.25) {
+      if (rand <= 0.15) {
         const tx = Phaser.Math.Between(left + 1, right - 1);
         const ty = Phaser.Math.Between(top + 1, bottom - 1);
         this.stuffLayer.weightedRandomize(tx, ty, 1, 1, TILES.POT);
+        this.spawnRelic(tx, ty)
         // 25% chance of chest
         // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.8) {
