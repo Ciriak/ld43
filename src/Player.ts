@@ -128,12 +128,16 @@ export default class Player extends Entitie {
    */
   addSanity(amount: number) {
     this.sanity += amount;
-    this.scene.uiManager.updateSanity(this.sanity);
-
     // shake camera if crazy
     if (this.sanity >= 70) {
       this.scene.cameras.main.shake(100000, 0.001, 0);
     }
+    //Buff monster if 100 sanity
+    if(this.sanity === 100) {
+      this.scene.buffMonsters();
+      this.sanity = 0;
+    }
+    this.scene.uiManager.updateSanity(this.sanity);
   }
   decreaseCastTime(amount: number) {
     if (this.castTime > amount) {
