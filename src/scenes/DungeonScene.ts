@@ -68,6 +68,7 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.player = new Player(this, xPlayer, yPlayer);
     this.dungeonLoader.spawnRelic(xRlic, YRlic);
+    this.dungeonLoader.spawnRelic(xPlayer, yPlayer);
 
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(1);

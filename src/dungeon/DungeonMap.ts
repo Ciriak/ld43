@@ -43,7 +43,6 @@ export default class DungeonLoader {
       height: this.dungeon.height
     });
     this.startRoom = this.getDungeonRooms().shift();
-    console.log(this.startRoom);
     this.dungeonRooms = Phaser.Utils.Array.Shuffle(this.getDungeonRooms()).slice(
       0,
       this.getDungeonRooms().length * 0.99
@@ -177,7 +176,6 @@ export default class DungeonLoader {
   }
 
   public spawnRelic(x, y) {
-    console.log(x,y);
     var rand = Math.random();
     if(rand <= 0.25) {
       let spriteName = 'eye_relic';
@@ -191,14 +189,32 @@ export default class DungeonLoader {
       let spriteName = 'heart_relic';
 
     }
-    console.log(spriteName);
-    let relic = this.scene.add.sprite(x, y, spriteName);
-    this.scene.physics.add.overlap(this.scene.player.playerObject, relic, this.collectRelic, null, this);
+    let relic = this.scene.physics.add.sprite(x, y, spriteName);
+    relic.name =spriteName;
+    this.scene.physics.add.overlap(this.scene.player.playerObject, relic, this.collectRelic, null, this.scene.player);
   }
 
   collectRelic(player, relic){
     console.log("relic collected");
-    relic.disableBody(true, true);
+    console.log(this);
+    console.log(relic.name);
+    switch (relic.name) {
+      case "eye_relic":
+      this.decreaseCastTime(5000);
+        break;
+      case "foot_relic":
+        this.giveStat('speed', 100);
+        break;
+      case "hand_relic":
+      this.giveStat('damage', 100);
+        break;
+      case "heart_relic":
+      this.kill();
+        break;
+      default:
+        break;
+    }
+    relic.destroy();
   }
 
   private renderOtherRooms() {
@@ -373,7 +389,6 @@ export default class DungeonLoader {
       ennemy.ennemieObject,
       this.scene.groundLayer
     );
-    console.log(ennemy);
     this.scene.physics.add.collider(
       ennemy.ennemieObject,
       this.scene.spellsCasted,
