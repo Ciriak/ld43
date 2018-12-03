@@ -91,7 +91,13 @@ export default class Witchcraft extends Ennemie {
       function() {}
     );
     // collision projectile / walls
-
+    this.scene.physics.add.collider(
+      projectile,
+      this.scene.wallGroup,
+      this.scene.checkHitWall,
+      null,
+      this.scene
+    );
     //collision projectile => player
     //destroy after 5 seconds
     setTimeout(function() {
