@@ -57,6 +57,18 @@ export default class PlayerInputs {
     if (scene.cursors.up.isDown) {
       player.playerObject.setVelocityY(-velocity);
     }
+    if (scene.cursors.sacriHealth.isDown) {
+      this.player.sacrifical("health");
+    }
+    if (scene.cursors.sacriDamage.isDown) {
+      this.player.sacrifical("damage");
+    }
+    if (scene.cursors.sacriRof.isDown) {
+      this.player.sacrifical("rof");
+    }
+    if (scene.cursors.sacriSpeed.isDown) {
+      this.player.sacrifical("speed");
+    }
   }
   castSpell() {
     let newSpell = new Spell(2 + this.player.damage, 3, 2, this.scene);

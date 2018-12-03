@@ -53,8 +53,9 @@ export default class UIManager {
     statItem.removeClass("active");
     statItem.find(".item-progress").text(value + "/5");
     statItem.attr("value", value);
+    statItem.addClass("active");
     if (value >= 5) {
-      statItem.addClass("active");
+      statItem.addClass("available");
     }
   }
   generateItemsCards() {}
