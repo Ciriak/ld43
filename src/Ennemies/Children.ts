@@ -10,6 +10,7 @@ export default class Children extends Ennemie {
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
     const ennemiRef = this;
+    this.health = 1;
     this.ennemieObject = this.scene.add.sprite(x, y, "child");
     this.reduceCoolDown = 1;
     scene.physics.add.collider(
