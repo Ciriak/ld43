@@ -84,13 +84,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.knightGroup.playAnimation("kdown");
     this.witchGroup.playAnimation("widle");
 
-    this.physics.add.overlap(
-      this.player.playerObject,
-      this.relicGroup,
-      this.dungeonLoader.collectRelic,
-      null,
-      this.player
-    );
+    this.physics.add.overlap(this.player.playerObject, this.relicGroup, this.dungeonLoader.collectRelic, null, this);
 
     this.physics.add.collider(
       this.spellsCasted,
@@ -131,6 +125,7 @@ export default class DungeonScene extends Phaser.Scene {
   }
 
   buffMonsters() {
+    console.log('buff Monster');
     this.ennemies.forEach(monster => {
       monster.buff();
     });
