@@ -38,7 +38,7 @@ export default class Player extends Entitie {
     this.castTime = 2500;
     this.loadFromLocal();
     this.playerObject = this.scene.physics.add.sprite(x, y, "wizard");
-
+    
     this.playerObject.body.setSize(32, 45);
     this.playerObject.body.setOffset(32 / 2, 64 - 45);
     const playerRef = this;
