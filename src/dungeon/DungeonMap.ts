@@ -373,8 +373,9 @@ export default class DungeonLoader {
       ennemy.ennemieObject,
       this.scene.groundLayer
     );
+    console.log(ennemy);
     this.scene.physics.add.collider(
-      this.scene.ennemisGroup,
+      ennemy.ennemieObject,
       this.scene.spellsCasted,
       this.test,
       null,

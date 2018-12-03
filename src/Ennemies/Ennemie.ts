@@ -91,6 +91,8 @@ export default class Ennemie extends Entitie {
    * @param damage
    */
   takeDamage(damage: number, value) {
+    console.log(this.spriteName)
+    console.log(this.health)
     this.health -= damage;
     if (this.health <= 0) {
       this.kill();

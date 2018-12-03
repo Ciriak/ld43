@@ -9,8 +9,8 @@ export default class CloseCombat extends Ennemie {
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
     this.health = 10;
-    this.ennemieObject = this.scene.add.sprite(x, y, "knight");
     const ennemiRef = this;
+    this.ennemieObject = this.scene.add.sprite(x, y, "knight");
     this.reduceCoolDown = 5;
     scene.physics.add.collider(
       this.ennemieObject,
