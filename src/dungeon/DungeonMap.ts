@@ -307,6 +307,8 @@ export default class DungeonLoader {
       "Shadow",
       tileset
     );
+    // Set the "z-index"
+    shadowLayer.setDepth(50);
     shadowLayer.fill(TILES.BLANK);
     this.scene.tilemapVisibility = new TilemapVisibility(shadowLayer);
   }

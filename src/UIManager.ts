@@ -35,11 +35,22 @@ export default class UIManager {
       value = 100;
     }
     $(".sanity-bar .sanity-progress").css("width", value + "%");
-    if (value >= 85) {
+    if (value >= 70) {
       $(".sanity-container").addClass("critical");
     } else {
       $(".sanity-container").removeClass("critical");
     }
+  }
+  /**
+   * Update a stat on the UI
+   * @param stat propertie to update
+   * @param value value to add or remove
+   */
+  updateStat(stat, value) {
+    console.log(stat, "+", value);
+    const statItem = $(".item." + stat);
+    statItem.find(".item-progress").text(value + "/5");
+    statItem.attr("value", value);
   }
   generateItemsCards() {}
   /**

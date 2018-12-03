@@ -7,10 +7,13 @@ export default class Player extends Entitie {
   public playerObject: any;
   public isDead = false;
   public sanity: number = 0;
+  public speed: number = 0;
+  public rof: number = 0;
+  public damage: number = 0;
   public currentRoom;
-  public onCd : boolean;
-  public cd : number;
-  private castTime : number;
+  public onCd: boolean;
+  public cd: number;
+  private castTime: number;
   private sanityCooldown;
   /**
    *
@@ -102,8 +105,19 @@ export default class Player extends Entitie {
   decreaseCastTime(amount: number) {
     if (this.castTime > amount) {
       this.castTime -= amount;
-    }else {
+    } else {
       this.castTime = 0;
+    }
+  }
+  /**
+   * Increase a specific stat
+   * @param stat propertie name
+   * @param value increase value
+   */
+  giveStat(stat: string, value: number) {
+    if (typeof this[stat] !== "undefined") {
+      this[stat] = this[stat] + value;
+      this.scene.uiManager.updateStat(stat, this[stat]);
     }
   }
 
@@ -111,17 +125,17 @@ export default class Player extends Entitie {
     if (this.isDead) {
       return;
     }
-    if(this.checkCD()) {
-      if(this.cd > 0) {
+    if (this.checkCD()) {
+      if (this.cd > 0) {
         this.cd -= delta;
-      }else {
+      } else {
         this.cd = this.castTime;
         this.setonCd();
       }
     }
     this.inputsManager.update(time, delta, this, this.scene);
   }
-  setonCd(){
+  setonCd() {
     this.onCd = !this.onCd;
   }
 

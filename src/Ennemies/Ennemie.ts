@@ -28,7 +28,7 @@ export default class Ennemie extends Entitie {
     }
     this.scene = scene;
     this.reduceCoolDown = 0;
-/*
+    /*
     scene.physics.add.collider(
       this.ennemieObject,
       scene.player.playerObject,
@@ -76,7 +76,7 @@ export default class Ennemie extends Entitie {
   }
   refreshAttack(player: Player, time: number, delta: number) {
     if (this.isInSameRoomThan(player) && this.ennemieObject.active !== false) {
-      this.applyPattern(player.playerObject, time, delta);
+      this.applyPattern(player, time, delta);
     }
   }
 
@@ -121,9 +121,5 @@ export default class Ennemie extends Entitie {
   /**
    * Apply the ennemie pattern depending of his name
    */
-  applyPattern(
-    player: Phaser.Physics.Arcade.Sprite,
-    time: number,
-    delta: number
-  ) {}
+  applyPattern(player: Player, time: number, delta: number) {}
 }

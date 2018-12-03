@@ -1,6 +1,7 @@
 import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
 import Phaser from "phaser";
+import Player from "../Player";
 
 export default class CloseCombat extends Ennemie {
   spriteName = "knight";
@@ -24,12 +25,13 @@ export default class CloseCombat extends Ennemie {
   /**
    * Move to the player
    */
-  applyPattern(
-    player: Phaser.Physics.Arcade.Sprite,
-    time: number,
-    delta: number
-  ) {
-    this.moveToPlayer(player);
+  applyPattern(player: Player, time: number, delta: number) {
+    this.moveToPlayer(player.playerObject);
+  }
+
+  kill() {
+    this.scene.player.giveStat("damage", 1);
+    super.kill();
   }
 
   /**
@@ -41,7 +43,6 @@ export default class CloseCombat extends Ennemie {
       player.x !== this.lastPlayerPos.x ||
       player.y !== this.lastPlayerPos.y
     ) {
-    
       this.scene.physics.moveToObject(this.ennemieObject, player, 50);
       this.lastPlayerPos = {
         x: player.x,
