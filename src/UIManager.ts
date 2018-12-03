@@ -71,4 +71,7 @@ export default class UIManager {
       $("#death-screen").addClass("active");
     }, 1500);
   }
+  setScore(score: number) {
+    $(".score-value").text(score);
+  }
 }
