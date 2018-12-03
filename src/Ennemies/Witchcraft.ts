@@ -8,7 +8,7 @@ export default class Witchcraft extends Ennemie {
   projectileSpeed: number = 100;
   shootDelay: number = 1500;
   shootRepeatEvent: any = null;
-  sanityGiven: number = 20;
+  sanityGiven: number = 2;
   private shooting: boolean = false;
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);

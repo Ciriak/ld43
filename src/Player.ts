@@ -14,7 +14,7 @@ export default class Player extends Entitie {
   public onCd: boolean;
   public cd: number;
   private castTime: number;
-  private sanityCooldown;
+
   /**
    *
    * @param scene Target scene
@@ -40,12 +40,6 @@ export default class Player extends Entitie {
     this.playerObject.body.setOffset(32 / 2, 64 - 45);
     const playerRef = this;
     this.currentRoom = this.scene.dungeonLoader.getPlayerRoom(this);
-    this.sanityCooldown = setInterval(function() {
-      if (playerRef.sanity > 0) {
-        playerRef.sanity -= 1;
-        playerRef.scene.uiManager.updateSanity(playerRef.sanity);
-      }
-    }, 500);
 
     // update dir
     scene.input.on(
