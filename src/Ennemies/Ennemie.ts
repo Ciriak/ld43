@@ -11,6 +11,8 @@ export default class Ennemie extends Entitie {
   public canShoot: boolean = false;
   public health: number = 3;
   public currentRoom;
+  public bonusText: string = "";
+  public scoreGiven: number = 0;
   public isDead = false;
   public sanityGiven: number;
   public reduceCoolDown: number;
@@ -42,7 +44,7 @@ export default class Ennemie extends Entitie {
           this.ennemieObject.anims.play(char + "right", true);
           break;
         case "top":
-        this.ennemieObject.anims.play(char+"top", true);
+          this.ennemieObject.anims.play(char + "top", true);
           break;
         case "bottom":
           this.ennemieObject.anims.play(char + "down", true);
@@ -91,8 +93,8 @@ export default class Ennemie extends Entitie {
    * @param damage
    */
   takeDamage(damage: number, value) {
-    console.log(this.spriteName)
-    console.log(this.health)
+    console.log(this.spriteName);
+    console.log(this.health);
     this.health -= damage;
     if (this.health <= 0) {
       this.kill();
@@ -103,10 +105,43 @@ export default class Ennemie extends Entitie {
    * Kill himself
    */
   kill() {
+    this.addKillText();
     this.ennemieObject.destroy();
     this.scene.player.addSanity(this.sanityGiven);
     this.scene.player.decreaseCastTime(this.reduceCoolDown);
     this.isDead = true;
+  }
+
+  /**
+   * Write kill text on the scene
+   */
+  addKillText() {
+    let scoreText = this.scene.add.text(
+      this.ennemieObject.body.position.x,
+      this.ennemieObject.body.position.y,
+      "+" + this.scoreGiven,
+      { fontFamily: "Arial", fontSize: 16, color: "#ffffff" }
+    );
+    // animate score text
+    this.scene.tweens.add({
+      targets: scoreText,
+      y: this.ennemieObject.body.position.y - 20,
+      duration: 1000,
+      alpha: 0
+    });
+    let statText = this.scene.add.text(
+      this.ennemieObject.body.position.x,
+      this.ennemieObject.body.position.y - 20,
+      "+" + this.bonusText,
+      { fontFamily: "Arial", fontSize: 16, color: "#1BB76E" }
+    );
+    // animate score text
+    this.scene.tweens.add({
+      targets: statText,
+      y: this.ennemieObject.body.position.y - 40,
+      duration: 1000,
+      alpha: 0
+    });
   }
 
   /**

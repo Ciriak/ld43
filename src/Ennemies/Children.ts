@@ -8,6 +8,8 @@ export default class Children extends Ennemie {
   sanityGiven: number = 5;
   speed : number = 80;
 
+  scoreGiven: number = 5;
+  public bonusText: string = "Speed";
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
     const ennemiRef = this;
