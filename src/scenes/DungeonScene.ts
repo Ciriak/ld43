@@ -44,7 +44,6 @@ export default class DungeonScene extends Phaser.Scene {
     this.knightGroup = this.physics.add.group();
     this.witchGroup = this.physics.add.group();
     this.dungeonLoader = new DungeonLoader(this);
-    this.createAnims();
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cursors = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.Z,
@@ -56,6 +55,10 @@ export default class DungeonScene extends Phaser.Scene {
       sacriRof: Phaser.Input.Keyboard.KeyCodes.V,
       sacriHealth: Phaser.Input.Keyboard.KeyCodes.B
     });
+    if(typeof this.uiManager === 'undefined') {
+      this.createAnims();
+      this.uiManager = new UIManager(this.scene);
+    }
 
     const xPlayer = this.dungeonLoader
       .getMap()
@@ -79,9 +82,6 @@ export default class DungeonScene extends Phaser.Scene {
     this.cameras.main.fadeIn();
     this.uiManager.hideDeathScreen();
     this.dungeonLoader.watchCollision(this.player);
-    if(typeof this.uiManager === 'undefined') {
-      this.uiManager = new UIManager(this.scene);
-    }
     this.ennemies = this.ennemies.concat(this.dungeonLoader.spawnEnnemy());
     //this.ennemisGroup.playAnimation("idle");
     this.childGroup.playAnimation("cidle");
