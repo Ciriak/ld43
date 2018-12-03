@@ -47,15 +47,14 @@ export default class UIManager {
    * @param value value to add or remove
    */
   updateStat(stat, value) {
+    console.log(stat, "+", value);
     let statItem = $("." + stat);
 
-    statItem.removeClass("ready");
     statItem.removeClass("active");
     statItem.find(".item-progress").text(value + "/5");
     statItem.attr("value", value);
-    statItem.addClass("active");
     if (value >= 5) {
-      statItem.addClass("ready");
+      statItem.addClass("active");
     }
   }
   generateItemsCards() {}
