@@ -24,11 +24,28 @@ export default class PlayerInputs {
   update(time: number, delta: number, player: Player, scene: any) {
     player.playerObject.setVelocity(0, 0);
 
-    player.playerObject.anims.play("widle");
-    if (scene.cursors.left.isDown) {
-      player.playerObject.setVelocityX(-velocity);
 
-      
+    switch (player.direction) {
+      case "left":
+        player.playerObject.anims.play("wleft", true);
+        break;
+      case "right":
+      player.playerObject.anims.play("wright", true);
+        break;
+      case "up":
+      player.playerObject.anims.play("wtop", true);
+        break;
+      case "down":
+      player.playerObject.anims.play("wdown", true);
+        break;
+      default:
+      player.playerObject.anims.play("widle", true);
+        break;
+    }
+
+
+    if (scene.cursors.left.isDown) {
+      player.playerObject.setVelocityX(-velocity);      
     }
     if (scene.cursors.right.isDown) {
       player.playerObject.setVelocityX(velocity);

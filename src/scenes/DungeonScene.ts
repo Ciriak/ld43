@@ -59,7 +59,16 @@ export default class DungeonScene extends Phaser.Scene {
       .getMap()
       .tileToWorldY(this.dungeonLoader.getstartingRoom().centerY);
 
+      const xRlic = this.dungeonLoader
+      .getMap()
+      .tileToWorldX(this.dungeonLoader.getendingRoom().centerX);
+    const YRlic = this.dungeonLoader
+      .getMap()
+      .tileToWorldY(this.dungeonLoader.getendingRoom().centerY);
+    
     this.player = new Player(this, xPlayer, yPlayer);
+    this.dungeonLoader.spawnRelic(xRlic, YRlic);
+    
     this.cameras.main.startFollow(this.player.playerObject, true, 0.05, 0.05);
     this.cameras.main.setZoom(1);
     this.cameras.main.fadeIn();
@@ -71,7 +80,7 @@ export default class DungeonScene extends Phaser.Scene {
     //this.ennemisGroup.playAnimation("idle");
     this.childGroup.playAnimation("cdown");
     this.knightGroup.playAnimation("kdown");
-    this.witchGroup.playAnimation("widle");
+    this.witchGroup.playAnimation("woman");
 
     this.physics.add.collider(
       this.spellsCasted,
@@ -117,14 +126,46 @@ export default class DungeonScene extends Phaser.Scene {
   createAnims() {
     this.anims.create({
       key: "widle",
-      frames: this.anims.generateFrameNumbers("wizard"),
+      frames: this.anims.generateFrameNumbers("wizard", {start: 8, end: 9}),
       frameRate: 3,
       repeat: -1
     });
     this.anims.create({
+      key: "wleft",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 0, end: 1}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "wright",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 2, end: 5}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "wtop",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 6, end: 7}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "wdown",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 8, end: 9}),
+      frameRate: 3,
+      repeat: -1
+    });
+    
+    this.anims.create({
       key: "cdown",
       frames: this.anims.generateFrameNumbers("child"),
       frameRate: 3,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "woman",
+      frames: this.anims.generateFrameNumbers("woman"),
+      frameRate: 6,
       repeat: -1
     });
 

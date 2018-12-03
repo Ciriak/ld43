@@ -8,7 +8,15 @@ export default class ResourcesLoader {
     scene.load.image("collisionWall", "/assets/sprites/collision.png");
     scene.load.image("player", "/assets/sprites/player.png");
     scene.load.image("ennemie", "/assets/sprites/ennemie.png");
+    scene.load.image("eye_relic", "/assets/sprites/relics/eye_ball.png");
+    scene.load.image("foot_relic", "/assets/sprites/relics/foot.png");
+    scene.load.image("hand_relic", "/assets/sprites/relics/hand.png");
+    scene.load.image("heart_relic", "/assets/sprites/relics/heart.png");
     scene.load.spritesheet("elecBall", "/assets/sprites/skills/elec_ball.png", {
+      frameWidth: 64,
+      frameHeight: 64
+    });
+    scene.load.spritesheet("woman", "/assets/sprites/woman.png", {
       frameWidth: 64,
       frameHeight: 64
     });
