@@ -53,6 +53,7 @@ body {
       color: #fff; }
 
 #game-ui .items-list {
+  transition-duration: 1s;
   position: fixed;
   top: 0;
   right: 0;
@@ -115,6 +116,7 @@ body {
       display: flex; }
 
 #game-ui .sanity-container {
+  transition-duration: 1s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,6 +150,12 @@ body {
     animation-iteration-count: infinite; }
   #game-ui .sanity-container.critical .sanity-bar {
     box-shadow: 1px 1px 10px red; }
+
+#game-ui.isDead .sanity-container {
+  opacity: 0; }
+
+#game-ui.isDead .items-list {
+  opacity: 0; }
 
 @keyframes shake {
   10%,

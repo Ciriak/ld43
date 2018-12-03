@@ -61,6 +61,7 @@ body {
     }
   }
   .items-list {
+    transition-duration: 1s;
     position: fixed;
     top: 0;
     right: 0;
@@ -138,6 +139,7 @@ body {
     }
   }
   .sanity-container {
+    transition-duration: 1s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -179,6 +181,14 @@ body {
       .sanity-bar {
         box-shadow: 1px 1px 10px rgba(255, 0, 0, 1);
       }
+    }
+  }
+  &.isDead {
+    .sanity-container {
+      opacity: 0;
+    }
+    .items-list {
+      opacity: 0;
     }
   }
 }

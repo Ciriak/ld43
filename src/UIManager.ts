@@ -53,11 +53,8 @@ export default class UIManager {
     statItem.removeClass("active");
     statItem.find(".item-progress").text(value + "/5");
     statItem.attr("value", value);
-    statItem.addClass("active");
     if (value >= 5) {
-      statItem.addClass("available");
-    } else {
-      statItem.removeClass("available");
+      statItem.addClass("active");
     }
   }
   generateItemsCards() {}
@@ -72,6 +69,7 @@ export default class UIManager {
     setTimeout(function() {
       cameraRef.fadeOut(1000);
       $("#death-screen").addClass("active");
+      $("#game-ui").addClass("isDead");
     }, 1500);
   }
   setScore(score: number) {
