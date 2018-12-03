@@ -94,7 +94,6 @@ export default class Player extends Entitie {
 
     this.rofBarProgress.setDisplaySize(Math.round(cdWidth), 3, 32 - cdWidth);
     this.rofBarProgress.setPosition(hpPos.x, hpPos.y);
-    //console.log(this.castTime, this.cd);
   }
 
   /**
