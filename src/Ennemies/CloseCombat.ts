@@ -29,6 +29,11 @@ export default class CloseCombat extends Ennemie {
     this.moveToPlayer(player.playerObject);
   }
 
+  kill() {
+    this.scene.player.giveStat("damage", 1);
+    super.kill();
+  }
+
   /**
    * Move the ennemie to the player
    * @param player

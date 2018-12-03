@@ -14,8 +14,7 @@ export default class ResourcesLoader {
     });
     scene.load.spritesheet("fireball", "assets/sprites/fireball.png", {
       frameWidth: 64,
-      frameHeight: 64,
-      endFrame: 3
+      frameHeight: 64
     });
     scene.load.spritesheet("knight", "assets/sprites/knight.png", {
       frameWidth: 64,

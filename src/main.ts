@@ -12,8 +12,12 @@ export class main {
       zoom: scale,
       backgroundColor: "#000000",
       scene: [DungeonScene],
+
       physics: {
-        default: "arcade"
+        default: "arcade",
+        arcade: {
+          debug: true
+        }
       }
     };
 

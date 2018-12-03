@@ -100,6 +100,7 @@ export default class Witchcraft extends Ennemie {
 
   kill() {
     clearTimeout(this.shootRepeatEvent);
+    this.scene.player.giveStat("rof", 1);
     super.kill();
   }
 

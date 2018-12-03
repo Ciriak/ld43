@@ -1,11 +1,12 @@
 import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
-import Phaser from "phaser";
+
 import Player from "../Player";
 
 export default class Children extends Ennemie {
   spriteName = "children";
   sanityGiven: number = 40;
+
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
     const ennemiRef = this;
@@ -49,5 +50,10 @@ export default class Children extends Ennemie {
         this.ennemieObject.body.setVelocity(velocityVal, 0);
         break;
     }
+  }
+
+  kill() {
+    this.scene.player.giveStat("speed", 1);
+    super.kill();
   }
 }
