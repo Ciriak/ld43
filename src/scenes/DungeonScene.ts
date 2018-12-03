@@ -55,7 +55,12 @@ export default class DungeonScene extends Phaser.Scene {
       sacriRof: Phaser.Input.Keyboard.KeyCodes.V,
       sacriHealth: Phaser.Input.Keyboard.KeyCodes.B
     });
-    if(typeof this.uiManager === 'undefined') {
+
+    //play bg music
+    let sound = this.scene.sound.add("bg");
+    sound.play();
+
+    if (typeof this.uiManager === "undefined") {
       this.createAnims();
       this.uiManager = new UIManager(this.scene);
     }
@@ -83,16 +88,16 @@ export default class DungeonScene extends Phaser.Scene {
     this.dungeonLoader.watchCollision(this.player);
     this.ennemies = this.ennemies.concat(this.dungeonLoader.spawnEnnemy());
     //this.ennemisGroup.playAnimation("idle");
-    if(this.player.level == 1) {
+    if (this.player.level == 1) {
       this.childGroup.playAnimation("dab");
-    }else {
+    } else {
       this.childGroup.playAnimation("cidle");
     }
     this.knightGroup.playAnimation("kdown");
     this.witchGroup.playAnimation("widle");
 
-    if(this.player.level > 1) {
-      for (let i =0; i < this.player.level; i++) {
+    if (this.player.level > 1) {
+      for (let i = 0; i < this.player.level; i++) {
         this.buffMonsters();
       }
     }
@@ -118,7 +123,7 @@ export default class DungeonScene extends Phaser.Scene {
 
   update(time: number, delta: number) {
     //If no ennemies just restart the scene
-    if(this.ennemies.length === 0) {
+    if (this.ennemies.length === 0) {
       this.scene.restart();
     }
     this.player.update(time, delta);

@@ -46,5 +46,8 @@ export default class ResourcesLoader {
     scene.load.audio("fireball", "./assets/sounds/fireball.ogg");
     scene.load.audio("playerDead", "./assets/sounds/ded.ogg");
     scene.load.audio("iceball", "./assets/sounds/iceball.ogg");
+    scene.load.audio("door", "./assets/sounds/door.ogg");
+    scene.load.audio("sacrifical", "./assets/sounds/sacrifical.ogg");
+    scene.load.audio("bg", "./assets/sounds/bg.ogg");
   }
 }

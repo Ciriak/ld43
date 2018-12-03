@@ -251,6 +251,9 @@ export default class Player extends Entitie {
     this.addSacrificalText(bonus, stat);
 
     this.scene.uiManager.setScore(this.score);
+    let sound = this.scene.sound.add("sacrifical");
+
+    sound.play();
   }
 
   /**
