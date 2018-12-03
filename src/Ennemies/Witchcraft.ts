@@ -1,6 +1,7 @@
 import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
 import Phaser from "phaser";
+import Player from "../Player";
 export default class Witchcraft extends Ennemie {
   spriteName = "witchcraft";
   private projectiles: Phaser.Physics.Arcade.Sprite[] = [];
@@ -28,18 +29,14 @@ export default class Witchcraft extends Ennemie {
   /**
    * shoot at the player
    */
-  applyPattern(
-    player: Phaser.Physics.Arcade.Sprite,
-    time: number,
-    delta: number
-  ) {
+  applyPattern(player: Player, time: number, delta: number) {
     let witchRef = this;
     if (this.shooting) {
       return;
     } else {
       this.shooting = true;
       this.shootRepeatEvent = setTimeout(function() {
-        witchRef.shootAtPlayer(player);
+        witchRef.shootAtPlayer(player.playerObject);
       }, this.shootDelay);
       this.randomMovement();
     }
@@ -101,10 +98,15 @@ export default class Witchcraft extends Ennemie {
     }, 5000);
   }
 
+  kill() {
+    clearTimeout(this.shootRepeatEvent);
+    super.kill();
+  }
+
   randomMovement() {
     let randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
-    this.ennemieObject.setVelocityX(randomVelocity);
+    this.ennemieObject.body.setVelocityX(randomVelocity);
     randomVelocity = Math.floor(Math.random() * (+20 - -10)) + -10;
-    this.ennemieObject.setVelocityY(randomVelocity);
+    this.ennemieObject.body.setVelocityY(randomVelocity);
   }
 }

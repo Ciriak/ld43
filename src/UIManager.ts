@@ -35,7 +35,7 @@ export default class UIManager {
       value = 100;
     }
     $(".sanity-bar .sanity-progress").css("width", value + "%");
-    if (value >= 85) {
+    if (value >= 70) {
       $(".sanity-container").addClass("critical");
     } else {
       $(".sanity-container").removeClass("critical");

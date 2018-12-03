@@ -1,6 +1,7 @@
 import DungeonScene from "../scenes/DungeonScene";
 import Ennemie from "./Ennemie";
 import Phaser from "phaser";
+import Player from "../Player";
 
 export default class Children extends Ennemie {
   spriteName = "children";
@@ -24,11 +25,7 @@ export default class Children extends Ennemie {
   /**
    * Flee the player
    */
-  applyPattern(
-    player: Phaser.Physics.Arcade.Sprite,
-    time: number,
-    delta: number
-  ) {
+  applyPattern(player: Player, time: number, delta: number) {
     this.fleePlayer(player);
   }
 
@@ -36,16 +33,21 @@ export default class Children extends Ennemie {
    * Move the ennemie to the player
    * @param player
    */
-  fleePlayer(player: Phaser.Physics.Arcade.Sprite) {
-    if (
-      player.x !== this.lastPlayerPos.x ||
-      player.y !== this.lastPlayerPos.y
-    ) {
-      this.scene.physics.moveToObject(this.ennemieObject, player, 50);
-      this.lastPlayerPos = {
-        x: player.x,
-        y: player.y
-      };
+  fleePlayer(player: Player) {
+    const velocityVal = 100;
+    switch (player.direction) {
+      case "up":
+        this.ennemieObject.body.setVelocity(0, -velocityVal);
+        break;
+      case "down":
+        this.ennemieObject.body.setVelocity(0, velocityVal);
+        break;
+      case "left":
+        this.ennemieObject.body.setVelocity(-velocityVal, 0);
+        break;
+      case "right":
+        this.ennemieObject.body.setVelocity(velocityVal, 0);
+        break;
     }
   }
 }
