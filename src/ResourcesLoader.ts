@@ -12,6 +12,8 @@ export default class ResourcesLoader {
     scene.load.image("foot_relic", "/assets/sprites/relics/foot.png");
     scene.load.image("hand_relic", "/assets/sprites/relics/hand.png");
     scene.load.image("heart_relic", "/assets/sprites/relics/heart.png");
+    scene.load.image("hp_container", "/assets/ui/hp-container.jpg");
+    scene.load.image("hp", "/assets/ui/hp.jpg");
     scene.load.spritesheet("elecBall", "/assets/sprites/skills/elec_ball.png", {
       frameWidth: 64,
       frameHeight: 64
