@@ -71,8 +71,6 @@ export default class PlayerInputs {
     }
   }
   castSpell() {
-    let sound = this.scene.sound.add("iceball");
-    sound.play();
     let newSpell = new Spell(2 + this.player.damage, 3, 2, this.scene);
     if (!this.player.checkCD()) {
       newSpell.cast(

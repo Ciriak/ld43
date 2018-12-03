@@ -99,6 +99,8 @@ export default class Ennemie extends Entitie {
    * @param damage
    */
   takeDamage(damage: number, value) {
+    let sound = this.scene.sound.add("hit");
+    sound.play();
     if (!this.hpEnabled) {
       this.hpEnabled = true;
     }

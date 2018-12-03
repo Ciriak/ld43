@@ -57,7 +57,7 @@ export default class DungeonScene extends Phaser.Scene {
     });
 
     //play bg music
-    let sound = this.scene.sound.add("bg");
+    let sound = this.sound.add("bg");
     sound.play();
 
     if (typeof this.uiManager === "undefined") {
@@ -129,7 +129,7 @@ export default class DungeonScene extends Phaser.Scene {
     this.player.update(time, delta);
     this.updateEnnemies(time, delta);
     const currentPlayerRoom = this.dungeonLoader.getPlayerRoom(this.player);
-    this.tilemapVisibility.setActiveRoom(currentPlayerRoom);
+    this.tilemapVisibility.setActiveRoom(currentPlayerRoom, this);
 
     this.player.currentRoom = currentPlayerRoom;
   }

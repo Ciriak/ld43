@@ -51,6 +51,9 @@ export default class Spell {
       150
     );
 
+    let sound = this.scene.sound.add("iceball");
+    sound.play();
+
     this.sprite.anims.play("SpellsCasted");
   }
 }

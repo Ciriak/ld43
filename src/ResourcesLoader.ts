@@ -49,5 +49,7 @@ export default class ResourcesLoader {
     scene.load.audio("door", "./assets/sounds/door.ogg");
     scene.load.audio("sacrifical", "./assets/sounds/sacrifical.ogg");
     scene.load.audio("bg", "./assets/sounds/bg.ogg");
+    scene.load.audio("cchurt", "./assets/sounds/cchurt.ogg");
+    scene.load.audio("hit", "./assets/sounds/hit.ogg");
   }
 }
