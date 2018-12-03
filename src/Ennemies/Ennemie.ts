@@ -109,6 +109,9 @@ export default class Ennemie extends Entitie {
     this.ennemieObject.destroy();
     this.scene.player.addSanity(this.sanityGiven);
     this.scene.player.decreaseCastTime(this.reduceCoolDown);
+    this.scene.score += this.scoreGiven;
+    this.scene.updateScore();
+    console.log("Score => " + this.scene.score);
     this.isDead = true;
   }
 
@@ -126,7 +129,7 @@ export default class Ennemie extends Entitie {
     this.scene.tweens.add({
       targets: scoreText,
       y: this.ennemieObject.body.position.y - 20,
-      duration: 1000,
+      duration: 2000,
       alpha: 0
     });
     let statText = this.scene.add.text(
@@ -139,7 +142,7 @@ export default class Ennemie extends Entitie {
     this.scene.tweens.add({
       targets: statText,
       y: this.ennemieObject.body.position.y - 40,
-      duration: 1000,
+      duration: 2000,
       alpha: 0
     });
   }
