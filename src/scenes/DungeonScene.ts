@@ -78,9 +78,9 @@ export default class DungeonScene extends Phaser.Scene {
 
     this.ennemies = this.dungeonLoader.spawnEnnemy();
     //this.ennemisGroup.playAnimation("idle");
-    this.childGroup.playAnimation("cdown");
+    this.childGroup.playAnimation("cidle");
     this.knightGroup.playAnimation("kdown");
-    this.witchGroup.playAnimation("woman");
+    this.witchGroup.playAnimation("widle");
 
     this.physics.add.collider(
       this.spellsCasted,
@@ -121,51 +121,97 @@ export default class DungeonScene extends Phaser.Scene {
   }
 
   createAnims() {
+    //PLAYER ANIMS
     this.anims.create({
-      key: "widle",
-      frames: this.anims.generateFrameNumbers("wizard", { start: 8, end: 9 }),
+      key: "pidle",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 8, end: 9}),
       frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "pleft",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 0, end: 1}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "pright",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 2, end: 5}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "ptop",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 6, end: 7}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "pdown",
+      frames: this.anims.generateFrameNumbers("wizard", {start: 8, end: 9}),
+      frameRate: 3,
+      repeat: -1
+    });
+    //PLAYER ANIMS END
+//CHILD ANIMS
+    this.anims.create({
+      key: "cidle",
+      frames: this.anims.generateFrameNumbers("child", {start: 17, end: 23}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "cleft",
+      frames: this.anims.generateFrameNumbers("child", {start: 5, end: 8}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "cright",
+      frames: this.anims.generateFrameNumbers("child", {start: 9, end: 12}),
+      frameRate: 3,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "ctop",
+      frames: this.anims.generateFrameNumbers("child", {start: 24, end: 27}),
+      frameRate: 3,
+      repeat: -1
+    });
+    //CHILD ANIMS END
+    //Witch ANIMS
+    this.anims.create({
+      key: "wdown",
+      frames: this.anims.generateFrameNumbers("woman", {start: 17, end:28}),
+      frameRate: 6,
       repeat: -1
     });
     this.anims.create({
       key: "wleft",
-      frames: this.anims.generateFrameNumbers("wizard", { start: 0, end: 1 }),
-      frameRate: 3,
+      frames: this.anims.generateFrameNumbers("woman", {start: 13, end:16}),
+      frameRate: 6,
       repeat: -1
     });
     this.anims.create({
       key: "wright",
-      frames: this.anims.generateFrameNumbers("wizard", { start: 2, end: 5 }),
-      frameRate: 3,
+      frames: this.anims.generateFrameNumbers("woman", {start: 9, end:12}),
+      frameRate: 6,
       repeat: -1
     });
     this.anims.create({
       key: "wtop",
-      frames: this.anims.generateFrameNumbers("wizard", { start: 6, end: 7 }),
-      frameRate: 3,
-      repeat: -1
-    });
-    this.anims.create({
-      key: "wdown",
-      frames: this.anims.generateFrameNumbers("wizard", { start: 8, end: 9 }),
-      frameRate: 3,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: "cdown",
-      frames: this.anims.generateFrameNumbers("child"),
-      frameRate: 3,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: "woman",
-      frames: this.anims.generateFrameNumbers("woman"),
+      frames: this.anims.generateFrameNumbers("woman", {start: 0, end:8}),
       frameRate: 6,
       repeat: -1
     });
-
+    this.anims.create({
+      key: "widle",
+      frames: this.anims.generateFrameNumbers("woman", {start: 17, end:19}),
+      frameRate: 6,
+      repeat: -1
+    });
+//Witch ANIMS END
+//knight ANIMS
     this.anims.create({
       key: "kright",
       frames: this.anims.generateFrameNumbers("knight", { start: 11, end: 14 }),
@@ -173,15 +219,15 @@ export default class DungeonScene extends Phaser.Scene {
       repeat: -1
     });
     this.anims.create({
-      key: "left",
-      frames: this.anims.generateFrameNumbers("knight"),
+      key: "kleft",
+      frames: this.anims.generateFrameNumbers("knight", {start: 4, end: 6}),
       frameRate: 100,
       yoyo: true,
       repeat: -1
     });
     this.anims.create({
-      key: "up",
-      frames: this.anims.generateFrameNumbers("knight"),
+      key: "ktop",
+      frames: this.anims.generateFrameNumbers("knight", {start: 7, end: 10}),
       frameRate: 100,
       yoyo: true,
       repeat: -1
@@ -193,6 +239,15 @@ export default class DungeonScene extends Phaser.Scene {
       yoyo: true,
       repeat: -1
     });
+    this.anims.create({
+      key: "kidle",
+      frames: this.anims.generateFrameNumbers("knight", { start: 0, end: 2 }),
+      frameRate: 5,
+      yoyo: true,
+      repeat: -1
+    });
+
+    //knight ANIMS END
   }
 
   /**

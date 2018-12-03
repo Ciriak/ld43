@@ -27,19 +27,19 @@ export default class PlayerInputs {
 
     switch (player.direction) {
       case "left":
-        player.playerObject.anims.play("wleft", true);
+        player.playerObject.anims.play("pleft", true);
         break;
       case "right":
-      player.playerObject.anims.play("wright", true);
+      player.playerObject.anims.play("pright", true);
         break;
       case "up":
-      player.playerObject.anims.play("wtop", true);
+      player.playerObject.anims.play("ptop", true);
         break;
       case "down":
-      player.playerObject.anims.play("wdown", true);
+      player.playerObject.anims.play("pdown", true);
         break;
       default:
-      player.playerObject.anims.play("widle", true);
+      player.playerObject.anims.play("pidle", true);
         break;
     }
 
