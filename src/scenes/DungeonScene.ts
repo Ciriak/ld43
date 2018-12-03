@@ -78,9 +78,9 @@ export default class DungeonScene extends Phaser.Scene {
     this.cameras.main.setZoom(1);
     this.cameras.main.fadeIn();
     this.dungeonLoader.watchCollision(this.player);
-
-    this.uiManager = new UIManager(this.scene);
-
+    if(typeof this.uiManager === 'undefined') {
+      this.uiManager = new UIManager(this.scene);
+    }
     this.ennemies = this.ennemies.concat(this.dungeonLoader.spawnEnnemy());
     //this.ennemisGroup.playAnimation("idle");
     this.childGroup.playAnimation("cidle");
