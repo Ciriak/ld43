@@ -67,17 +67,7 @@ export default class DungeonLoader {
     this.renderOtherRooms();
     this.generateSpawn();
     this.scene.groundLayer.setCollisionByExclusion([
-      13,
-      14,
-      15,
-      21,
-      20,
-      19,
-      18,
-      28,
-      27,
-      29,
-      26
+      52,53,54,55,56,57,58,59,26,27,28,29
     ]);
   }
 
@@ -164,7 +154,7 @@ export default class DungeonLoader {
         }
       }
     });
-    let wallIndex = [41, 39, 40, 41, 42];
+    let wallIndex = [65,66,67,68,69,70,71,72,73,74,75,76,77];
     this.scene.groundLayer.forEachTile(tile => {
       if (wallIndex.includes(tile.index)) {
         // A sprite has its origin at the center, so place the sprite at the center of the tile
