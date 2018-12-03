@@ -5,7 +5,7 @@ import Player from "../Player";
 
 export default class Children extends Ennemie {
   spriteName = "children";
-  sanityGiven: number = 40;
+  sanityGiven: number = 5;
 
   constructor(scene: DungeonScene, x?: number, y?: number) {
     super(scene, x, y);
