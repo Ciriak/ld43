@@ -16,6 +16,8 @@ export default class Player extends Entitie {
   public cd: number;
   public score: number = 0;
   private castTime: number;
+  private rofBar: any;
+  private rofBarProgress: any;
 
   /**
    *
@@ -53,6 +55,46 @@ export default class Player extends Entitie {
       },
       this
     );
+  }
+
+  manageROFBar() {
+
+    let hpPos = {
+      x: this.playerObject.body.position.x + 32,
+      y: this.playerObject.body.position.y - 32
+    };
+    if (!this.rofBar) {
+      this.rofBar = this.scene.physics.add.sprite(
+        hpPos.x,
+        hpPos.y,
+        "hp_container"
+      );
+      this.rofBarProgress = this.scene.physics.add.sprite(
+        hpPos.x,
+        hpPos.y,
+        "rof"
+      );
+    }
+    // hide bar if not on cooldown
+    if(!this.onCd){
+      this.rofBarProgress.setAlpha(0);
+      this.rofBar.setAlpha(0);
+    }
+    else{
+      this.rofBarProgress.setAlpha(1);
+      this.rofBar.setAlpha(1);
+    }
+
+    //refresh bar position
+    this.rofBar.setPosition(hpPos.x, hpPos.y);
+
+    const progress = this.castTime - this.cd;
+    const cdWidth = ((progress/this.castTime) * 32) ;
+    this.rofBar.setDisplaySize(32, 5);
+
+    this.rofBarProgress.setDisplaySize(Math.round(cdWidth), 3, 32 - cdWidth);
+    this.rofBarProgress.setPosition(hpPos.x, hpPos.y);
+    //console.log(this.castTime, this.cd);
   }
 
   /**
@@ -171,6 +213,7 @@ export default class Player extends Entitie {
         this.setonCd();
       }
     }
+    this.manageROFBar();
     this.inputsManager.update(time, delta, this, this.scene);
     this.saveLocalStorage();
   }

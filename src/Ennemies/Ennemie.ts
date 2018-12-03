@@ -133,12 +133,11 @@ export default class Ennemie extends Entitie {
     //refresh bar position
     this.hpBar.setPosition(hpPos.x, hpPos.y);
 
-    debugger;
     const hpWidth = ((this.health / 30) * 100) % 32;
     this.hpBar.setDisplaySize(32, 5);
     console.log(hpWidth);
     this.hpBarProgress.setDisplaySize(Math.round(hpWidth), 3, 32 - hpWidth);
-    this.hpBarProgress.setPosition(hpPos.x - (32 - hpWidth), hpPos.y);
+    this.hpBarProgress.setPosition(hpPos.x, hpPos.y);
   }
 
   /**
