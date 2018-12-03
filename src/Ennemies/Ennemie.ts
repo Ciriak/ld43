@@ -15,6 +15,9 @@ export default class Ennemie extends Entitie {
   public scoreGiven: number = 0;
   public isDead = false;
   public sanityGiven: number;
+  public hpEnabled: boolean = false;
+  private hpBar: any;
+  private hpBarProgress: any;
   public reduceCoolDown: number;
   public lastPlayerPos = {
     x: 0,
@@ -34,9 +37,10 @@ export default class Ennemie extends Entitie {
 
   update(time: number, delta: number) {
     if (this.ennemieObject.active !== false) {
+      this.manageHPBar();
       this.setDirectionFromVelocity(this.ennemieObject.body.velocity);
       let char = this.spriteName.charAt(0);
-      if(typeof this.direction !== 'undefined') {
+      if (typeof this.direction !== "undefined") {
         switch (this.direction) {
           case "left":
             this.ennemieObject.anims.play(char + "left", true);
@@ -55,7 +59,6 @@ export default class Ennemie extends Entitie {
             break;
         }
       }
-
 
       if (this.scene.player.isDead) {
         return;
@@ -96,12 +99,43 @@ export default class Ennemie extends Entitie {
    * @param damage
    */
   takeDamage(damage: number, value) {
-    console.log(this.spriteName);
-    console.log(this.health);
+    if (!this.hpEnabled) {
+      this.hpEnabled = true;
+    }
+
     this.health -= damage;
+
     if (this.health <= 0) {
       this.kill();
     }
+  }
+
+  manageHPBar() {
+    // if (!this.hpEnabled) {
+    //   return;
+    // }
+    // let hpPos = {
+    //   x: this.ennemieObject.body.position.x + 32,
+    //   y: this.ennemieObject.body.position.y - 32
+    // };
+    // if (!this.hpBar) {
+    //   this.hpBar = this.scene.physics.add.sprite(
+    //     hpPos.x,
+    //     hpPos.y,
+    //     "hp_container"
+    //   );
+    //   this.hpBarProgress = this.scene.physics.add.sprite(
+    //     hpPos.x,
+    //     hpPos.y,
+    //     "hp"
+    //   );
+    // }
+    // //refresh bar position
+    // this.hpBar.setPosition(hpPos.x, hpPos.y);
+    // this.hpBarProgress.setPosition(hpPos.x, hpPos.y);
+    // const hpWidth = ((this.health / 30) * 100) % 32;
+    // this.hpBar.setScale(32, 3);
+    // this.hpBarProgress.setScale(hpWidth, 3);
   }
 
   /**
@@ -114,6 +148,10 @@ export default class Ennemie extends Entitie {
     this.scene.player.decreaseCastTime(this.reduceCoolDown);
     this.scene.player.score += this.scoreGiven;
     this.scene.updateScore();
+    if (this.hpBar) {
+      this.hpBar.destroy();
+      this.hpBarProgress.destroy();
+    }
 
     this.isDead = true;
   }
