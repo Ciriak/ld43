@@ -68,6 +68,7 @@ export default class UIManager {
     setTimeout(function() {
       cameraRef.fadeOut(1000);
       $("#death-screen").addClass("active");
+      $("#game-ui").addClass("isDead");
     }, 1500);
   }
   setScore(score: number) {

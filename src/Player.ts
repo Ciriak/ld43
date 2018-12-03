@@ -13,6 +13,7 @@ export default class Player extends Entitie {
   public currentRoom;
   public onCd: boolean;
   public cd: number;
+  public score: number = 0;
   private castTime: number;
 
   /**
@@ -115,6 +116,11 @@ export default class Player extends Entitie {
   addSanity(amount: number) {
     this.sanity += amount;
     this.scene.uiManager.updateSanity(this.sanity);
+
+    // shake camera if crazy
+    if (this.sanity >= 70) {
+      this.scene.cameras.main.shake(100000, 0.001, 0);
+    }
   }
   decreaseCastTime(amount: number) {
     if (this.castTime > amount) {
@@ -162,6 +168,62 @@ export default class Player extends Entitie {
   }
   setonCd() {
     this.onCd = !this.onCd;
+  }
+
+  /**
+   * Reset a stat, low the sanity and add a score bonus
+   * @param stat
+   */
+  sacrifical(stat) {
+    const bonus = 150;
+
+    //reset player stat
+
+    if (typeof this[stat] === "undefined" || this[stat] < 5) {
+      return;
+    }
+
+    this[stat] = 0;
+    this.scene.uiManager.updateStat(stat, 0);
+    //camera flash
+    this.scene.cameras.main.flash(1000, 255, 255, 255, 10);
+    this.score += bonus;
+
+    this.addSacrificalText(bonus, stat);
+
+    this.scene.uiManager.setScore(this.score);
+  }
+
+  /**
+   * Write bonus and sacrifical text
+   */
+  addSacrificalText(bonus: number, statName: string) {
+    let scoreText = this.scene.add.text(
+      this.playerObject.body.position.x,
+      this.playerObject.body.position.y,
+      "+" + bonus,
+      { fontFamily: "Arial", fontSize: 24, color: "#ffffff" }
+    );
+    // animate score text
+    this.scene.tweens.add({
+      targets: scoreText,
+      y: this.playerObject.body.position.y - 120,
+      duration: 4000,
+      alpha: 0
+    });
+    let statText = this.scene.add.text(
+      this.playerObject.body.position.x,
+      this.playerObject.body.position.y - 120,
+      "-" + statName,
+      { fontFamily: "Arial", fontSize: 24, color: "#7C0902" }
+    );
+    // animate score text
+    this.scene.tweens.add({
+      targets: statText,
+      y: this.playerObject.body.position.y - 140,
+      duration: 4000,
+      alpha: 0
+    });
   }
 
   checkCD() {

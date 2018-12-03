@@ -11,7 +11,7 @@ export default class DungeonLoader {
   dungeon: Dungeon;
   startRoom: any;
   dungeonRooms: any;
-  endingRoom:any;
+  endingRoom: any;
   groundLayer: any;
   stuffLayer: any;
   map: any;
@@ -43,11 +43,12 @@ export default class DungeonLoader {
       height: this.dungeon.height
     });
     this.startRoom = this.getDungeonRooms().shift();
-    this.dungeonRooms = Phaser.Utils.Array.Shuffle(this.getDungeonRooms()).slice(
-      0,
-      this.getDungeonRooms().length * 0.99
+    this.dungeonRooms = Phaser.Utils.Array.Shuffle(
+      this.getDungeonRooms()
+    ).slice(0, this.getDungeonRooms().length * 0.99);
+    this.endingRoom = Phaser.Utils.Array.RemoveRandomElement(
+      this.getDungeonRooms()
     );
-    this.endingRoom = Phaser.Utils.Array.RemoveRandomElement(this.getDungeonRooms());
 
     const tileset = this.map.addTilesetImage(
       "dungeon_tiles",
@@ -67,7 +68,18 @@ export default class DungeonLoader {
     this.renderOtherRooms();
     this.generateSpawn();
     this.scene.groundLayer.setCollisionByExclusion([
-      52,53,54,55,56,57,58,59,26,27,28,29
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      26,
+      27,
+      28,
+      29
     ]);
   }
 
@@ -154,7 +166,7 @@ export default class DungeonLoader {
         }
       }
     });
-    let wallIndex = [65,66,67,68,69,70,71,72,73,74,75,76,77];
+    let wallIndex = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77];
     this.scene.groundLayer.forEachTile(tile => {
       if (wallIndex.includes(tile.index)) {
         // A sprite has its origin at the center, so place the sprite at the center of the tile
@@ -166,38 +178,37 @@ export default class DungeonLoader {
   }
 
   public spawnRelic(x, y) {
-    console.log('relic spawn');
+    console.log("relic spawn");
     var rand = Math.random();
-    if(rand <= 0.25) {
-      let spriteName = 'eye_relic';
-    }else if(rand <=0.50) {
-      let spriteName = 'foot_relic';
-    }else if(rand <= 0.75){
-      let spriteName = 'hand_relic';
-    }else{
-      let spriteName = 'heart_relic';
-
+    if (rand <= 0.25) {
+      let spriteName = "eye_relic";
+    } else if (rand <= 0.5) {
+      let spriteName = "foot_relic";
+    } else if (rand <= 0.75) {
+      let spriteName = "hand_relic";
+    } else {
+      let spriteName = "heart_relic";
     }
     let relic = this.scene.physics.add.sprite(x, y, spriteName);
     relic.name = spriteName;
     this.scene.relicGroup.add(relic);
   }
-//This = Scene
-  collectRelic(player, relic){
+  //This = Scene
+  collectRelic(player, relic) {
     console.log("relic collected");
     console.log(relic.name);
     switch (relic.name) {
       case "eye_relic":
-      this.player.decreaseCastTime(5000);
+        player.decreaseCastTime(5000);
         break;
       case "foot_relic":
-        this.player.giveStat('speed', 5);
+        player.giveStat("speed", 5);
         break;
       case "hand_relic":
-      this.player.giveStat('damage', 5);
+        player.giveStat("damage", 5);
         break;
       case "heart_relic":
-      this.player.kill();
+        player.kill();
         break;
       default:
         break;
@@ -219,9 +230,7 @@ export default class DungeonLoader {
         // 25% chance of chest
         // this.stuffLayer.putTileAt(TILES.CHEST, room.centerX, room.centerY);
       } else if (rand <= 0.8) {
-        
         // 50% chance of a pot anywhere in the room... except don't block a door!
-
       } else {
         // 25% of either 2 or 4 towers, depending on the room size
       }
@@ -234,20 +243,19 @@ export default class DungeonLoader {
       let { x, y, width, height, left, right, top, bottom } = room;
       var rand = Math.random();
       if (rand <= 0.25) {
-        for (let i =0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
           const tx = Phaser.Math.Between(left + 2, right - 2);
           const ty = Phaser.Math.Between(top + 2, bottom - 2);
           this.spawn2.push({ x: tx, y: ty });
         }
-
       } else if (rand <= 0.5) {
-        for (let i =0; i < 2; i++) {
+        for (let i = 0; i < 2; i++) {
           const tx = Phaser.Math.Between(left + 2, right - 2);
           const ty = Phaser.Math.Between(top + 2, bottom - 2);
           this.spawn2.push({ x: tx, y: ty });
         }
       } else {
-        for (let i =0; i < 1; i++) {
+        for (let i = 0; i < 1; i++) {
           const tx = Phaser.Math.Between(left + 2, right - 2);
           const ty = Phaser.Math.Between(top + 2, bottom - 2);
           this.spawn2.push({ x: tx, y: ty });
@@ -266,29 +274,29 @@ export default class DungeonLoader {
         possibleEnnemiesList[
           Math.floor(Math.random() * possibleEnnemiesList.length)
         ];
-        let pRoom = this.scene.dungeonLoader.getPlayerRoom(this.scene.player);
-      
-        const playerTileX = this.scene.groundLayer.tileToWorldX(spawn.x);
-        const playerTileY = this.scene.groundLayer.tileToWorldY(spawn.y);
-        const x = this.scene.groundLayer.worldToTileX(playerTileX);
-        const y = this.scene.groundLayer.worldToTileY(playerTileY);
-        const eRoom = this.dungeon.getRoomAt(x, y);
-        //Check if the ennemy will spawn on the player and prevent it
-        if (eRoom !== pRoom) {
+      let pRoom = this.scene.dungeonLoader.getPlayerRoom(this.scene.player);
+
+      const playerTileX = this.scene.groundLayer.tileToWorldX(spawn.x);
+      const playerTileY = this.scene.groundLayer.tileToWorldY(spawn.y);
+      const x = this.scene.groundLayer.worldToTileX(playerTileX);
+      const y = this.scene.groundLayer.worldToTileY(playerTileY);
+      const eRoom = this.dungeon.getRoomAt(x, y);
+      //Check if the ennemy will spawn on the player and prevent it
+      if (eRoom !== pRoom) {
         let badBoy: Ennemie;
         switch (pickedEnnemieClassName) {
           case "Witchcraft":
-            badBoy = new Witchcraft(this.scene, spawn.x *64 , spawn.y *64);
+            badBoy = new Witchcraft(this.scene, spawn.x * 64, spawn.y * 64);
             badBoy.currentRoom = this.getEnnemieRoom(badBoy);
             this.scene.witchGroup.add(badBoy.ennemieObject);
             break;
           case "CloseCombat":
-            badBoy = new CloseCombat(this.scene, spawn.x *64, spawn.y *64);
+            badBoy = new CloseCombat(this.scene, spawn.x * 64, spawn.y * 64);
             badBoy.currentRoom = this.getEnnemieRoom(badBoy);
             this.scene.knightGroup.add(badBoy.ennemieObject);
             break;
           case "Children":
-            badBoy = new Children(this.scene, spawn.x*64 , spawn.y *64);
+            badBoy = new Children(this.scene, spawn.x * 64, spawn.y * 64);
             badBoy.currentRoom = this.getEnnemieRoom(badBoy);
             this.scene.childGroup.add(badBoy.ennemieObject);
             break;

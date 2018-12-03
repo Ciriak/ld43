@@ -1,6 +1,9 @@
 body {
   font-family: "Courier New", Courier, monospace;
 }
+* {
+  user-select: none;
+}
 #content {
   width: 100vw;
   height: 100vh;
@@ -19,6 +22,7 @@ body {
 
 #game-ui {
   .score-container {
+    transition-duration: 2s;
     position: fixed;
     top: 0;
     left: 0;
@@ -26,8 +30,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    .grid {
+      position: absolute;
+      width: 3px;
+      height: 200px;
+      margin-top: -75px;
+      background-image: url("../assets/ui/wood.jpg");
+    }
+    .grid-left {
+      margin-left: -40px;
+    }
+    .grid-right {
+      margin-left: 40px;
+    }
     .score {
-      margin-top: 10px;
+      transform: rotateZ(-12deg);
+      margin-top: 30px;
       width: 100px;
       height: 40px;
       background-image: url("../assets/ui/wood.jpg");
@@ -43,6 +61,7 @@ body {
     }
   }
   .items-list {
+    transition-duration: 1s;
     position: fixed;
     top: 0;
     right: 0;
@@ -55,12 +74,45 @@ body {
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
       .item-progress {
         color: #ccc;
         font-weight: bold;
         background-image: url("../assets/ui/wood.jpg");
         background-position-x: -10px;
         padding: 4px;
+      }
+      .activate-key {
+        display: none;
+        user-select: none;
+        width: 24px;
+        height: 24px;
+
+        border-radius: 3px;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border: 1px #cccccc solid;
+        font-size: 0.8rem;
+        font-family: "Courier New", Courier, monospace;
+        font-weight: bold;
+        border-bottom-width: 3px;
+        position: absolute;
+
+        left: -35px;
+        top: 20px;
+        animation: press 1s infinite linear;
+      }
+      @keyframes press {
+        from {
+          border-bottom-width: 3px;
+          margin-top: 0px;
+        }
+        to {
+          border-bottom-width: 1px;
+
+          margin-top: 2px;
+        }
       }
       img {
         filter: grayscale(100%);
@@ -75,9 +127,19 @@ body {
           opacity: 1;
         }
       }
+      &.available {
+        .img {
+          animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+          animation-iteration-count: infinite;
+        }
+        .activate-key {
+          display: flex;
+        }
+      }
     }
   }
   .sanity-container {
+    transition-duration: 1s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -119,6 +181,14 @@ body {
       .sanity-bar {
         box-shadow: 1px 1px 10px rgba(255, 0, 0, 1);
       }
+    }
+  }
+  &.isDead {
+    .sanity-container {
+      opacity: 0;
+    }
+    .items-list {
+      opacity: 0;
     }
   }
 }
